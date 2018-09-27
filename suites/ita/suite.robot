@@ -39,6 +39,7 @@ ${F7}                                 xpath=(//*[contains(@title, '(F7)')])[1]
 ${menu_scroll}                        xpath=//*[@class="start-menu-tree-view-container"]/following-sibling::*[@class="ps__scrollbar-y-rail"]
 ${toolbar}                            xpath=//*[@class="control-toolbar"]
 ${report_title}                       xpath=(//div[text()='Отчет']/ancestor::div[2]//input[@type='text'])[2]
+${enter btn}                          \\13
 ${C# command}                         ${command_c}
 ${VFP command}                        ${command_vfp}
 ${C# grid}                            ${command_c_grid}
@@ -50,6 +51,7 @@ ${C# grid}                            ${command_c_grid}
   [Tags]  console_vfp
   ...  console_c
   ...  report
+  ...  report2
   ...  adjustment
   ...  command_c_grid
   Відкрити сторінку ITA
@@ -114,13 +116,14 @@ ${C# grid}                            ${command_c_grid}
 
 Запустити функцію "Универсальный отчет"
   [Tags]  report
+  ...  report2
   Натиснути на логотип IT-Enterprise
   Натиснути пункт меню "Инструменты и настройки"
   Вибрати пункт меню "Универсальный отчет"
 
 "Универсальный отчет". Створити звіт у форматі таблиці
   [Tags]  report
-  В полі регістр вибрати пункт "Таблицы"
+  В полі регістр вибрати пункт  Таблицы
   Натиснути випадаючий список кнопки "Конструктор"
   Натиснути пункт "Создать отчет"
   Ввести довільну назву звіту
@@ -134,6 +137,22 @@ ${C# grid}                            ${command_c_grid}
   Натиснути випадаючий список кнопки "Конструктор"
   Натиснути пункт "Удалить отчет"
   Перевірити видалення звіту
+
+"Универсальный отчет". Створити звіт "UI-Тестирование"
+  [Tags]  report2
+  В полі регістр вибрати пункт  UI-Тестирование
+  Натиснути випадаючий список кнопки "Конструктор"
+  Натиснути пункт "Создать отчет"
+  Ввести довільну назву звіту
+  Натиснути кнопку "Добавить"
+  Перевірити відповідність заголовка звіту
+
+"Универсальный отчет". Запам'ятовування щойно створеного звіту
+  [Tags]  report2
+  Вийти з функції "Универсальный отчет"
+  Натиснути на логотип IT-Enterprise
+  Вибрати пункт меню "Универсальный отчет"
+  Перевірити відповідність заголовка звіту
 
 Відкрити головне меню та знайти пункт меню "Учет изменений ПО"
   [Tags]  adjustment
@@ -291,26 +310,29 @@ Check Prev Test Status
   Wait Until Keyword Succeeds  30  3  Click Element  ${menu_tools}
 
 Вибрати пункт меню "Универсальный отчет"
-  Click Element At Coordinates  ${menu_scroll}  0  300
+  Scroll Page To Element XPATH  ${menu_report}
   Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Дочекатись загрузки сторінки (ita)
   Wait Until Page Contains Element  xpath=//*[contains(text(), 'Сформировать отчет')]  30
 
-В полі регістр вибрати пункт "Таблицы"
+В полі регістр вибрати пункт
+  [Arguments]  ${value}
   Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
-  Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(),'Таблицы')])[1]
+  Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(),'${value}')])[1]
+
+Вийти з функції "Универсальный отчет"
+  Go Back
+  Wait Until Element Is Not Visible  xpath=//*[contains(text(), 'Сформировать отчет')]
 
 Натиснути випадаючий список кнопки "Конструктор"
   Wait Until Keyword Succeeds  30  3  Click Element  ${constructor_drop_down}
   Дочекатись Загрузки Сторінки (ita)
+  ${stat}  Run Keyword And Return Status  Wait Until Element is Visible  ${create_report}  10
+  Run Keyword If  '${stat}' == 'False'  Натиснути випадаючий список кнопки "Конструктор"
 
 Натиснути пункт "Создать отчет"
-  ${stat}  Run Keyword And Return Status  Wait Until Element is Visible  ${create_report}  10
-  Run Keyword If  '${stat}' == 'False'  Run Keywords
-  ...  Натиснути випадаючий список кнопки "Конструктор"
-  ...  AND  Натиснути пункт "Создать отчет"
   Click Element  ${create_report}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]
@@ -362,7 +384,7 @@ Check Prev Test Status
   [Arguments]  ${menu_name}
   Wait Until Element Is Visible  ${search}  30
   Input Text  ${search}  Администрирование системы → Администрирование системы и управление доступом → Планирование заданий → Учет изменений ПО
-  Press Key  ${search}  \\13
+  Press Key  ${search}  ${enter btn}
   Wait Until Element Is Visible  xpath=(//*[contains(text(), '${menu_name}')])[1]
 
 Перейти до першого знайденого пункта меню
@@ -387,7 +409,7 @@ Check Prev Test Status
   ${row}  Set Variable  xpath=(//table[contains(@class,'obj ')]//td[text()])[3]
   Wait Until Keyword Succeeds  30  3  Click Element  ${row}
   Double Click Element  ${row}
-  #TODO Press Key  ${row}  \\13
+  #TODO Press Key  ${row}  ${enter btn}
   Page Should Contain Element  xpath=(//table[contains(@class,'obj ')]//td[@class='cellselected editable'])
 
 Вставити довільний текст до комірки
@@ -417,8 +439,13 @@ Check Prev Test Status
   [Arguments]  ${value}
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
   Input Text  ${row}  ${value}
-  Press Key  ${row}  \\13
+  Press Key  ${row}  ${enter btn}
 
 Перевірити наявність messagebox
   Wait Until Page Contains Element  ${message-box}
   Wait Until Keyword Succeeds  10  3  Click Element  xpath=//*[contains(@class, 'message')]//*[ text()='ОК']
+
+Scroll Page To Element XPATH
+  [Arguments]  ${xpath}
+  Run Keyword And Ignore Error  Execute JavaScript  document.evaluate('${xpath.replace("xpath=", "")}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});
+  Run Keyword And Ignore Error  Execute JavaScript  document.evaluate("${xpath.replace('xpath=', '')}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});
