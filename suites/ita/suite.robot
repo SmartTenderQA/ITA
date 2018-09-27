@@ -324,7 +324,7 @@ Check Prev Test Status
 
 Вийти з функції "Универсальный отчет"
   Go Back
-  Wait Until Element Is Not Visible  xpath=//*[contains(text(), 'Сформировать отчет')]
+  Wait Until Page Does Not Contain Element  xpath=//*[contains(text(), 'Сформировать отчет')]
 
 Натиснути випадаючий список кнопки "Конструктор"
   Wait Until Keyword Succeeds  30  3  Click Element  ${constructor_drop_down}
