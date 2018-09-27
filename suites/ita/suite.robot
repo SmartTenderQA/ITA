@@ -310,8 +310,12 @@ Check Prev Test Status
   Wait Until Keyword Succeeds  30  3  Click Element  ${menu_tools}
 
 Вибрати пункт меню "Универсальный отчет"
-  Run Keyword If  'після виходу' not in "${TEST_NAME}"  Run Keyword
-  ...  Wait Until Keyword Succeeds  10  2  Click Element At Coordinates  ${menu_scroll}  0  300
+  #Run Keyword If  'після виходу' not in "${TEST_NAME}"  Run Keyword
+  #...  Wait Until Keyword Succeeds  10  2  Click Element At Coordinates  ${menu_scroll}  0  300
+  ${stat}  Run Keyword And Return Status  Click Element  ${menu_report}
+  Run Keyword If  '${stat}' == 'False'  Run Keywords
+  ...  Click Element At Coordinates  ${menu_scroll}  0  300
+  ...  AND  Click Element  ${menu_report}
   Wait Until Keyword Succeeds  10  2  Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Дочекатись загрузки сторінки (ita)
