@@ -114,7 +114,7 @@ ${C# grid}                            ${command_c_grid}
   [Tags]  console_c
   Перевірити збереження тексту в комірці
 
-Запустити функцію "Универсальный отчет"
+Запустити функцію 'Универсальный отчет'
   [Tags]  report
   ...  report2
   Натиснути на логотип IT-Enterprise
@@ -147,7 +147,7 @@ ${C# grid}                            ${command_c_grid}
   Натиснути кнопку "Добавить"
   Перевірити відповідність заголовка звіту
 
-"Универсальный отчет". Запам'ятовування щойно створеного звіту
+Универсальный отчет. Запам'ятовування створеного звіту після виходу
   [Tags]  report2
   Вийти з функції "Универсальный отчет"
   Натиснути на логотип IT-Enterprise
@@ -310,7 +310,8 @@ Check Prev Test Status
   Wait Until Keyword Succeeds  30  3  Click Element  ${menu_tools}
 
 Вибрати пункт меню "Универсальный отчет"
-  Wait Until Keyword Succeeds  10  2  Click Element At Coordinates  ${menu_scroll}  0  300
+  Run Keyword If  'після виходу' not in "${TEST_NAME}"  Run Keyword
+  ...  Wait Until Keyword Succeeds  10  2  Click Element At Coordinates  ${menu_scroll}  0  300
   Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Дочекатись загрузки сторінки (ita)
