@@ -310,7 +310,7 @@ Check Prev Test Status
   Wait Until Keyword Succeeds  30  3  Click Element  ${menu_tools}
 
 Вибрати пункт меню "Универсальный отчет"
-  Click Element At Coordinates  ${menu_scroll}  0  300
+  Wait Until Keyword Succeeds  10  2  Click Element At Coordinates  ${menu_scroll}  0  300
   Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Дочекатись загрузки сторінки (ita)
