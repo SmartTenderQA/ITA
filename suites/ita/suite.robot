@@ -396,7 +396,7 @@ Check Prev Test Status
   ${first_search_item}  Set Variable  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[@class="menu-item-text"])[last()]
   Wait Until Keyword Succeeds  30  3  Click Element  ${first_search_item}
   Дочекатись Загрузки Сторінки (ita)
-  Wait Until Element Is Visible  xpath=//span[@title="Учет изменения ПО"]
+  Wait Until Element Is Visible  xpath=//div[@class='frame-caption']//span[@title="Учет изменения ПО"]
 
 Перейти до екрану "Коректировка"
   Click Element  ${F7}
