@@ -151,7 +151,7 @@ ${C# grid}                            ${command_c_grid}
   [Tags]  report2
   Вийти з функції "Универсальный отчет"
   Натиснути на логотип IT-Enterprise
-  Вибрати пункт меню "Универсальный отчет"
+  Вибрати пункт меню "Универсальный отчет" повторно
   Перевірити відповідність заголовка звіту
 
 Відкрити головне меню та знайти пункт меню "Учет изменений ПО"
@@ -311,11 +311,14 @@ Check Prev Test Status
   Sleep  3
 
 Вибрати пункт меню "Универсальный отчет"
-  Run Keyword If  'після виходу' in "${TEST_NAME}"  Click Element At Coordinates  ${menu_scroll}  0  100
-  ...  ELSE  Click Element At Coordinates  ${menu_scroll}  0  300
+  Click Element At Coordinates  ${menu_scroll}  0  300
   Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Дочекатись загрузки сторінки (ita)
+  Wait Until Page Contains Element  xpath=//*[contains(text(), 'Сформировать отчет')]  30
+
+Вибрати пункт меню "Универсальный отчет" повторно
+  Wait Until Keyword Succeeds  10  2  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Wait Until Page Contains Element  xpath=//*[contains(text(), 'Сформировать отчет')]  30
 
 В полі регістр вибрати пункт
