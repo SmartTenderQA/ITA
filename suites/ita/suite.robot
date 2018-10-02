@@ -106,13 +106,10 @@ ${C# grid}                            ${command_c_grid}
 
 "Консоль". C# Вставити текст у комірку та перейти на іншу
   [Tags]  console_c
-  Активувати комірку для редагування
-  Вставити довільний текст до комірки
-  Вибрати іншіу довільну комірку
-
-"Консоль". C# Перевірити збереження тексту в комірці
-  [Tags]  console_c
-  Перевірити збереження тексту в комірці
+  ${selector}  Активувати комірку для редагування
+  Вставити довільний текст до комірки  ${selector}
+  Вибрати іншіу довільну комірку  ${selector}
+  Перевірити збереження тексту в комірці  ${selector}
 
 Запустити функцію 'Универсальный отчет'
   [Tags]  report
@@ -411,27 +408,33 @@ Check Prev Test Status
   Wait Until Element Is Visible  xpath=//table[contains(@class,'obj ')]  30
 
 Активувати комірку для редагування
-  ${row}  Set Variable  xpath=(//table[contains(@class,'obj ')]//td[text()])[3]
-  Wait Until Keyword Succeeds  30  3  Click Element  ${row}
-  Double Click Element  ${row}
-  #TODO Press Key  ${row}  ${enter btn}
-  Page Should Contain Element  xpath=(//table[contains(@class,'obj ')]//td[@class='cellselected editable'])
+  ${row}  Set Variable  //table[contains(@class,'obj')]//tr
+  ${n}  random_number  2  5
+  Click Element  ${row}[${n}]
+  Sleep  3
+  Click Element  ${row}[${n}]
+  Sleep  3
+  Click Element  ${row}[${n}]
+  Sleep  3
+  #TODO Press Key  ${row}[${n}]  ${enter btn}
+  Page Should Contain Element  ${row}[${n}]//td[@class='cellselected editable']
+  [Return]  ${row}[${n}]
 
 Вставити довільний текст до комірки
+  [Arguments]  ${selector}
   ${text}  create_sentence  1
   Set Global Variable  ${row text}  ${text}
-  ${row}  Set Variable  xpath=(//table[contains(@class,'obj ')]//td[@class='cellselected editable'])
-  Input Text  ${row}//input  ${text}
-
+  Input Text  ${selector}//input  ${text}
 
 Вибрати іншіу довільну комірку
-  ${row}  Set Variable  xpath=(//table[contains(@class,'obj ')]//td[text()])[2]
-  Click Element  ${row}
-  ${text}  Get Text  ${row}
-  Page Should Contain Element  xpath=//td[contains(@class,"cellselected" ) and text()='${text}']
+  [Arguments]  ${selector}
+  Click Element  ${selector}/following-sibling::*
+  ${text}  Get Text  ${selector}
+  Page Should Contain Element   ${selector}//td[text()='${text}']
 
 Перевірити збереження тексту в комірці
-  ${text}  Get Text  xpath=(//table[contains(@class,'obj ')]//td[text()])[3]
+  [Arguments]  ${selector}
+  ${text}  Get Text  ${selector}
   Should Be Equal  ${text}  ${row text}
 
 Стати на першу комірку та натиснути Enter
