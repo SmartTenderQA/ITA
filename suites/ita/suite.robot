@@ -389,7 +389,7 @@ Check Prev Test Status
 
 Натиснути на логотип IT-Enterprise
   Click Element  ${logo}
-  Wait Until Page Contains Element  xpath=//*[@class="start-menu-tree-view-container"]
+  Wait Until Element Is Visible  xpath=//*[@class="start-menu-tree-view-container"]  20
 
 Виконати пошук пункта меню
   [Arguments]  ${menu_name}
