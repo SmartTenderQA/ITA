@@ -393,8 +393,8 @@ Check Prev Test Status
 
 Виконати пошук пункта меню
   [Arguments]  ${menu_name}
-  Wait Until Element Is Visible  ${search}  30
-  Input Text  ${search}  ${menu_name}
+  #Wait Until Element Is Visible  xpath=//*[@start-menu-search-panel]  30
+  Wait Until Keyword Succeeds  20  2  Input Text  ${search}  ${menu_name}
   Press Key  ${search}  ${enter btn}
   Sleep  1
   Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
