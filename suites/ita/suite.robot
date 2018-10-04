@@ -396,7 +396,7 @@ Check Prev Test Status
   Wait Until Element Is Visible  ${search}  30
   Input Text  ${search}  ${menu_name}
   Press Key  ${search}  ${enter btn}
-  Wait Until Element Is Visible  xpath=(//*[contains(text(), '${menu_name}')])[1]
+  Sleep  1
   Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
   ...  Click Element  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[text()='Универсальный'])[2]
   ...  AND  Дочекатись Загрузки Сторінки (ita)
