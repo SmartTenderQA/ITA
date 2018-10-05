@@ -115,8 +115,7 @@ ${C# grid}                            ${command_c_grid}
   [Tags]  report
   ...  report2
   Натиснути на логотип IT-Enterprise
-  Натиснути пункт меню "Инструменты и настройки"
-  Вибрати пункт меню "Универсальный отчет"
+  Виконати пошук пункта меню  Универсальный отчет
 
 "Универсальный отчет". Створити звіт у форматі таблиці
   [Tags]  report
@@ -148,14 +147,15 @@ ${C# grid}                            ${command_c_grid}
   [Tags]  report2
   Вийти з функції "Универсальный отчет"
   Натиснути на логотип IT-Enterprise
-  Вибрати пункт меню "Универсальный отчет" повторно
+  Виконати пошук пункта меню  Универсальный отчет
   Перевірити відповідність заголовка звіту
 
 Відкрити головне меню та знайти пункт меню "Учет изменений ПО"
   [Tags]  adjustment
   Натиснути на логотип IT-Enterprise
-  Виконати пошук пункта меню  Учет изменений ПО
-  Перейти до першого знайденого пункта меню
+  Натиснути пункт головного меню  Администрирование системы
+  Натиснути пункт головного меню  Администрирование системы и управление доступом
+  Запустити функцію додаткового меню  Учет изменений ПО
 
 «Учет изменений ПО». "Коректировка"
   [Tags]  adjustment  non-critical
@@ -205,7 +205,7 @@ Check Prev Test Status
   Ввести пароль  ${password}
   Натиснути кнопку вхід
   Дочекатись загрузки сторінки (ita)
-  Wait Until Element Is Visible  ${logo}
+  Wait Until Element Is Visible  xpath=//*[@title="Вид"]  60
 
 Авторизуватися ITA_web2016
   [Arguments]  ${login}  ${password}=None
@@ -409,8 +409,8 @@ Check Prev Test Status
   Wait Until Page Contains Element  xpath=//*[contains(@class,'selected') and @title="${title}"]
 
 Перейти до першого знайденого пункта меню
-  ${first_search_item}  Set Variable  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[@class="menu-item-text"])[last()]
-  Wait Until Keyword Succeeds  30  3  Click Element  ${first_search_item}
+  ${first_search_item}  Set Variable  xpath=((//*[@class="search-panel-text"]/ancestor::div[2]//div/*[text()='Универсальный'])[2]
+  Wait Until Keyword Succeeds  10  2  Click Element  ${first_search_item}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Element Is Visible  xpath=//div[@class='frame-caption']//span[@title="Учет изменения ПО"]
 
