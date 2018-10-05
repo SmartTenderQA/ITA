@@ -359,9 +359,8 @@ Check Prev Test Status
   Sleep  3
 
 Вибрати три довільних поля
-  ${left_count}  Get Matching Xpath Count  xpath=((//*[contains(@class, 'selectable')]/table)[1]//tr//span)
   :FOR  ${items}  IN RANGE  3
-  \  ${random}  random_number  1  ${left_count}
+  \  ${random}  random_number  1  6
   \  wait until keyword succeeds  10  3  Click Element  xpath=((//*[contains(@class, 'selectable')]/table)[1]//tr//span)[${random}]
   \  wait until keyword succeeds  10  3  Click Element At Coordinates  ${add_filter}  0  -30
   Sleep  2s
