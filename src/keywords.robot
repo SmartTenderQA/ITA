@@ -1,17 +1,9 @@
 *** Settings ***
-Documentation    ITA
 Library     Selenium2Library
 Library     BuiltIn
 Library     Collections
 Library     DebugLibrary
-Library     data.py
-Library     ../../src/Faker/faker.py
-Variables   ../../suites/ita/var.py
-
-Suite Setup  Preconditions
-Suite Teardown  Postcondition
-Test Setup  Check Prev Test Status
-Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
+Library     Faker/faker.py
 
 
 *** Variables ***
@@ -45,126 +37,6 @@ ${VFP command}                        ${command_vfp}
 ${C# grid}                            ${command_c_grid}
 
 
-
-*** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
-  [Tags]  console_vfp
-  ...  console_c
-  ...  report
-  ...  report2
-  ...  adjustment
-  ...  command_c_grid
-  Відкрити сторінку ITA
-  Авторизуватися  ${login}  ${password}
-
-Відкрити "Консоль"
-  [Tags]  console_vfp
-  ...  console_c
-  ...  command_c_grid
-  Настиснути кнопку "Консоль"
-
-"Консоль". Перейти на вкладку VFP
-  [Tags]  console_vfp
-  Перейти на вкладку  Vfp
-
-"Консоль". Перейти на вкладку C#
-  [Tags]  console_c
-  ...  command_c_grid
-  Перейти на вкладку  C#
-
-"Консоль". VFP Виконати команду
-  [Tags]  console_vfp
-  Ввести команду  ${VFP command}
-  Натиснути кнопку "1 Выполнить"
-  Перевірити виконання команди VFP
-  Перевірити наявність кнопок "Да/Нет"
-  Натиснути кнопку "Да" для закриття діалогу
-
-"Консоль". C# Виконати команду
-  [Tags]  console_c
-  Ввести команду  ${C# command}
-  Натиснути кнопку "1 Выполнить"
-
-"Консоль". C#.grid Виконати команду
-  [Tags]  command_c_grid
-  Ввести команду  ${C# grid}
-  Натиснути кнопку "1 Выполнить"
-
-"Консоль". C# Перевірити виконання команди
-  [Tags]  console_c
-  ...  command_c_grid
-  Перевірити наявність діалогу з таблицею
-
-"Консоль". C#.grid Корегування числової комірки
-  [Tags]  command_c_grid
-  Стати на першу комірку та натиснути Enter
-  Ввести значення  1000
-  Перевірити наявність messagebox
-  Стати на першу комірку та натиснути Enter
-  Ввести значення  0
-  Перевірити наявність messagebox
-
-"Консоль". C# Вставити текст у комірку та перейти на іншу
-  [Tags]  console_c
-  ${selector}  Активувати комірку для редагування
-  Вставити довільний текст до комірки  ${selector}
-  Вибрати іншіу довільну комірку  ${selector}
-  Перевірити збереження тексту в комірці  ${selector}
-
-Запустити функцію 'Универсальный отчет'
-  [Tags]  report
-  ...  report2
-  Натиснути на логотип IT-Enterprise
-  Виконати пошук пункта меню  Универсальный отчет
-
-"Универсальный отчет". Створити звіт у форматі таблиці
-  [Tags]  report
-  В полі регістр вибрати пункт  Таблицы
-  Натиснути випадаючий список кнопки "Конструктор"
-  Натиснути пункт "Создать отчет"
-  Ввести довільну назву звіту
-  Перейти на вкладку "Поля"
-  Вибрати три довільних поля
-  Натиснути кнопку "Добавить"
-  Перевірити відповідність заголовка звіту
-
-"Универсальный отчет". Видалити звіт
-  [Tags]  report
-  Натиснути випадаючий список кнопки "Конструктор"
-  Натиснути пункт "Удалить отчет"
-  Перевірити видалення звіту
-
-"Универсальный отчет". Створити звіт "UI-Тестирование"
-  [Tags]  report2
-  В полі регістр вибрати пункт  UI-Тестирование
-  Натиснути випадаючий список кнопки "Конструктор"
-  Натиснути пункт "Создать отчет"
-  Ввести довільну назву звіту
-  Натиснути кнопку "Добавить"
-  Перевірити відповідність заголовка звіту
-
-Универсальный отчет. Запам'ятовування створеного звіту після виходу
-  [Tags]  report2
-  Вийти з функції "Универсальный отчет"
-  Натиснути на логотип IT-Enterprise
-  Виконати пошук пункта меню  Универсальный отчет
-  Перевірити відповідність заголовка звіту
-
-Відкрити головне меню та знайти пункт меню "Учет изменений ПО"
-  [Tags]  adjustment
-  Натиснути на логотип IT-Enterprise
-  Натиснути пункт головного меню  Администрирование системы
-  Натиснути пункт головного меню  Администрирование системы и управление доступом
-  Запустити функцію додаткового меню  Учет изменений ПО
-
-«Учет изменений ПО». "Коректировка"
-  [Tags]  adjustment  non-critical
-  Перейти до екрану "Коректировка"
-  Натиснути "Требует действий со стороны службы поддержки"
-
-
-
-
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
@@ -175,9 +47,11 @@ Preconditions
 Postcondition
   Close All Browsers
 
+
 Check Prev Test Status
   ${status}  Set Variable  ${PREV TEST STATUS}
   Run Keyword If  '${status}' == 'FAIL'  Fatal Error  Ой, щось пішло не так! Вимушена зупинка тесту.
+
 
 Отримати дані проекту
   [Arguments]  ${env}
@@ -187,11 +61,13 @@ Check Prev Test Status
   Set Global Variable  ${password}
   [Return]  ${login}  ${password}
 
+
 Відкрити сторінку ITA
   Go To  ${url.${env}}
   Run Keyword If  '${env}' == 'ITA'  Location Should Contain  /clientrmd/
   Run Keyword If  '${env}' == 'ITA_web2016'  Location Should Contain  /client/
   Run Keyword If  '${env}' == 'ITCopyUpgrade'  Set Global Variable  ${env}  ITA
+
 
 Авторизуватися
   [Arguments]  ${login}  ${password}=None
@@ -207,6 +83,7 @@ Check Prev Test Status
   Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  xpath=//*[@title="Вид"]  60
 
+
 Авторизуватися ITA_web2016
   [Arguments]  ${login}  ${password}=None
   Wait Until Page Contains  Вход в систему  60
@@ -216,35 +93,44 @@ Check Prev Test Status
   Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  xpath=//*[@title='Новое окно']
 
+
 Вибрати користувача
   [Arguments]  ${login}
   Input Text  ${login_field}  ${login}
+
 
 Ввести пароль
   [Arguments]  ${password}
   Input Text  ${pass_field}  ${password}
 
+
 Натиснути кнопку вхід
   Run Keyword  Натиснути кнопку вхід ${env}
+
 
 Натиснути кнопку вхід ITA
   Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[2]  -40  0
 
+
 Натиснути кнопку вхід ITA_web2016
   Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[1]  -40  0
+
 
 Дочекатись загрузки сторінки (ita)
   ${status}  ${message}  Run Keyword And Ignore Error  Wait Until Element Is Visible  ${loading}  5
   Run Keyword If  "${status}" == "PASS"  Run Keyword And Ignore Error  Wait Until Element Is Not Visible  ${loading}  120
+
 
 Настиснути кнопку "Консоль"
   Click Element  ${console}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Page Contains  Консоль отладки
 
+
 Перейти на вкладку
   [Arguments]  ${console_name}
   Run Keyword  Перейти на вкладку ${env}  ${console_name}
+
 
 Перейти на вкладку ITA
   [Arguments]  ${console_name}
@@ -252,6 +138,7 @@ Check Prev Test Status
   ${status}  Run Keyword And Return Status
   ...  Wait Until Element Is Visible  xpath=//li/*[contains(text(), '${console_name}')]/ancestor::*[@aria-selected="true"]
   Run Keyword If  '${status}' == 'False'  Перейти на вкладку  ${console_name}
+
 
 Перейти на вкладку ITA_web2016
   [Arguments]  ${console_name}
@@ -262,15 +149,17 @@ Check Prev Test Status
   ...  Wait Until Element Is Visible  xpath=//*[contains(@class,'activeTab')]//span[contains(text(),'${console_name}')]
   Run Keyword If  '${status}' == 'False'  Перейти на вкладку  ${console_name}
 
+
 Ввести команду
   [Arguments]  ${command}
   Run Keyword  Ввести команду ${env}  ${command}
 
-Ввести команду ITA
 
+Ввести команду ITA
   [Arguments]  ${command}
   ${textarea}  Set Variable  //*[@aria-hidden='false']//textarea
   Input Text  ${textarea}  ${command}
+
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
@@ -279,33 +168,40 @@ Check Prev Test Status
   ${count}  Get Element Count  ${textarea}
   Input Text  ${textarea}  ${command}
 
+
 Натиснути кнопку "1 Выполнить"
   Run Keyword  Натиснути кнопку "1 Выполнить" ${env}
 
-Натиснути Кнопку "1 Выполнить" ITA
 
+Натиснути Кнопку "1 Выполнить" ITA
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
 
+
 Натиснути кнопку "1 Выполнить" ITA_web2016
   Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
+
 
 Перевірити виконання команди VFP
   Wait Until Element Is Visible  ${message-box}  30
   ${content}  Get Text  xpath=//*[@class="message-box-content-body"]
   Should Be Equal  ${content}  ?
 
+
 Перевірити наявність кнопок "Да/Нет"
   Element Should Contain  xpath=//*[contains(@class, 'message-box-button')][1]  ДА
   Element Should Contain  xpath=//*[contains(@class, 'message-box-button')][2]  НЕТ
+
 
 Натиснути кнопку "Да" для закриття діалогу
   Click Element  xpath=//*[contains(@class, 'message-box-button') and contains(text(), 'Да')]
   Element Should Not Be Visible  ${message-box}
 
+
 Натиснути пункт меню "Инструменты и настройки"
   Wait Until Keyword Succeeds  30  3  Click Element  ${menu_tools}
   Sleep  3
+
 
 Вибрати пункт меню "Универсальный отчет"
   Click Element At Coordinates  ${menu_scroll}  0  300
@@ -314,9 +210,11 @@ Check Prev Test Status
   Дочекатись загрузки сторінки (ita)
   Wait Until Page Contains Element  xpath=//*[contains(text(), 'Сформировать отчет')]  30
 
+
 Вибрати пункт меню "Универсальный отчет" повторно
   Wait Until Keyword Succeeds  10  2  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Wait Until Page Contains Element  xpath=//*[contains(text(), 'Сформировать отчет')]  30
+
 
 В полі регістр вибрати пункт
   [Arguments]  ${value}
@@ -324,9 +222,11 @@ Check Prev Test Status
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(),'${value}')])[1]
 
+
 Вийти з функції "Универсальный отчет"
   Go Back
   Wait Until Page Does Not Contain Element  xpath=//*[contains(text(), 'Сформировать отчет')]
+
 
 Натиснути випадаючий список кнопки "Конструктор"
   Wait Until Keyword Succeeds  30  3  Click Element  ${constructor_drop_down}
@@ -334,20 +234,24 @@ Check Prev Test Status
   ${stat}  Run Keyword And Return Status  Wait Until Element is Visible  ${create_report}  10
   Run Keyword If  '${stat}' == 'False'  Натиснути випадаючий список кнопки "Конструктор"
 
+
 Натиснути пункт "Создать отчет"
   Click Element  ${create_report}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]
+
 
 Ввести довільну назву звіту
   ${text}  create_sentence  4
   Set Global Variable  ${text}
   Input Text  ${report_name}  ${text}
 
+
 Перейти на вкладку "Поля"
   Click Element  xpath=//a[.='Поля']
   Wait Until Page Contains Element  xpath=//li[.='Поля' and @aria-selected="true"]
   Sleep  3
+
 
 Вибрати три довільних поля
   :FOR  ${items}  IN RANGE  3
@@ -358,18 +262,22 @@ Check Prev Test Status
   ${right_count}  Get Matching Xpath Count  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"cellmultiline")]
   Should Be Equal  3  ${right_count}
 
+
 Натиснути кнопку "Добавить"
   Click Element  ${add_report}
   Дочекатись Загрузки Сторінки (ita)
+
 
 Перевірити відповідність заголовка звіту
   ${report_title}  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
   Should Be Equal  ${text}  ${report_title}
 
+
 Натиснути пункт "Удалить отчет"
   Wait Until Keyword Succeeds  30  3  Click Element  ${delete_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=//*[text()='Удалить']
   Дочекатись Загрузки Сторінки (ita)
+
 
 Перевірити видалення звіту
   ${title}  Get Element Attribute  ${report_title}  value
@@ -381,6 +289,7 @@ Check Prev Test Status
   Click Element  ${logo}
   Wait Until Element Is Visible  xpath=//*[@class="start-menu-tree-view-container"]  20
 
+
 Виконати пошук пункта меню
   [Arguments]  ${menu_name}
   #Wait Until Element Is Visible  xpath=//*[@start-menu-search-panel]  30
@@ -390,6 +299,7 @@ Check Prev Test Status
   Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
   ...  Click Element  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[text()='Универсальный'])[2]
   ...  AND  Дочекатись Загрузки Сторінки (ita)
+
 
 Запустити функцію додаткового меню
   [Arguments]  ${title}
@@ -408,23 +318,28 @@ Check Prev Test Status
   Click Element  ${selector}
   Wait Until Page Contains Element  xpath=//*[contains(@class,'selected') and @title="${title}"]
 
+
 Перейти до першого знайденого пункта меню
   ${first_search_item}  Set Variable  xpath=((//*[@class="search-panel-text"]/ancestor::div[2]//div/*[text()='Универсальный'])[2]
   Wait Until Keyword Succeeds  10  2  Click Element  ${first_search_item}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Element Is Visible  xpath=//div[@class='frame-caption']//span[@title="Учет изменения ПО"]
 
+
 Перейти до екрану "Коректировка"
   Click Element  ${F7}
   Wait Until Element Is Visible  xpath=//div[contains(text(), 'Добавление. Учет изменения ПО')]
+
 
 Натиснути "Требует действий со стороны службы поддержки"
   Click Element  xpath=//*[@title="[NEEDACTIONS]"]
   Wait Until Element Is Visible  xpath=//*[contains(@title, '[OASU_ACTS]')]/preceding-sibling::*
   Run Keyword And Expect Error  *  Click Element  xpath=//*[@title="[NEEDACTIONS]"]
 
+
 Перевірити наявність діалогу з таблицею
   Wait Until Element Is Visible  xpath=//table[contains(@class,'obj ')]  30
+
 
 Активувати комірку для редагування
   ${row}  Set Variable  //table[contains(@class,'obj')]//tr
@@ -435,9 +350,9 @@ Check Prev Test Status
   Sleep  3
   Click Element  ${row}[${n}]
   Sleep  3
-  #TODO Press Key  ${row}[${n}]  ${enter btn}
   Page Should Contain Element  ${row}[${n}]//td[@class='cellselected editable']
   [Return]  ${row}[${n}]
+
 
 Вставити довільний текст до комірки
   [Arguments]  ${selector}
@@ -445,16 +360,19 @@ Check Prev Test Status
   Set Global Variable  ${row text}  ${text}
   Input Text  ${selector}//input  ${text}
 
+
 Вибрати іншіу довільну комірку
   [Arguments]  ${selector}
   Click Element  ${selector}/following-sibling::*
   ${text}  Get Text  ${selector}
   Page Should Contain Element   ${selector}//td[text()='${text}']
 
+
 Перевірити збереження тексту в комірці
   [Arguments]  ${selector}
   ${text}  Get Text  ${selector}
   Should Be Equal  ${text}  ${row text}
+
 
 Стати на першу комірку та натиснути Enter
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[contains(@class,'cellselected')]
@@ -462,15 +380,18 @@ Check Prev Test Status
   ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=//*[@class='gridbox']//td[@class='cellselected editable']
   Run Keyword If  '${status}' == 'False'  Стати на першу комірку та натиснути Enter
 
+
 Ввести значення
   [Arguments]  ${value}
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
   Input Text  ${row}  ${value}
   Press Key  ${row}  ${enter btn}
 
+
 Перевірити наявність messagebox
   Wait Until Page Contains Element  ${message-box}
   Wait Until Keyword Succeeds  10  3  Click Element  xpath=//*[contains(@class, 'message')]//*[ text()='ОК']
+
 
 Scroll Page To Element XPATH
   [Arguments]  ${xpath}
