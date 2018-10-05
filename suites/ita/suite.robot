@@ -110,19 +110,13 @@ ${C# grid}                            ${command_c_grid}
   Вставити довільний текст до комірки  ${selector}
   Вибрати іншіу довільну комірку  ${selector}
   Перевірити збереження тексту в комірці  ${selector}
-  Активувати комірку для редагування
-  Вставити довільний текст до комірки
-  Вибрати іншіу комірку
-
-"Консоль". C# Перевірити збереження тексту в комірці
-  [Tags]  console_c
-  Перевірити збереження тексту в комірці
 
 Запустити функцію 'Универсальный отчет'
   [Tags]  report
   ...  report2
   Натиснути на логотип IT-Enterprise
-  Виконати пошук пункта меню  Универсальный отчет
+  Натиснути пункт меню "Инструменты и настройки"
+  Вибрати пункт меню "Универсальный отчет"
 
 "Универсальный отчет". Створити звіт у форматі таблиці
   [Tags]  report
@@ -154,16 +148,14 @@ ${C# grid}                            ${command_c_grid}
   [Tags]  report2
   Вийти з функції "Универсальный отчет"
   Натиснути на логотип IT-Enterprise
-  Виконати пошук пункта меню  Универсальный отчет
-  #Вибрати пункт меню "Универсальный отчет" повторно
+  Вибрати пункт меню "Универсальный отчет" повторно
   Перевірити відповідність заголовка звіту
 
 Відкрити головне меню та знайти пункт меню "Учет изменений ПО"
   [Tags]  adjustment
   Натиснути на логотип IT-Enterprise
-  Натиснути пункт головного меню  Администрирование системы
-  Натиснути пункт головного меню  Администрирование системы и управление доступом
-  Запустити функцію додаткового меню  Учет изменений ПО
+  Виконати пошук пункта меню  Учет изменений ПО
+  Перейти до першого знайденого пункта меню
 
 «Учет изменений ПО». "Коректировка"
   [Tags]  adjustment  non-critical
@@ -213,7 +205,7 @@ Check Prev Test Status
   Ввести пароль  ${password}
   Натиснути кнопку вхід
   Дочекатись загрузки сторінки (ita)
-  Wait Until Element Is Visible  xpath=//*[@title="Вид"]  60
+  Wait Until Element Is Visible  ${logo}
 
 Авторизуватися ITA_web2016
   [Arguments]  ${login}  ${password}=None
@@ -312,7 +304,6 @@ Check Prev Test Status
   Element Should Not Be Visible  ${message-box}
 
 Натиснути пункт меню "Инструменты и настройки"
-  debug
   Wait Until Keyword Succeeds  30  3  Click Element  ${menu_tools}
   Sleep  3
 
@@ -418,10 +409,9 @@ Check Prev Test Status
   Click Element  ${selector}
   Wait Until Page Contains Element  xpath=//*[contains(@class,'selected') and @title="${title}"]
 
-
 Перейти до першого знайденого пункта меню
-  ${first_search_item}  Set Variable  xpath=((//*[@class="search-panel-text"]/ancestor::div[2]//div/*[text()='Универсальный'])[2]
-  Wait Until Keyword Succeeds  10  2  Click Element  ${first_search_item}
+  ${first_search_item}  Set Variable  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[@class="menu-item-text"])[last()]
+  Wait Until Keyword Succeeds  30  3  Click Element  ${first_search_item}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Element Is Visible  xpath=//div[@class='frame-caption']//span[@title="Учет изменения ПО"]
 
@@ -449,11 +439,6 @@ Check Prev Test Status
   #TODO Press Key  ${row}[${n}]  ${enter btn}
   Page Should Contain Element  ${row}[${n}]//td[@class='cellselected editable']
   [Return]  ${row}[${n}]
-  ${row}  Set Variable  xpath=(//table[contains(@class,'obj ')]//td[text()])[3]
-  Wait Until Keyword Succeeds  30  3  Click Element  ${row}
-  Sleep  1
-  Click Element  ${row}
-  Page Should Contain Element  xpath=(//table[contains(@class,'obj ')]//td[@class='cellselected editable'])
 
 Вставити довільний текст до комірки
   [Arguments]  ${selector}
@@ -466,15 +451,6 @@ Check Prev Test Status
   Click Element  ${selector}/following-sibling::*
   ${text}  Get Text  ${selector}
   Page Should Contain Element   ${selector}//td[text()='${text}']
-  ${row}  Set Variable  xpath=(//table[contains(@class,'obj ')]//td[@class='cellselected editable'])//input
-  Sleep  .5
-  Wait Until Keyword Succeeds  10  2  Input Text  ${row}  ${text}
-
-Вибрати іншіу комірку
-  ${row}  Set Variable  xpath=(//table[contains(@class,'obj ')]//td[text()])[2]
-  Click Element  ${row}
-  ${text}  Get Text  ${row}
-  Page Should Contain Element  xpath=//td[contains(@class,"cellselected")]
 
 Перевірити збереження тексту в комірці
   [Arguments]  ${selector}
