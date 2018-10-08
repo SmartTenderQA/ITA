@@ -32,3 +32,9 @@ command_vfp = """do Line1 with 'aaaa',100,10,.t.
 yesno("?")"""
 
 activating_a_screen = """InputForm.Activate("_UI1");"""
+
+decimalPlaces_in_the_adjustment_screens = """var v = new InputForm();
+var a = v.Controls.AddTextBox(1.0m);
+a.DecimalPlaces = 5;
+v.Controls.AddTextBox(1.0m);
+v.Activate();"""
