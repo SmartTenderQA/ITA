@@ -30,3 +30,5 @@ using (var c = new GridCursor(SqlClient.Main.CreateCommand("select 1234.56 as un
 
 command_vfp = """do Line1 with 'aaaa',100,10,.t.
 yesno("?")"""
+
+activating_a_screen = """InputForm.Activate("_UI1");"""

@@ -3,6 +3,7 @@ Library     Selenium2Library
 Library     BuiltIn
 Library     Collections
 Library     DebugLibrary
+Library     OperatingSystem
 Library     Faker/faker.py
 
 
