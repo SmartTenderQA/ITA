@@ -177,6 +177,9 @@ Check Prev Test Status
 Натиснути Кнопку "1 Выполнить" ITA
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
+  ${status}  Run Keyword And Return Status
+  ...  Wait Until Page Does Not Contain Element  ${confirm btn}
+  Run Keyword If  ${status} == ${FALSE}  Натиснути Кнопку "1 Выполнить" ITA
 
 
 Натиснути кнопку "1 Выполнить" ITA_web2016
