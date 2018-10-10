@@ -178,7 +178,7 @@ Check Prev Test Status
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
   ${status}  Run Keyword And Return Status
-  ...  Wait Until Page Does Not Contain Element  ${confirm btn}
+  ...  Wait Until Page Does Not Contain Element  xpath=//*[contains(@class,"tooltip-panel") and @style="display: block;"]
   Run Keyword If  ${status} == ${FALSE}  Натиснути Кнопку "1 Выполнить" ITA
 
 
