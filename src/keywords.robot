@@ -319,7 +319,7 @@ Check Prev Test Status
   ${selector}  Set Variable  xpath=//*[@title="${title}"]
   ${status}  Run Keyword And Return Status  Element Should Be Visible  ${selector}
   Run Keyword If  '${status}' == 'False'  Click Element At Coordinates  ${menu_scroll}  0  300
-  Click Element  ${selector}
+  Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
   Wait Until Page Contains Element  xpath=//*[contains(@class,'selected') and @title="${title}"]
 
 
