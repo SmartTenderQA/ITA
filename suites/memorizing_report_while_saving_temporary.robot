@@ -64,7 +64,12 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
 Натиснути кнопку "Мои настройки"
-  Click Element   //*[@title="Мои настройки"]
+  Sleep  2
+  ${selector}  Set Variable  //*[@id="REP_SIMPLETEMP_SET"]
+  Click Element   ${selector}
+  ${status}  Run Keyword And Return Status
+  ...  Wait Until Page Contains Element    ${selector}
+  Run Keyword If  ${status} == ${False}    Натиснути кнопку "Мои настройки"
   Дочекатись Загрузки Сторінки (ita)
   ${my_settings}=    Get Text  //*[@class="float-container-header-text"]
   Should Be Equal   '${my_settings}'  'МОИ НАСТРОЙКИ'
