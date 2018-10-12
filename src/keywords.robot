@@ -308,7 +308,7 @@ Check Prev Test Status
 Запустити функцію додаткового меню
   [Arguments]  ${title}
   ${selector}  Set Variable  xpath=//*[contains(@class,'extended-menu')]//*[@title="${title}"]
-  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${selector}  2
+  #${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${selector}  2
   #Run Keyword If  '${status}' == 'False'  Scroll Page To Element XPATH  ${selector}
   Click Element  ${selector}
   Дочекатись Загрузки Сторінки (ita)
@@ -401,3 +401,18 @@ Scroll Page To Element XPATH
   [Arguments]  ${xpath}
   Run Keyword And Ignore Error  Execute JavaScript  document.evaluate('${xpath.replace("xpath=", "")}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});
   Run Keyword And Ignore Error  Execute JavaScript  document.evaluate("${xpath.replace('xpath=', '')}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});
+
+
+Перевірити що поле не пусте
+  [Arguments]  ${field}
+  ${field value}  Get Element Attribute  ${field}  value
+  Should Not Be Empty  ${field value}
+
+Очистити поле від тексту
+  [Arguments]  ${field}
+  Click Element  ${field}
+  Sleep  .5
+  Clear Element Text  ${field}
+  Press Key  ${field}  \\9   #press tab
+  ${field value}  Get Element Attribute  ${field}  value
+  Should Be Empty  ${field value}
