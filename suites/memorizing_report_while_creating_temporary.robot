@@ -29,8 +29,10 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 
 
 Створити новий універсальний звіт
+
 	Ввести назву регістру  UI-Тестирование
 	Натиснути кнопку "Мои настройки"
+	Натиснути кнопку "Общие"
 	Створити та ввести назву звіту
 	Натиснути кнопку "Сохранить"
 
@@ -50,7 +52,13 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 
 
 Натиснути кнопку "Мои настройки"
+	Дочекатись Загрузки Сторінки (ita)
     Click Element   xpath=//*[@id="REP_SIMPLETEMP_SET"]
+
+
+Натиснути кнопку "Общие"
+	Дочекатись Загрузки Сторінки (ita)
+	Click Element	//*[@id="ui-id-23" and @class='ui-tabs-anchor']
 
 
 Створити та ввести назву звіту
@@ -74,7 +82,7 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
    Дочекатись Загрузки Сторінки (ita)
    Wait Until Page Contains Element    ${input test report title}
    ${check}   Get Element Attribute    ${input test report title}   value
-   Should Be Equal     ${saved_report}  ${check}
+   Should Not Be Equal     ${saved_report}  ${check}
 
 
 Ввести назву регістру
