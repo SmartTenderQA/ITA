@@ -20,6 +20,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Перевірити що обрано пункт  UI-Тестирование
   Перевірити що назва звіту не порожня
   Натиснути кнопку "Мои настройки"
+  Перейти До Вкладки  Общие
   Ввести довільну назву звіту
   Натиснути кнопку "Сохранить"
   Перевірити відповідність заголовка звіту
@@ -98,3 +99,8 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 Перевірити що відкрито початкову сторінку ITA
   Page Should Contain Element  (//*[@title="Вид"])[2]
+
+Перейти До Вкладки
+  [Arguments]  ${value}
+  Wait Until Page Contains Element  //a[contains(text(), '${value}')]
+  Click Element  //a[contains(text(), '${value}')]
