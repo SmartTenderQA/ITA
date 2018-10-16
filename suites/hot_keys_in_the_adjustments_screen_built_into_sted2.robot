@@ -77,12 +77,12 @@ Send Ctrl Enter To Current Element
     Call Method    ${action chain}    perform
 
 
-Send PAGE_UPx20 To Current Element
+Send PAGE_UPx40 To Current Element
     ${keys}=    Evaluate    selenium.webdriver.common.keys.Keys    selenium
     ${s2l}=    Get Library Instance    Selenium2Library
     ${actionchain module}=    Evaluate    selenium.webdriver.common.action_chains    selenium
     ${action chain}=    Call Method    ${actionchain module}    ActionChains    ${s2l._current_browser()}
-    Repeat Keyword  20  Call Method    ${action chain}    key_down    ${keys.PAGE_UP}
+    Repeat Keyword  40  Call Method    ${action chain}    key_down    ${keys.PAGE_UP}
     Call Method    ${action chain}    perform
 
 
