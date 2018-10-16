@@ -94,7 +94,7 @@ Send PAGE_UPx40 To Current Element
 	${date element}  Set Variable  //tr[@style][contains(@class, 'evenRow') or contains(@class, "oddRow")]/td[1]
 	${n}  Get Element Count  ${frame}${date element}
 	${last}  Get Text  xpath=(${frame}${date element})[${n}]
-	Send PAGE_UPx20 To Current Element
+	Send PAGE_UPx40 To Current Element
 	${first}  Get Text  xpath=(${frame}${date element})[1]
 	Append To List  ${list}  ${last}
 	Append To List  ${list}  ${first}
