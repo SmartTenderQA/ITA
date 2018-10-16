@@ -179,7 +179,7 @@ Check Prev Test Status
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
   ${status}  Run Keyword And Return Status
-  ...  Wait Until Page Does Not Contain Element  ${confirm btn}
+  ...  Wait Until Page Does Not Contain Element  xpath=//*[contains(@class,"tooltip-panel") and @style="display: block;"]
   Run Keyword If  ${status} == ${FALSE}  Натиснути Кнопку "1 Выполнить" ITA
 
 
@@ -309,7 +309,7 @@ Check Prev Test Status
 Запустити функцію додаткового меню
   [Arguments]  ${title}
   ${selector}  Set Variable  xpath=//*[contains(@class,'extended-menu')]//*[@title="${title}"]
-  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${selector}  2
+  #${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${selector}  2
   #Run Keyword If  '${status}' == 'False'  Scroll Page To Element XPATH  ${selector}
   Click Element  ${selector}
   Дочекатись Загрузки Сторінки (ita)
@@ -320,7 +320,7 @@ Check Prev Test Status
   ${selector}  Set Variable  xpath=//*[@title="${title}"]
   ${status}  Run Keyword And Return Status  Element Should Be Visible  ${selector}
   Run Keyword If  '${status}' == 'False'  Click Element At Coordinates  ${menu_scroll}  0  300
-  Click Element  ${selector}
+  Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
   Wait Until Page Contains Element  xpath=//*[contains(@class,'selected') and @title="${title}"]
 
 
@@ -409,3 +409,19 @@ Scroll Page To Element XPATH
 	Click Element  //div[@id and @data-start-params and contains(., "${fuction}")]
 	Дочекатись Загрузки Сторінки (ita)
 	Wait Until Page Contains Element  //span[contains(@title, "${fuction}")]
+
+
+Перевірити що поле не пусте
+  [Arguments]  ${field}
+  ${field value}  Get Element Attribute  ${field}  value
+  Should Not Be Empty  ${field value}
+
+
+Очистити поле від тексту
+  [Arguments]  ${field}
+  Click Element  ${field}
+  Sleep  .5
+  Clear Element Text  ${field}
+  Press Key  ${field}  \\9   #press tab
+  ${field value}  Get Element Attribute  ${field}  value
+  Should Be Empty  ${field value}
