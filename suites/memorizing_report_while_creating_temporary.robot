@@ -29,7 +29,6 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 
 
 Створити новий універсальний звіт
-
 	Ввести назву регістру  UI-Тестирование
 	Натиснути кнопку "Мои настройки"
 	Натиснути кнопку "Общие"
@@ -47,13 +46,13 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 
 *** Keywords ***
 Натиснути кнопку "Универсальный отчет"
-    Wait Until Element Is Visible     ${button univ. report}
-    Click Element                     ${button univ. report}
+    Wait Until Element Is Visible  ${button univ. report}
+    Click Element                  ${button univ. report}
 
 
 Натиснути кнопку "Мои настройки"
 	Дочекатись Загрузки Сторінки (ita)
-    Click Element   xpath=//*[@id="REP_SIMPLETEMP_SET"]
+    Click Element  xpath=//*[@id="REP_SIMPLETEMP_SET"]
 
 
 Натиснути кнопку "Общие"
@@ -63,13 +62,13 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 
 Створити та ввести назву звіту
 	${text}  create_sentence  1
-    Wait Until Page Contains Element    ${input report title}  timeout=10
-    Input Text                          ${input report title}  ${text}
+    Wait Until Page Contains Element  ${input report title}  timeout=10
+    Input Text                        ${input report title}  ${text}
     Set Global Variable  ${saved_report}  ${text}
 
 
 Натиснути кнопку "Сохранить"
-    Click Element   xpath=//*[text()='Сохранить']
+    Click Element  xpath=//*[text()='Сохранить']
     Дочекатись Загрузки Сторінки (ita)
 
 
@@ -80,16 +79,16 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 
 Перевірити назву звіту
    Дочекатись Загрузки Сторінки (ita)
-   Wait Until Page Contains Element    ${input test report title}
-   ${check}   Get Element Attribute    ${input test report title}   value
-   Should Not Be Equal     ${saved_report}  ${check}
+   Wait Until Page Contains Element  ${input test report title}
+   ${check}  Get Element Attribute  ${input test report title}  value
+   Should Not Be Equal  ${saved_report}  ${check}
 
 
 Ввести назву регістру
 	[Arguments]  ${name}
-	Wait Until Page Contains Element   ${registr text}    timeout=10
-	Input Text    ${registr text}  ${name}
-    Press Key  ${registr text}    \\13
+	Wait Until Page Contains Element  ${registr text}  timeout=10
+	Input Text  ${registr text}  ${name}
+    Press Key  ${registr text}  \\13
     Sleep  1
 
 
@@ -97,4 +96,4 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
     [Arguments]  ${menu_name}
     Дочекатись Загрузки Сторінки (ita)
     ${selector}  Set Variable  xpath=//*[@class='menu-item-text' and contains(text(), '${menu_name}')]
-    Click Element   ${selector}
+    Click Element  ${selector}
