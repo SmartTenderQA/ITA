@@ -210,6 +210,7 @@ Check Prev Test Status
 
 Вибрати пункт меню "Универсальный отчет"
   Click Element At Coordinates  ${menu_scroll}  0  300
+  Wait Until Element Is Visible  ${menu_report}  30
   Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Дочекатись загрузки сторінки (ita)
@@ -223,6 +224,7 @@ Check Prev Test Status
 
 В полі регістр вибрати пункт
   [Arguments]  ${value}
+  Wait Until Element Is Visible  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]  30
   Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(),'${value}')])[1]
