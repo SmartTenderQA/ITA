@@ -5,6 +5,7 @@ Library     Collections
 Library     DebugLibrary
 Library     OperatingSystem
 Library     Faker/faker.py
+Library     service.py
 
 
 *** Variables ***
@@ -403,10 +404,18 @@ Scroll Page To Element XPATH
   Run Keyword And Ignore Error  Execute JavaScript  document.evaluate("${xpath.replace('xpath=', '')}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});
 
 
+Запустити функцію
+	[Arguments]  ${fuction}
+	Click Element  //div[@id and @data-start-params and contains(., "${fuction}")]
+	Дочекатись Загрузки Сторінки (ita)
+	Wait Until Page Contains Element  //span[contains(@title, "${fuction}")]
+
+
 Перевірити що поле не пусте
   [Arguments]  ${field}
   ${field value}  Get Element Attribute  ${field}  value
   Should Not Be Empty  ${field value}
+
 
 Очистити поле від тексту
   [Arguments]  ${field}
