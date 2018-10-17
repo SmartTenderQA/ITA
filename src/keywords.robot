@@ -178,8 +178,7 @@ Check Prev Test Status
 Натиснути Кнопку "1 Выполнить" ITA
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
-  ${status}  Run Keyword And Return Status
-  ...  Wait Until Element Is Not Visible  xpath=//*[contains(@class,"tooltip-panel") and @style="display: block;"]
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Not Visible  ${confirm btn}
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
 
 
