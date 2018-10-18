@@ -35,6 +35,8 @@ yesno("?")"""
 
 activating_a_screen = """InputForm.Activate("_UI1");"""
 
+data_editor_call = """DataEditor.Call("_UI1_2");"""
+
 
 decimalPlaces_in_the_adjustment_screens = """var v = new InputForm();
 var a = v.Controls.AddTextBox(1.0m);
