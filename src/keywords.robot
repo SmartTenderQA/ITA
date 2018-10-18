@@ -14,6 +14,7 @@ ${browser}                            chrome
 ...                                   ITA=https://webclient.it-enterprise.com/clientrmd/(S(nwqigpdz3z031icvawluswqc))/?win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?win=1&tz=3
 ...                                   ITCopyUpgrade=https://m.it.ua/ITCopyUpgrade/CLIENTRMD/(S(iuhcsthigv3rjj1qattj3aby))/?proj=it_RU&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
+...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
 ${pass_field}                         xpath=((//*[contains(text(), 'Пароль')])[2]/ancestor::div[2]//input)[2]
@@ -210,6 +211,7 @@ Check Prev Test Status
 
 Вибрати пункт меню "Универсальный отчет"
   Click Element At Coordinates  ${menu_scroll}  0  300
+  Wait Until Element Is Visible  ${menu_report}  30
   Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
   Дочекатись загрузки сторінки (ita)
@@ -223,6 +225,7 @@ Check Prev Test Status
 
 В полі регістр вибрати пункт
   [Arguments]  ${value}
+  Wait Until Element Is Visible  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]  30
   Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(),'${value}')])[1]
