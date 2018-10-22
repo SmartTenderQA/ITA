@@ -16,9 +16,8 @@ ${browser}                            chrome
 ...                                   ITCopyUpgrade=https://m.it.ua/ITCopyUpgrade/CLIENTRMD/(S(iuhcsthigv3rjj1qattj3aby))/?proj=it_RU&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 ${alies}                              alies
-${platform}                           WIN10
 ${hub}                                http://autotest.it.ua:4444/wd/hub
-
+${platform}                           ANY
 
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
@@ -48,7 +47,7 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platform:${platform}
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
   Set Window Size  1280  1024
 
 
