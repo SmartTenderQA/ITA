@@ -45,7 +45,7 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  http://autotest.it.ua:4444/wd/hub  platform:${platform}
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  http://autotest.it.ua:4444/wd/hub  platformName:${platform}
   Set Window Size  1280  1024
 
 
