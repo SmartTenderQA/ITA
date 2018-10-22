@@ -17,6 +17,7 @@ ${browser}                            chrome
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 ${alies}                              alies
 ${platform}                           WIN10
+${hub}                                http://autotest.it.ua:4444/wd/hub
 
 
 ${loading}                            xpath=//*[@class="spinner"]
@@ -47,7 +48,7 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  http://autotest.it.ua:4444/wd/hub  platform:${platform}
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platform:${platform}
   Set Window Size  1280  1024
 
 
