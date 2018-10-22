@@ -35,6 +35,8 @@ yesno("?")"""
 
 activating_a_screen = """InputForm.Activate("_UI1");"""
 
+data_editor_call = """DataEditor.Call("_UI1_2");"""
+
 
 activating_validation_form = """InputForm.Activate("_UI1_1");"""
 

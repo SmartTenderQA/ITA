@@ -91,7 +91,7 @@ Send PAGE_UPx40 To Current Element
 	Виділити екран "Планировщик задач"
 	${list}  Create List
 	${frame}  Set Variable  (//*[@data-guid-id and contains(., "Планировщик задач")])[last()]
-	${date element}  Set Variable  //tr[@style][contains(@class, 'evenRow') or contains(@class, "oddRow")]/td[1]
+	${date element}  Set Variable  //div[@data-ps-id]//tr[@class]/td[1]
 	${n}  Get Element Count  ${frame}${date element}
 	${last}  Get Text  xpath=(${frame}${date element})[${n}]
 	Send PAGE_UPx40 To Current Element

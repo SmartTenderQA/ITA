@@ -15,6 +15,10 @@ ${browser}                            chrome
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?win=1&tz=3
 ...                                   ITCopyUpgrade=https://m.it.ua/ITCopyUpgrade/CLIENTRMD/(S(iuhcsthigv3rjj1qattj3aby))/?proj=it_RU&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
+${alies}                              alies
+${platform}                           WIN10
+
+
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
 ${pass_field}                         xpath=((//*[contains(text(), 'Пароль')])[2]/ancestor::div[2]//input)[2]
@@ -43,7 +47,7 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  http://autotest.it.ua:4444/wd/hub  platform:${platform}
   Set Window Size  1280  1024
 
 
@@ -180,7 +184,7 @@ Check Prev Test Status
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
   ${status}  Run Keyword And Return Status
-  ...  Wait Until Element Is Not Visible  xpath=//*[contains(@class,"tooltip-panel") and @style="display: block;"]
+  ...  Wait Until Element Is Not Visible  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
 
 
