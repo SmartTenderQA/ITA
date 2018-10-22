@@ -47,8 +47,8 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
-  Set Window Size  1280  1024
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  #platformName:${platform}
+  #Set Window Size  1280  1024
 
 
 Postcondition
