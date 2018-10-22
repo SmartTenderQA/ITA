@@ -15,6 +15,10 @@ def get_env_variable(env, env_variable):
             'login': 'uitest',
             'password': '689762156750',
         },
+        'BUHETLA2': {
+            'login': u'Главный бухгалтер',
+            'password': '',
+        },
     }
     if env not in a:
         return env
