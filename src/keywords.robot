@@ -185,6 +185,7 @@ Check Prev Test Status
   Click Element At Coordinates  ${confirm btn}  -40  0
   ${status}  Run Keyword And Return Status
   ...  Wait Until Element Is Not Visible  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
+  Sleep  3
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
 
 
