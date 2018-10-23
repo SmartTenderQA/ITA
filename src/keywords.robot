@@ -387,7 +387,7 @@ Check Prev Test Status
   ${text}  create_sentence  1
   Set Global Variable  ${row text}  ${text}
   ${input field}  Set Variable  ${selector}//input
-  Input Type Flex  ${input field}  ${value}
+  Input Type Flex  ${input field}  ${text}
 
 
 Вибрати іншіу довільну комірку
