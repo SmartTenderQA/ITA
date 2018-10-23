@@ -37,7 +37,6 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 *** Keywords ***
 Перевірка відкритої сторінки
-  Дочекатись Загрузки Сторінки (ita)
   Set Suite Variable  ${frame_caption}  //div[@class="frame-caption"]/span[@title="UI-test"]
   Page Should Contain Element  ${frame_caption}
   ${tabs_count}  Get Element Count  //div[@class="dhx_cell_hdr_text"]
@@ -47,10 +46,11 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 Активувати верхній фрейм
   Click Element  ${frame_caption}
 
+
 Натиснути на панель
   [Arguments]  ${title}
   ${selector}  Set Variable  //div[@class="dhx_cell_hdr_text"]/span[contains(text(), '${title}')]
   Click Element  ${selector}
-  Sleep  1
+  Wait Until Element Is Not Visible  (//div[@class="dhxform_obj_material"])[1]  15
   ${tab_class}  Get Element Attribute   ${selector}/ancestor::div[contains(@class, "cell_acc")]  class
   Should Be Equal  '${tab_class}'  'dhx_cell_acc'
