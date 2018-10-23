@@ -58,7 +58,9 @@ ${dialog_window}  //div[contains(@class, "active")]//div[@class="float-container
 
 Змінити значення першого input field
 	Input Text  ${dialog_window}//input  2.2
-	Click Element   (${dialog_window}//input)[2]
+    Sleep  .5
+    Click Element  xpath=(//*[@class="float-container-header"])[1]    #(${dialog_window}//input)[2]
+    Sleep  .5
 
 
 Перевірити результат

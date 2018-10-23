@@ -112,7 +112,7 @@ Check Prev Test Status
 
 
 Натиснути кнопку вхід
-  Run Keyword  Натиснути кнопку вхід ${env}
+  Repeat Keyword  2 times  Натиснути кнопку вхід ${env}
 
 
 Натиснути кнопку вхід ITA
