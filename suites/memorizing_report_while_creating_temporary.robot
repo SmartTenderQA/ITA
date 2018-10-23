@@ -9,7 +9,6 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
 *** Variables ***
-${registr text}          xpath=(//*[text()='Регистр']/../..//input)[1]
 ${button univ. report}   xpath=//*[@class="module-item-container" and @title="Универсальный отчет"]
 ${input report title}    //div[contains(@title, 'Введите наименование отчета')]/preceding-sibling::*//input
 ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//input[1]
@@ -82,14 +81,6 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
    Wait Until Page Contains Element  ${input test report title}
    ${check}  Get Element Attribute  ${input test report title}  value
    Should Not Be Equal  ${saved_report}  ${check}
-
-
-Ввести назву регістру
-	[Arguments]  ${name}
-	Wait Until Page Contains Element  ${registr text}  timeout=10
-	Input Text  ${registr text}  ${name}
-    Press Key  ${registr text}  \\13
-    Sleep  1
 
 
 Натиснути кнопку

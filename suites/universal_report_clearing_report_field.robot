@@ -8,6 +8,8 @@ Test Setup  Check Prev Test Status
 Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
+#  robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v env:ITA -v hub:${Empty} suites/universal_report_clearing_report_field.robot
+#  команда для запуска
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
   Відкрити сторінку ITA
@@ -21,9 +23,43 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Запустити функцію додаткового меню  Универсальный отчет
 
 
-Очистити поле «Отчет»
-  В полі регістр вибрати пункт  UI-Тестирование
+В полі регістр вибрати пункт UI-Тестирование
+  Ввести назву регістру  UI-Тестирование
+  Перевірити що обрано пункт  UI-Тестирование
   Перевірити що поле не пусте  ${report_title}
-  Очистити поле від тексту  ${report_title}
+
+
+Очистити поле "Регистр"
+  Очистити поле від тексту  ${register_selector}
+  Перевірити що поле не пусте  ${register_selector}
+  Перевірити що поле не пусте  ${report_title}
+
+
+*** Keywords ***
+Перевірити що обрано пункт
+  [Arguments]  ${value}
+  Set Global Variable  ${register_selector}  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
+  ${register} =  Get Element Attribute   ${register_selector}   value
+  Should Be Equal  '${register}'  '${value}'
+
+
+Перевірити що поле не пусте
+  [Arguments]  ${field}
+  ${field value}  Get Element Attribute  ${field}  value
+  Should Not Be Empty  ${field value}
+
+
+Очистити поле від тексту
+  [Arguments]  ${field}
+  Sleep  .5
+  Click Element  ${field}
+  Sleep  .5
+  Click Element  //div[@id="Clear"]
+  Sleep  .5
+  ${field value}  Get Element Attribute  ${field}  value
+  Should Be Empty  ${field value}
+  Press Key  ${field}  \\9   #press tab
+  Дочекатись Загрузки Сторінки (ita)
+
 
 
