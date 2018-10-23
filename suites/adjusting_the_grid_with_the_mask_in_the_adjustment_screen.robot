@@ -70,18 +70,14 @@ ${Button1}  //div[@role="link"]
 
 Змінити значення в комірці
 	[Arguments]  ${value}
-	Reload Page
-	Дочекатись Загрузки Сторінки (ita)
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
 	Click Element  ${field}
 	Sleep  2
-	Click Element  ${field}
-	Sleep  2
-	Click Element  ${field}
+    Press Key  //html/body  \\13
 	Sleep  2
 	Input Text  ${field}//input  ${value}
 	Sleep  1
-	Run Keyword And Ignore Error  Press Key  ${field}  \\13
+	Run Keyword And Ignore Error  Press Key  //html/body  \\13
 	Click Element  ${field}
 
 
