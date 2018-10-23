@@ -412,6 +412,7 @@ Check Prev Test Status
 Ввести значення
   [Arguments]  ${value}
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
+
   Input Text  ${row}  ${value}
   Press Key  ${row}  ${enter btn}
 
