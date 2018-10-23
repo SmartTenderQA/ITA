@@ -380,7 +380,6 @@ Check Prev Test Status
   [Arguments]  ${selector}
   Click Element  ${selector}/following-sibling::*
   Sleep  1
-  debug
   ${text}  Get Text  ${selector}
   Page Should Contain Element   ${selector}//td[text()='${text}']
 
