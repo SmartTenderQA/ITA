@@ -75,7 +75,8 @@ ${Button1}  //div[@role="link"]
 	Sleep  2
     Press Key  //html/body  \\13
 	Sleep  2
-	Input Text  ${field}//input  ${value}
+	${input field}  Set Variable  ${field}//input
+	Input Text  ${input field}  ${value}
 	Sleep  1
 	Run Keyword And Ignore Error  Press Key  //html/body  \\13
 	Click Element  ${field}
