@@ -29,6 +29,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 "Универсальный отчет". Зберегти звіт як новий
   Натиснути кнопку "Больше опций"(три крапки)
   Обрати пункт "Сохранить как новый"
+  Перейти До Вкладки  Общие
   Натиснути кнопку "Сохранить"
   Перевірити відповідність заголовка звіту
 
@@ -61,7 +62,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 Перевірити що назва звіту не порожня
   ${report_header}=  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
-  Should Be True  '${report_header}'
+  Should Be True  "${report_header}"
 
 
 Натиснути кнопку "Мои настройки"
@@ -77,6 +78,8 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
 Натиснути кнопку "Сохранить"
+  ${selector}  Set Variable  //*[contains(@class, "toolbar_text") and contains(text(), "Сохранить")]
+  Wait until Element Is Visible  ${selector}
   Click Element   //*[contains(@class, "toolbar_text") and contains(text(), "Сохранить")]
   Дочекатись Загрузки Сторінки (ita)
 
@@ -100,7 +103,12 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 Перевірити що відкрито початкову сторінку ITA
   Page Should Contain Element  (//*[@title="Вид"])[2]
 
+
 Перейти До Вкладки
   [Arguments]  ${value}
-  Wait Until Element Is Visible  //a[contains(text(), '${value}')]
-  Click Element  //a[contains(text(), '${value}')]
+  ${selector}  Set variable  //a[contains(text(), '${value}')]
+  Wait Until Element Is Visible  ${selector}
+  Run Keyword And Ignore Error  Click Element  ${selector}
+  ${status}  Run Keyword And Return Status  Page Should Contain Element  ${selector}/parent::*[contains(@class, "active")]
+  Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
+  Дочекатись Загрузки Сторінки (ita)

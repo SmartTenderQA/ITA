@@ -233,6 +233,7 @@ Check Prev Test Status
   ${register_input}  Set Variable  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
   ${register_dropdown button}  Set Variable  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
   ${selector}  Set variable  (//*[contains(text(),'${value}')])[1]
+  Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  ${register_input}  30
   Click Element  ${register_input}
   Wait Until Element Is Visible  ${register_dropdown button}  10
@@ -297,7 +298,7 @@ Check Prev Test Status
 
 Перевірити відповідність заголовка звіту
   ${report_title}  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
-  Should Be Equal  ${text}  ${report_title}
+  Should Be Equal  "${text}"  "${report_title}"
 
 
 Натиснути пункт "Удалить отчет"
