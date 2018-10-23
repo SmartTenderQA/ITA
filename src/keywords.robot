@@ -47,8 +47,8 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
-  Set Window Size  1280  1024
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  #platformName:${platform}
+  #Set Window Size  1280  1024
 
 
 Postcondition
@@ -159,14 +159,14 @@ Check Prev Test Status
 
 Ввести команду
   [Arguments]  ${command}
-  Run Keyword  Ввести команду ${env}  ${command}
+  Repeat Keyword  2 times  Ввести команду ${env}  ${command}
 
 
 Ввести команду ITA
   [Arguments]  ${command}
   ${textarea}  Set Variable  //*[@aria-hidden='false']//textarea
   Input Text  ${textarea}  ${command}
-
+  Sleep  .5
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
