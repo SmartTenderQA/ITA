@@ -413,7 +413,6 @@ Check Prev Test Status
 Ввести значення
   [Arguments]  ${value}
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
-
   Input Text  ${row}  ${value}
   Press Key  ${row}  ${enter btn}
 
@@ -453,16 +452,24 @@ Scroll Page To Element XPATH
 
 
 Ввести назву регістру
-	[Arguments]  ${name}
-	${registr text}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
-	${option}  Set Variable  //em[contains(text(), "Таблицы")]
-	Wait Until Page Contains Element  ${registr text}  timeout=10
-	Input Text  ${registr text}  ${name}
-	Sleep  .5
-    Press Key  ${registr text}  \\13
-    Sleep  2
-    ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${option}
-    Run Keyword If  '${status}' == 'PASS'  Click Element  ${option}
-    Sleep  .5
-    Press Key  ${registr text}  \\13
-    Дочекатись загрузки сторінки (ita)
+  [Arguments]  ${name}
+  ${registr text}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
+  ${option}  Set Variable  //em[contains(text(), "Таблицы")]
+  Wait Until Page Contains Element  ${registr text}  timeout=10
+  Input Text  ${registr text}  ${name}
+  Sleep  .5
+  Press Key  ${registr text}  \\13
+  Sleep  2
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${option}
+  Run Keyword If  '${status}' == 'PASS'  Click Element  ${option}
+  Sleep  .5
+  Press Key  ${registr text}  \\13
+  Дочекатись загрузки сторінки (ita)
+
+
+Input Type Flex
+  [Arguments]    ${locator}    ${text}
+  [Documentation]    write text letter by letter
+  ${items}    Get Length    ${text}
+  : FOR    ${item}    IN RANGE    ${items}
+  \    Press Key    ${locator}    ${text[${item}]}

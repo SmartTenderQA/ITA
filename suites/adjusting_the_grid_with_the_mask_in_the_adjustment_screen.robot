@@ -98,10 +98,3 @@ ${Button1}  //div[@role="link"]
 	...  ELSE IF  "${value}" == "0"  Set Variable
 	${get}  Get Text  (${frame}//td[contains(@style, "right")])[${grid}]
 	Should Be Equal  ${should}  ${get}
-
-Input Type Flex
-        [Arguments]    ${locator}    ${text}
-        [Documentation]    write text letter by letter
-        ${items}    Get Length    ${text}
-        : FOR    ${item}    IN RANGE    ${items}
-        \    Press Key    ${locator}    ${text[${item}]}
