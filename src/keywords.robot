@@ -230,12 +230,24 @@ Check Prev Test Status
 
 В полі регістр вибрати пункт
   [Arguments]  ${value}
-  Wait Until Element Is Visible  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]  30
-  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
-  Wait Until Element Is Visible  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]  10
-  ${status}  Run Keyword And Return Status  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
+  ${register_input}  Set Variable  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
+  ${register_dropdown button}  Set Variable  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
+  ${selector}  Set variable  (//*[contains(text(),'${value}')])[1]
+  Wait Until Element Is Visible  ${register_input}  30
+  Click Element  ${register_input}
+  Wait Until Element Is Visible  ${register_dropdown button}  10
+  Run Keyword And Ignore Error  Click Element  ${register_dropdown button}
+  ${status}  Run Keyword And Return Status  Element Should Be Visible  ${selector}
   Run Keyword If  ${status} == ${False}  В полі регістр вибрати пункт  ${value}
-  Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(),'${value}')])[1]
+  Run Keyword And Ignore Error  Click Element  ${selector}
+  ${status2}  Run Keyword And Return Status  Перевірити що обрано пункт  ${value}
+  Run Keyword If  ${status2} == ${False}  В полі регістр вибрати пункт  ${value}
+
+
+Перевірити що обрано пункт
+  [Arguments]  ${value}
+  ${register} =  Get Element Attribute  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]    value
+  Should Be Equal  '${register}'  '${value}'
 
 
 Вийти з функції "Универсальный отчет"
@@ -272,10 +284,10 @@ Check Prev Test Status
   :FOR  ${items}  IN RANGE  3
   \  ${random}  random_number  1  6
   \  wait until keyword succeeds  10  3  Click Element  xpath=((//*[contains(@class, 'selectable')]/table)[1]//tr//span)[${random}]
-  \  wait until keyword succeeds  10  3  Click Element At Coordinates  ${add_filter}  0  -30
+  \  wait until keyword succeeds  10  3  Click Element  (//div[@class="dhxform_btn"])[3]  #  0  -30  ${add_filter}
   Sleep  2s
-  ${right_count}  Get Matching Xpath Count  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"cellmultiline")]
-  Should Be Equal  3  ${right_count}
+  ${right_count}  Get Element Count  (//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"cellmultiline")]
+  Should Be True  ${right_count} == 3
 
 
 Натиснути кнопку "Добавить"
@@ -441,7 +453,14 @@ Scroll Page To Element XPATH
 Ввести назву регістру
 	[Arguments]  ${name}
 	${registr text}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
+	${option}  Set Variable  //em[contains(text(), "Таблицы")]
 	Wait Until Page Contains Element  ${registr text}  timeout=10
 	Input Text  ${registr text}  ${name}
+	Sleep  .5
     Press Key  ${registr text}  \\13
-    Sleep  1
+    Sleep  2
+    ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${option}
+    Run Keyword If  '${status}' == 'PASS'  Click Element  ${option}
+    Sleep  .5
+    Press Key  ${registr text}  \\13
+    Дочекатись загрузки сторінки (ita)
