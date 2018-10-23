@@ -70,6 +70,8 @@ ${Button1}  //div[@role="link"]
 
 Змінити значення в комірці
 	[Arguments]  ${value}
+	Reload Page
+	Дочекатись Загрузки Сторінки (ita)
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
 	Click Element  ${field}
 	Sleep  2

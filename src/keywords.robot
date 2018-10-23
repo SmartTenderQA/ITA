@@ -47,7 +47,7 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  #${alies}  ${hub}  #platformName:${platform}
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  #platformName:${platform}
   Run Keyword If  '${browser}' != 'edge'  Set Window Size  1280  1024
 
 
@@ -413,6 +413,7 @@ Check Prev Test Status
 Ввести значення
   [Arguments]  ${value}
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
+
   Input Text  ${row}  ${value}
   Press Key  ${row}  ${enter btn}
 
