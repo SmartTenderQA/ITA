@@ -102,5 +102,5 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 Перейти До Вкладки
   [Arguments]  ${value}
-  Wait Until Page Contains Element  //a[contains(text(), '${value}')]
+  Wait Until Element Is Visible  //a[contains(text(), '${value}')]
   Click Element  //a[contains(text(), '${value}')]
