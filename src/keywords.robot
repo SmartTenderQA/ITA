@@ -231,7 +231,9 @@ Check Prev Test Status
   [Arguments]  ${value}
   Wait Until Element Is Visible  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]  30
   Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
-  Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
+  Wait Until Element Is Visible  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]  10
+  ${status}  Run Keyword And Return Status  Click Element  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
+  Run Keyword If  ${status} == ${False}  В полі регістр вибрати пункт  ${value}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(),'${value}')])[1]
 
 
@@ -432,3 +434,12 @@ Scroll Page To Element XPATH
   Press Key  ${field}  \\9   #press tab
   ${field value}  Get Element Attribute  ${field}  value
   Should Be Empty  ${field value}
+
+
+Ввести назву регістру
+	[Arguments]  ${name}
+	${registr text}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
+	Wait Until Page Contains Element  ${registr text}  timeout=10
+	Input Text  ${registr text}  ${name}
+    Press Key  ${registr text}  \\13
+    Sleep  1
