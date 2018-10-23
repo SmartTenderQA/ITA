@@ -112,7 +112,7 @@ Check Prev Test Status
 
 
 Натиснути кнопку вхід
-  Repeat Keyword  2 times  Натиснути кнопку вхід ${env}
+  Run Keyword  Натиснути кнопку вхід ${env}
 
 
 Натиснути кнопку вхід ITA
@@ -159,14 +159,14 @@ Check Prev Test Status
 
 Ввести команду
   [Arguments]  ${command}
-  Run Keyword  Ввести команду ${env}  ${command}
+  Repeat Keyword  2 times  Ввести команду ${env}  ${command}
 
 
 Ввести команду ITA
   [Arguments]  ${command}
   ${textarea}  Set Variable  //*[@aria-hidden='false']//textarea
   Input Text  ${textarea}  ${command}
-
+  Sleep  .5
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
