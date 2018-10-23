@@ -32,6 +32,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
 "Консоль". C# Вставити текст у комірку та перейти на іншу
+  debug
   ${selector}  Активувати комірку для редагування
   Вставити довільний текст до комірки  ${selector}
   Вибрати іншіу довільну комірку  ${selector}
