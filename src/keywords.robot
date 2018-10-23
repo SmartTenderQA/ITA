@@ -386,7 +386,8 @@ Check Prev Test Status
   [Arguments]  ${selector}
   ${text}  create_sentence  1
   Set Global Variable  ${row text}  ${text}
-  Input Text  ${selector}//input  ${text}
+  ${input field}  Set Variable  ${selector}//input
+  Input Type Flex  ${input field}  ${value}
 
 
 Вибрати іншіу довільну комірку
@@ -413,7 +414,7 @@ Check Prev Test Status
 Ввести значення
   [Arguments]  ${value}
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
-  Input Text  ${row}  ${value}
+  Input Type Flex  ${row}  ${value}
   Press Key  ${row}  ${enter btn}
 
 
