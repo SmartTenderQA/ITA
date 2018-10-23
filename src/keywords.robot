@@ -47,8 +47,8 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  #platformName:${platform}
-  #Set Window Size  1280  1024
+  Open Browser  ${url.${env}}  ${browser}  #${alies}  ${hub}  #platformName:${platform}
+  Run Keyword If  '${browser}' != 'edge'  Set Window Size  1280  1024
 
 
 Postcondition
@@ -166,7 +166,7 @@ Check Prev Test Status
   [Arguments]  ${command}
   ${textarea}  Set Variable  //*[@aria-hidden='false']//textarea
   Input Text  ${textarea}  ${command}
-  Sleep  .5
+  Sleep  1
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
@@ -185,6 +185,7 @@ Check Prev Test Status
   Click Element At Coordinates  ${confirm btn}  -40  0
   ${status}  Run Keyword And Return Status
   ...  Wait Until Element Is Not Visible  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
+  Sleep  3
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
 
 
@@ -390,6 +391,7 @@ Check Prev Test Status
 Вибрати іншіу довільну комірку
   [Arguments]  ${selector}
   Click Element  ${selector}/following-sibling::*
+  Sleep  1
   ${text}  Get Text  ${selector}
   Page Should Contain Element   ${selector}//td[text()='${text}']
 
