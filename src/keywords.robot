@@ -183,7 +183,6 @@ Check Prev Test Status
 Натиснути Кнопку "1 Выполнить" ITA
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
-  Дочекатись загрузки сторінки (ita)
   ${status}  Run Keyword And Return Status
   ...  Wait Until Element Is Not Visible  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
