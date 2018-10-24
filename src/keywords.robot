@@ -336,10 +336,6 @@ Check Prev Test Status
   [Arguments]  ${title}
   ${selector}  Set Variable  xpath=//*[contains(@class,'extended-menu')]//*[@title="${title}"]
   Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
-  Wait Until Element Is Visible  ${selector}  15
-#  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${selector}  2
-#  Run Keyword If  '${status}' == 'False'  Scroll Page To Element XPATH  ${selector}
-  Click Element  ${selector}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Page Contains  ${title}  15
 
