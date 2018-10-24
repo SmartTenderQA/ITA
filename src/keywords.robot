@@ -462,7 +462,7 @@ Scroll Page To Element XPATH
   ${option}  Set Variable  //em[contains(text(), "${name}")]
   Wait Until Page Contains Element  ${registr name input}  10
   Clear Element Text  ${registr name input}
-  Sleep  .5
+  Sleep  2
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
   Press Key  ${registr name input}  \\13
