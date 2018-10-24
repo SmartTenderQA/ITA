@@ -335,9 +335,7 @@ Check Prev Test Status
 Запустити функцію додаткового меню
   [Arguments]  ${title}
   ${selector}  Set Variable  xpath=//*[contains(@class,'extended-menu')]//*[@title="${title}"]
-  #${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${selector}  2
-  #Run Keyword If  '${status}' == 'False'  Scroll Page To Element XPATH  ${selector}
-  Click Element  ${selector}
+  Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
   Дочекатись Загрузки Сторінки (ita)
 
 
@@ -373,14 +371,14 @@ Check Prev Test Status
 
 
 Активувати комірку для редагування
-  ${row}  Set Variable  //table[contains(@class,'obj')]//tr
+  ${row}  Set Variable  //table[contains(@class,'obj')]//tr/td[2]
   ${n}  random_number  2  5
-  Click Element  ${row}[${n}]
+  Click Element  (${row})[${n}]
   Sleep  2
   Press Key  //html/body  \\13
   Sleep  2
-  Page Should Contain Element  ${row}[${n}]//td[@class='cellselected editable']
-  [Return]  ${row}[${n}]
+  Page Should Contain Element  //td[@class='cellselected editable']
+  [Return]  (${row})[${n}]
 
 
 Вставити довільний текст до комірки
@@ -393,10 +391,10 @@ Check Prev Test Status
 
 Вибрати іншіу довільну комірку
   [Arguments]  ${selector}
-  Click Element  ${selector}/following-sibling::*
-  Sleep  1
+  Double Click Element  ${selector}/../following-sibling::*
+  Sleep  .5
   ${text}  Get Text  ${selector}
-  Page Should Contain Element   ${selector}//td[text()='${text}']
+  Page Should Contain Element  //td[text()='${text}']
 
 
 Перевірити збереження тексту в комірці
