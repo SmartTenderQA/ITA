@@ -85,6 +85,6 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 	${list}  Create List  rgba(255, 230, 230, 1)  rgb(255, 230, 230)
 	${elem}  Get Webelement  ${registr text}
 	${bg color}  Call Method  ${elem}  value_of_css_property  background-color
-	Should Contain Any  ${list}  ${bg color}
+	Run Keyword If  '${browser}' != 'edge'  Should Contain Any  ${list}  ${bg color}
 
 
