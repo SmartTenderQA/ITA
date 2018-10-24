@@ -53,9 +53,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 В поле «Регистр» ввести
 	[Arguments]  ${name}
 	Wait Until Page Contains Element  ${registr text}  timeout=15
-	Input Text  ${registr text}  ${name}
-    Press Key  ${registr text}  \\13
-    Sleep  1
+    Ввести назву регістру  ${name}
 	${value_title}  Get Element Attribute  ${report_title}  value
 	Set Global Variable  ${value_title}
 
