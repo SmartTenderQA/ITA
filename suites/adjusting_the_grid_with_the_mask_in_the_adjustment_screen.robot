@@ -73,13 +73,16 @@ ${Button1}  //div[@role="link"]
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
 	Click Element  ${field}
 	Sleep  2
-    Press Key  //html/body  \\13
+    Click Element  ${field}
+	Sleep  2
+	Click Element  ${field}
 	Sleep  2
 	${input field}  Set Variable  ${field}//input
+	Clear Element Text  ${input field}
 	Input Type Flex  ${input field}  ${value}
-	Sleep  1
 	Run Keyword And Ignore Error  Press Key  //html/body  \\13
-	Click Element  ${field}
+	Sleep  .5
+	Click Element At Coordinates  ${field}  0  30
 
 
 Закрити валідаційне вікно
