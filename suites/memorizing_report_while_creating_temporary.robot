@@ -61,8 +61,7 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 
 Створити та ввести назву звіту
 	${text}  create_sentence  1
-    Wait Until Page Contains Element  ${input report title}  timeout=10
-    Input Text                        ${input report title}  ${text}
+    Ввести назву регістру  ${text}
     Set Global Variable  ${saved_report}  ${text}
 
 
