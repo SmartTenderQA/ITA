@@ -461,8 +461,7 @@ Scroll Page To Element XPATH
   ${registr name input}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
   ${option}  Set Variable  //em[contains(text(), "${name}")]
   Wait Until Page Contains Element  ${registr name input}  10
-  Clear Element Text  ${registr name input}
-  Sleep  2
+  Sleep  .5
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
   Press Key  ${registr name input}  \\13
