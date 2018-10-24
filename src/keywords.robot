@@ -465,9 +465,10 @@ Scroll Page To Element XPATH
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
   Press Key  ${registr name input}  \\13
+  debug
   Run Keyword If  '${name}' == 'Таблицы'  Run Keywords
   ...  Sleep  2
-  ...  AND  Press Key  ${registr name input}  \\13
+  ...  AND  Click Element  xpath=(//span//*[text()='Таблицы'])[1]
   Дочекатись загрузки сторінки (ita)
   ${registr name}  Get Element Attribute  ${registr name input}  value
   ${check name}  Run Keyword And Return Status  Should Be Equal  ${registr name}  ${name}
