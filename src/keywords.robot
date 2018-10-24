@@ -397,7 +397,7 @@ Check Prev Test Status
   Sleep  .5
   Press Key  //html/body  \\13
   ${text}  Get Text  ${selector}
-  Page Should Contain Element  //td[text()='${text}']
+  Page Should Contain Element  //td[text()="${text}"]
 
 
 Перевірити збереження тексту в комірці
