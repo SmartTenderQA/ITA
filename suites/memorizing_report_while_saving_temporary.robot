@@ -73,7 +73,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Run Keyword If  ${status} == ${False}    Натиснути кнопку "Мои настройки"
   Дочекатись Загрузки Сторінки (ita)
   ${my_settings}=    Get Text  //*[@class="float-container-header-text"]
-  Should Be Equal   '${my_settings}'  'МОИ НАСТРОЙКИ'
+  Should Contain Any  ${my_settings}  МОИ НАСТРОЙКИ  Мои настройки
 
 
 Натиснути кнопку "Сохранить"

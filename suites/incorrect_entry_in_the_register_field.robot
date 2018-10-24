@@ -64,7 +64,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 	${text}  create_sentence  1
 	Wait Until Page Contains Element  ${registr text}  timeout=15
     Set Global Variable  ${text}
-    Input Text  ${registr text}  ${text}
+    Input Type Flex  ${registr text}  ${text}
 	Press Key  ${registr text}  \\13
     Sleep  1
 
