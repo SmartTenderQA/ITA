@@ -465,10 +465,8 @@ Scroll Page To Element XPATH
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
   Press Key  ${registr name input}  \\13
-  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${option}  3
-  Run Keyword If  '${status}' == 'PASS'  Run Keywords
-  ...  Click Element  ${option}
-  ...  AND  Sleep  .5
+  Run Keyword If  '${name}' == 'Таблицы'  Run Keywords
+  ...  Sleep  2
   ...  AND  Press Key  ${registr name input}  \\13
   Дочекатись загрузки сторінки (ita)
   ${registr name}  Get Element Attribute  ${registr name input}  value
