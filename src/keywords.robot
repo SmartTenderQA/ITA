@@ -203,8 +203,10 @@ Check Prev Test Status
 
 
 Перевірити наявність кнопок "Да/Нет"
-  Element Should Contain  xpath=//*[contains(@class, 'message-box-button')][1]  ДА
-  Element Should Contain  xpath=//*[contains(@class, 'message-box-button')][2]  НЕТ
+  ${yes}  Get Text  xpath=//*[contains(@class, 'message-box-button')][1]
+  Should Contain Any  ${yes}  Да  ДА
+  ${no}  Get Text  xpath=//*[contains(@class, 'message-box-button')][2]
+  Should Contain Any  ${no}  Нет  НЕТ
 
 
 Натиснути кнопку "Да" для закриття діалогу
