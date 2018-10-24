@@ -54,10 +54,11 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Sleep  .5
   Click Element  ${field}
   Sleep  .5
-  Click Element  //div[@id="Clear"]
+  Run Keyword And Ignore Error  Click Element  //div[@id="Clear"]
   Sleep  .5
   ${field value}  Get Element Attribute  ${field}  value
-  Should Be Empty  ${field value}
+  ${status}  Run Keyword And Return Status  Should Be Empty  ${field value}
+  Run Keyword If  ${status} == ${False}  Очистити поле від тексту  ${field}
   Press Key  ${field}  \\9   #press tab
   Дочекатись Загрузки Сторінки (ita)
 
