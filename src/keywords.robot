@@ -462,7 +462,6 @@ Scroll Page To Element XPATH
   ${registr name input}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Page Contains Element  ${registr name input}  10
-  Clear Element Text  ${registr name input}
   Sleep  .5
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
