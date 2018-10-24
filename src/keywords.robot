@@ -6,6 +6,7 @@ Library     DebugLibrary
 Library     OperatingSystem
 Library     Faker/faker.py
 Library     service.py
+Library     String
 
 
 *** Variables ***
@@ -236,13 +237,13 @@ Check Prev Test Status
 В полі регістр вибрати пункт
   [Arguments]  ${value}
   ${register_input}  Set Variable  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
-  ${register_dropdown button}  Set Variable  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//td[@code=0])[1]
+  ${register_dropdown button}  Set Variable  (//*[@data-caption="+ Добавить"])[1]//*[@code='0']
   ${selector}  Set variable  (//*[contains(text(),'${value}')])[1]
   Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  ${register_input}  30
   Click Element  ${register_input}
   Wait Until Element Is Visible  ${register_dropdown button}  10
-  Run Keyword And Ignore Error  Click Element  ${register_dropdown button}
+  Run Keyword And Ignore Error  Double Click Element  ${register_dropdown button}
   ${status}  Run Keyword And Return Status  Element Should Be Visible  ${selector}
   Run Keyword If  ${status} == ${False}  В полі регістр вибрати пункт  ${value}
   Run Keyword And Ignore Error  Click Element  ${selector}
@@ -459,16 +460,13 @@ Scroll Page To Element XPATH
 Ввести назву регістру
   [Arguments]  ${name}
   ${registr name input}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
-  #${option}  Set Variable  //em[contains(text(), "${name}")]
+  Дочекатись Загрузки Сторінки (ita)
   Wait Until Page Contains Element  ${registr name input}  10
+  Clear Element Text  ${registr name input}
   Sleep  .5
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
   Press Key  ${registr name input}  \\13
-  Run Keyword If  '${name}' == 'Таблицы'  Run Keywords
-  ...  Sleep  1
-  ...  AND  Click Element  xpath=(//span//em[text()='Таблицы'])[1]
-  ...  AND  Sleep  1
   Дочекатись загрузки сторінки (ita)
   ${registr name}  Get Element Attribute  ${registr name input}  value
   ${check name}  Run Keyword And Return Status  Should Be Equal  ${registr name}  ${name}

@@ -78,7 +78,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 
 Перевірити Наявність Messagebox
-	Element Should Be Visible  ${message}
+	Run Keyword If  '${browser}' != 'edge'  Element Should Be Visible  ${message}
 
 
 Перевірити Зміну Кольору Поля "Регистр"
