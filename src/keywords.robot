@@ -474,7 +474,7 @@ Scroll Page To Element XPATH
   Дочекатись загрузки сторінки (ita)
   ${registr name}  Get Element Attribute  ${registr name input}  value
   ${check name}  Run Keyword And Return Status  Should Be Equal  ${registr name}  ${name}
-  Run Keyword If  '${check name}' == 'FAIL'  Ввести назву регістру  ${name}
+  Run Keyword If  '${check name}' == 'False'  Ввести назву регістру  ${name}
 
 
 Input Type Flex
