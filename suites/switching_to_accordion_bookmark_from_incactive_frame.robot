@@ -50,7 +50,6 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 Натиснути на панель
   [Arguments]  ${title}
   ${selector}  Set Variable  //div[@class="dhx_cell_hdr_text"]/span[contains(text(), '${title}')]
-  debug
   Click Element  ${selector}
   Wait Until Page Does Not Contain Element  //span[contains(text(), '${title}')]/ancestor::div[3][contains(@class,'closed')]  15
   ${tab_class}  Get Element Attribute   ${selector}/ancestor::div[contains(@class, "cell_acc")]  class
