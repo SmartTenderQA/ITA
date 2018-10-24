@@ -165,8 +165,11 @@ Check Prev Test Status
 Ввести команду ITA
   [Arguments]  ${command}
   ${textarea}  Set Variable  //*[@aria-hidden='false']//textarea
+  Clear Element Text  ${textarea}
+  Sleep  .5
   Input Text  ${textarea}  ${command}
-  Sleep  1
+  Sleep  .5
+
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
@@ -455,7 +458,7 @@ Scroll Page To Element XPATH
   ${registr text}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
   ${option}  Set Variable  //em[contains(text(), "Таблицы")]
   Wait Until Page Contains Element  ${registr text}  timeout=10
-  Input Text  ${registr text}  ${name}
+  Input Type Flex  ${registr text}  ${name}
   Sleep  .5
   Press Key  ${registr text}  \\13
   Sleep  2
