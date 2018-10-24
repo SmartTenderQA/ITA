@@ -458,17 +458,17 @@ Scroll Page To Element XPATH
 
 Ввести назву регістру
   [Arguments]  ${name}
-  ${registr text}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
-  ${option}  Set Variable  //em[contains(text(), "Таблицы")]
-  Wait Until Page Contains Element  ${registr text}  timeout=10
-  Input Type Flex  ${registr text}  ${name}
+  ${registr name input}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
+  ${option}  Set Variable  //em[contains(text(), "${name}")]
+  Wait Until Page Contains Element  ${registr name input}  10
+  Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
-  Press Key  ${registr text}  \\13
-  Sleep  2
-  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${option}
-  Run Keyword If  '${status}' == 'PASS'  Click Element  ${option}
-  Sleep  .5
-  Press Key  ${registr text}  \\13
+  Press Key  ${registr name input}  \\13
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${option}  3
+  Run Keyword If  '${status}' == 'PASS'  Run Keywords
+  ...  Click Element  ${option}
+  ...  AND  Sleep  .5
+  ...  AND  Press Key  ${registr name input}  \\13
   Дочекатись загрузки сторінки (ita)
 
 
