@@ -183,7 +183,7 @@ Check Prev Test Status
 Натиснути Кнопку "1 Выполнить" ITA
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
-  ${status}  Run Keyword And Return Status
+  ${status}  Run Keyword And Return Status  Run Keyword And Ignore Error
   ...  Wait Until Element Is Not Visible  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
   Sleep  3
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
@@ -373,11 +373,9 @@ Check Prev Test Status
   ${row}  Set Variable  //table[contains(@class,'obj')]//tr
   ${n}  random_number  2  5
   Click Element  ${row}[${n}]
-  Sleep  3
-  Click Element  ${row}[${n}]
-  Sleep  3
-  Click Element  ${row}[${n}]
-  Sleep  3
+  Sleep  2
+  Press Key  //html/body  \\13
+  Sleep  2
   Page Should Contain Element  ${row}[${n}]//td[@class='cellselected editable']
   [Return]  ${row}[${n}]
 
