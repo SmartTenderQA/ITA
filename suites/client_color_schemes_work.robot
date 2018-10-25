@@ -73,6 +73,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 
 Змінити основний колір в налаштуваннях
+  Capture Page Screenshot
   Click Element  ${main color btn}
   Wait Until Element Is Visible  ${palette colors}
   ${n}  Get Element Count  ${palette colors}
@@ -83,6 +84,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
   Set Global Variable  ${new color}
   Click Element  ${palette colors}[${random}]
   Wait Until Element Is Not Visible  ${palette colors}
+  Capture Page Screenshot
 
 
 Визначити колір елемента
