@@ -43,13 +43,6 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Should Be Equal  '${register}'  '${value}'
 
 
-Перевірити що поле не пусте
-  [Arguments]  ${field}
-  Run Keyword If  '${browser}' == 'edge'  Sleep  3
-  ${field value}  Get Element Attribute  ${field}  value
-  Should Not Be Empty  ${field value}
-
-
 Очистити поле від тексту
   [Arguments]  ${field}
   Sleep  .5

@@ -443,6 +443,7 @@ Scroll Page To Element XPATH
 
 Перевірити що поле не пусте
   [Arguments]  ${field}
+  Run Keyword If  '${browser}' == 'edge'  Sleep  3
   ${field value}  Get Element Attribute  ${field}  value
   Should Not Be Empty  ${field value}
 
