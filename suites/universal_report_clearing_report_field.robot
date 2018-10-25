@@ -48,7 +48,8 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Sleep  .5
   Click Element  ${field}
   Sleep  .5
-  Run Keyword And Ignore Error  Click Element  //div[@id="Clear"]
+  debug
+  Click Element  //*[@id="Clear"]
   Sleep  .5
   ${field value}  Get Element Attribute  ${field}  value
   ${status}  Run Keyword And Return Status  Should Be Empty  ${field value}
