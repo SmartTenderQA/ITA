@@ -37,7 +37,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
   Перейти на вкладку "Цветовые схемы"
   Змінити основний колір в налаштуваннях
   Закрити вікно налаштувань користувача
-
+  Визначити новий основний колір
 
 Перевірити що заголовок клієнта має новий колір
   Звірити що поточний колір відповідає новому
@@ -63,6 +63,11 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 
 Визначити поточний основний колір
+  ${new color}  Визначити колір елемента  ${top toolbar}
+  Set Global Variable  ${new color}
+
+
+Визначити новий основний колір
   ${present color}  Визначити колір елемента  ${top toolbar}
   Set Global Variable  ${present color}
 
@@ -81,7 +86,6 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
   \  ${random}  random_number  1  ${n}
   \  ${new color}  Визначити колір елемента  ${palette colors}[${random}]
   \  Exit For Loop If  '${new color}' != '${present color}'
-  Set Global Variable  ${new color}
   Click Element  ${palette colors}[${random}]
   Wait Until Element Is Not Visible  ${palette colors}
   Capture Page Screenshot
