@@ -66,6 +66,8 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 Перевірити Назву Регістру
 	Wait Until Page Contains Element  ${registr text}
+	Click Element  ${registr text}
+	Sleep  .5
 	${check}  Get Element Attribute  ${registr text}   value
 	Should Be Equal  ${text}  ${check}
 
