@@ -48,9 +48,8 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Sleep  .5
   Click Element  ${field}
   Sleep  .5
-  ${status}  run keyword and return status  Element Should be visible  //*[@id="Clear"]
-  Run Keyword If  '${status}' == 'False'  Очистити поле від тексту  ${field}
-  Click Element  //*[@id="Clear"]
+  ${status}  run keyword and return status  Click Element  //*[@id="Clear"]
+  Run Keyword If  '${status}' == 'False'  Clear Element Text  ${field}
   Sleep  .5
   ${field value}  Get Element Attribute  ${field}  value
   ${status}  Run Keyword And Return Status  Should Be Empty  ${field value}
