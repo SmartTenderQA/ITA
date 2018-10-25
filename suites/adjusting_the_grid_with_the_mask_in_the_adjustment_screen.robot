@@ -73,12 +73,10 @@ ${Button1}  //div[@role="link"]
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
 	Click Element  ${field}
 	Sleep  2
-    Click Element  ${field}
-	Sleep  2
-	Click Element  ${field}
+    Press Key  //html/body  \\13
 	Sleep  2
 	${input field}  Set Variable  ${field}//input
-	Clear Element Text  ${input field}
+	#Clear Element Text  ${input field}
 	Input Type Flex  ${input field}  ${value}
 	Run Keyword And Ignore Error  Press Key  //html/body  \\13
 	Sleep  .5
