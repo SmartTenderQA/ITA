@@ -29,10 +29,10 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Перевірити що поле не пусте  ${report_title}
 
 
-Очистити поле "Регистр"
-  Очистити поле від тексту  ${register_selector}
-  Перевірити що поле не пусте  ${register_selector}
-  Перевірити що поле не пусте  ${report_title}
+Очистити поле "Отчет"
+  Очистити поле від тексту  ${report_title}
+  Перевірити що обрано пункт  UI-Тестирование
+  Перевірити що поле пусте  ${report_title}
 
 
 *** Keywords ***
