@@ -48,7 +48,6 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Sleep  .5
   Click Element  ${field}
   Sleep  .5
-  debug
   Click Element  //*[@id="Clear"]
   Sleep  .5
   ${field value}  Get Element Attribute  ${field}  value
