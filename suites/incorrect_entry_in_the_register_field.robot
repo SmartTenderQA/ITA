@@ -66,10 +66,6 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 Перевірити Назву Регістру
 	Wait Until Page Contains Element  ${registr text}
-	Click Element  ${registr text}
-	Sleep  .5
-	Click Element  //*[text()='Регистр']
-	Sleep  .5
 	${check}  Get Element Attribute  ${registr text}   value
 	Should Be Equal  ${text}  ${check}
 
@@ -85,7 +81,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 Перевірити Зміну Кольору Поля "Регистр"
 	${list}  Create List  rgba(255, 230, 230, 1)  rgb(255, 230, 230)
-	Click Element  ${registr text}
+	Click Element At Coordinates  ${registr text}  0  10
 	${elem}  Get Webelement  ${registr text}
 	${bg color}  Call Method  ${elem}  value_of_css_property  background-color
 	Should Contain Any  ${list}  ${bg color}
