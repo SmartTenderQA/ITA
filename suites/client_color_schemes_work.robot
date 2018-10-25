@@ -62,14 +62,15 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
   Wait Until Page Contains  Мои настройки
 
 
-Визначити поточний основний колір
+Визначити новий основний колір
   ${new color}  Визначити колір елемента  ${top toolbar}
   Set Global Variable  ${new color}
 
 
-Визначити новий основний колір
+Визначити поточний основний колір
   ${present color}  Визначити колір елемента  ${top toolbar}
   Set Global Variable  ${present color}
+
 
 Перейти на вкладку "Цветовые схемы"
   Wait Until Element Is Visible  ${color scheme tab}
