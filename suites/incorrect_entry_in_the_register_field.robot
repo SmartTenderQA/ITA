@@ -68,7 +68,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 	Wait Until Page Contains Element  ${registr text}
 	Click Element  ${registr text}
 	Sleep  .5
-	Press Key  ${registr text}  \\09
+	Click Element  //*[text()='Регистр']
 	Sleep  .5
 	${check}  Get Element Attribute  ${registr text}   value
 	Should Be Equal  ${text}  ${check}
