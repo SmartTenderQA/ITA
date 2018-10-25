@@ -81,11 +81,12 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 Перевірити Зміну Кольору Поля "Регистр"
 	${list}  Create List  rgba(255, 230, 230, 1)  rgb(255, 230, 230)
+	Click Element  ${registr text}
 	${elem}  Get Webelement  ${registr text}
 	${bg color}  Call Method  ${elem}  value_of_css_property  background-color
 	Should Contain Any  ${list}  ${bg color}
 
 
 Запам'ятати назву звіту
-    ${value_title}  Get Element Attribute  ${report_title}  value
+    ${report_title_value}  Get Element Attribute  ${report_title}  value
 	Set Global Variable  ${report_title_value}
