@@ -31,6 +31,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 В поле «Регистр» ввести UI-Тестирование та перевірити поле «Отчет».
 	В поле «Регистр» ввести  UI-Тестирование
 	Перевірити що поле не пусте  ${report_title}
+    Запам'ятати назву звіту
 
 
 Створити та ввести нову назву регістру
@@ -54,8 +55,6 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 	[Arguments]  ${name}
 	Wait Until Page Contains Element  ${registr text}  timeout=15
     Ввести назву регістру  ${name}
-	${value_title}  Get Element Attribute  ${report_title}  value
-	Set Global Variable  ${value_title}
 
 
 Створити та ввести нову назву регістру
@@ -72,21 +71,22 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 
 Перевірити поле "Отчет"
-	Wait Until Page Contains Element  ${report_title}
 	${value}  Get Element Attribute  ${report_title}   value
-	Should Be Equal  ${value_title}  ${value}
+	Should Be Equal  ${report_title_value}  ${value}
 
 
 Перевірити Наявність Messagebox
-	Run Keyword If  '${browser}' == 'edge'  Sleep  3
 	Element Should Be Visible  ${message}
 
 
 Перевірити Зміну Кольору Поля "Регистр"
 	${list}  Create List  rgba(255, 230, 230, 1)  rgb(255, 230, 230)
-	Run Keyword If  '${browser}' == 'edge'  Sleep  3
+	Click Element At Coordinates  ${registr text}  0  10
 	${elem}  Get Webelement  ${registr text}
 	${bg color}  Call Method  ${elem}  value_of_css_property  background-color
 	Should Contain Any  ${list}  ${bg color}
 
 
+Запам'ятати назву звіту
+    ${report_title_value}  Get Element Attribute  ${report_title}  value
+	Set Global Variable  ${report_title_value}

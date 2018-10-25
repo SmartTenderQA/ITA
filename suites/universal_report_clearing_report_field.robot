@@ -29,10 +29,10 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Перевірити що поле не пусте  ${report_title}
 
 
-Очистити поле "Регистр"
-  Очистити поле від тексту  ${register_selector}
-  Перевірити що поле не пусте  ${register_selector}
-  Перевірити що поле не пусте  ${report_title}
+Очистити поле "Отчет"
+  Очистити поле від тексту  ${report_title}
+  Перевірити що обрано пункт  UI-Тестирование
+  Перевірити що поле пусте  ${report_title}
 
 
 *** Keywords ***
@@ -48,7 +48,8 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Sleep  .5
   Click Element  ${field}
   Sleep  .5
-  Run Keyword And Ignore Error  Click Element  //div[@id="Clear"]
+  ${status}  run keyword and return status  Click Element  //*[@id="Clear"]
+  Run Keyword If  '${status}' == 'False'  Clear Element Text  ${field}
   Sleep  .5
   ${field value}  Get Element Attribute  ${field}  value
   ${status}  Run Keyword And Return Status  Should Be Empty  ${field value}
