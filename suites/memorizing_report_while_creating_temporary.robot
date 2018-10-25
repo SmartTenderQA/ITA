@@ -31,7 +31,7 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 	Ввести назву регістру  UI-Тестирование
 	Натиснути кнопку "Мои настройки"
 	Натиснути кнопку "Общие"
-	Створити та ввести назву звіту
+	Ввести довільну назву звіту
 	Натиснути кнопку "Сохранить"
 
 
@@ -57,6 +57,7 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
 Натиснути кнопку "Общие"
 	Дочекатись Загрузки Сторінки (ita)
 	Click Element	//*[@id="ui-id-23" and @class='ui-tabs-anchor']
+	Дочекатись Загрузки Сторінки (ita)
 
 
 Створити та ввести назву звіту
@@ -79,7 +80,7 @@ ${input test report title}                //div[@help-id="REP_SMPLREPORTID"]//in
    Дочекатись Загрузки Сторінки (ita)
    Wait Until Page Contains Element  ${input test report title}
    ${check}  Get Element Attribute  ${input test report title}  value
-   Should Not Be Equal  ${saved_report}  ${check}
+   Should Not Be Equal  ${text}  ${check}
 
 
 Натиснути кнопку
