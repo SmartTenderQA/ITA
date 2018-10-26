@@ -69,7 +69,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
 Перевірка що відкрито закладку відбір
-  Page Should Contain Element  //div[@title="Отбор" and contains(@class, "checked")]
+  Wait Until Page Contains Element  //div[@title="Отбор" and contains(@class, "checked")]  15
   ${checkbox_count}  Get Element Count  //div[contains(@help-id, "CHECKBOX")]
   Should Be True  ${checkbox_count} > 1
   # наименования полей и операций
