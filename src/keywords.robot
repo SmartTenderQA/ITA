@@ -353,6 +353,7 @@ Check Prev Test Status
   Дочекатись загрузки сторінки (ita)
 
 
+
 Перейти до першого знайденого пункта меню
   ${first_search_item}  Set Variable  xpath=((//*[@class="search-panel-text"]/ancestor::div[2]//div/*[text()='Универсальный'])[2]
   Wait Until Keyword Succeeds  10  2  Click Element  ${first_search_item}
