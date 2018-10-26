@@ -340,7 +340,7 @@ Check Prev Test Status
   ${selector}  Set Variable  xpath=//*[contains(@class,'extended-menu')]//*[@title="${title}"]
   Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
   Дочекатись Загрузки Сторінки (ita)
-  Wait Until Page Contains  ${title}  15
+  Wait Until Element Is Not Visible  ${selector}
 
 
 Натиснути пункт головного меню
@@ -349,8 +349,9 @@ Check Prev Test Status
   ${status}  Run Keyword And Return Status  Element Should Be Visible  ${selector}
   Run Keyword If  '${status}' == 'False'  Click Element At Coordinates  ${menu_scroll}  0  300
   Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
-  Wait Until Page Contains Element  xpath=//*[contains(@class,'selected') and @title="${title}"]
+  Wait Until Element Is Visible  xpath=//*[contains(@class,'selected') and @title="${title}"]
   Дочекатись загрузки сторінки (ita)
+
 
 
 Перейти до першого знайденого пункта меню
