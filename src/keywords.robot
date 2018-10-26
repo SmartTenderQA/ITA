@@ -309,6 +309,7 @@ Check Prev Test Status
 
 Натиснути пункт "Удалить отчет"
   Wait Until Keyword Succeeds  30  3  Click Element  ${delete_report}
+  Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]  15
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=//*[text()='Удалить']
   Дочекатись Загрузки Сторінки (ita)
 
