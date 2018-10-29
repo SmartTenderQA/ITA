@@ -39,13 +39,13 @@ ${Button1}  //div[@role="link"]
 
 
 Змінити значення комірки на 1000 та перевірити
-	Wait Until Keyword Succeeds  40  10  Змінити значення в комірці  1000
+	Змінити значення в комірці  1000
 	Закрити валідаційне вікно  1000
 	Отримати та порівняти значення поля  1000
 
 
 Змінити значення комірки на 0 та перевірити
-	Wait Until Keyword Succeeds  40  10  Змінити значення в комірці  0
+    Змінити значення в комірці  0
 	Закрити валідаційне вікно  0
 	Отримати та порівняти значення поля  0
 
@@ -71,6 +71,12 @@ ${Button1}  //div[@role="link"]
 Змінити значення в комірці
 	[Arguments]  ${value}
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
+	Wait Until Keyword Succeeds  30  10  Ввести значення в комірку  ${value}  ${field}
+	Click Element At Coordinates  ${field}  0  30
+
+
+Ввести значення в комірку
+  [Arguments]  ${value}  ${field}
 	Click Element  ${field}
 	Sleep  2
     Click Element  ${field}
@@ -82,7 +88,6 @@ ${Button1}  //div[@role="link"]
 	Input Type Flex  ${input field}  ${value}
 	Run Keyword And Ignore Error  Press Key  //html/body  \\13
 	Sleep  .5
-	Click Element At Coordinates  ${field}  0  30
 
 
 Закрити валідаційне вікно
