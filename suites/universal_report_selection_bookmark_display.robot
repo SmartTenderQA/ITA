@@ -1,5 +1,4 @@
 *** Settings ***
-Documentation    Suite description
 Resource  ../src/keywords.robot
 Variables   var.py
 Library   data.py
