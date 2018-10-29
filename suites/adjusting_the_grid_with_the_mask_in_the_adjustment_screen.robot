@@ -45,7 +45,7 @@ ${Button1}  //div[@role="link"]
 
 
 Змінити значення комірки на 0 та перевірити
-	Змінити значення в комірці  0
+    Змінити значення в комірці  0
 	Закрити валідаційне вікно  0
 	Отримати та порівняти значення поля  0
 
@@ -71,16 +71,23 @@ ${Button1}  //div[@role="link"]
 Змінити значення в комірці
 	[Arguments]  ${value}
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
+	Ввести значення в комірку  ${value}  ${field}
+	Click Element At Coordinates  ${field}  0  30
+
+
+Ввести значення в комірку
+  [Arguments]  ${value}  ${field}
 	Click Element  ${field}
 	Sleep  2
-    Press Key  //html/body  \\13
+    Click Element  ${field}
+    #Press Key  //html/body  \\13
 	Sleep  2
+	Click Element  ${field}
 	${input field}  Set Variable  ${field}//input
-	#Clear Element Text  ${input field}
+	Clear Element Text  ${input field}
 	Input Type Flex  ${input field}  ${value}
 	Run Keyword And Ignore Error  Press Key  //html/body  \\13
 	Sleep  .5
-	Click Element At Coordinates  ${field}  0  30
 
 
 Закрити валідаційне вікно

@@ -48,7 +48,7 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  #platformName:${platform}
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  #platformName:XP    #${platform}
   Run Keyword If  '${browser}' != 'edge'  Set Window Size  1280  1024
 
 
@@ -309,6 +309,7 @@ Check Prev Test Status
 
 Натиснути пункт "Удалить отчет"
   Wait Until Keyword Succeeds  30  3  Click Element  ${delete_report}
+  Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]  15
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=//*[text()='Удалить']
   Дочекатись Загрузки Сторінки (ita)
 
