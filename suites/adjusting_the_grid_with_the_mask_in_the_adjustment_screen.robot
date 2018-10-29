@@ -71,7 +71,7 @@ ${Button1}  //div[@role="link"]
 Змінити значення в комірці
 	[Arguments]  ${value}
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
-	Wait Until Keyword Succeeds  30  10  Ввести значення в комірку  ${value}  ${field}
+	Ввести значення в комірку  ${value}  ${field}
 	Click Element At Coordinates  ${field}  0  30
 
 
