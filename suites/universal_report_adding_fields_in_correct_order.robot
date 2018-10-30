@@ -44,6 +44,13 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Перевірити створені колонки
 
 
+Видалити створений звіт
+  Натиснути випадаючий список кнопки "Конструктор"
+  Натиснути пункт "Удалить отчет"
+  Перевірити що обрано пункт  UI-Тестирование
+  Перевірити що назва звіту не порожня
+
+
 *** Keywords ***
 Відкрити головне меню та знайти пункт меню "Универсальный Отчет"
   Натиснути на логотип IT-Enterprise
@@ -117,6 +124,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   \  ${document_column}  Get Text  ${selector}[${items} + 1]
   \  Append To List  ${document_columns_sequence}  ${document_column}
   Should Be Equal  ${document_columns_sequence}  ${columns_sequence}
+  Unselect Frame
 
 
 Перевірити наявність елементів на сторінці
