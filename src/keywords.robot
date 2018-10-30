@@ -263,6 +263,8 @@ Check Prev Test Status
 
 
 Натиснути випадаючий список кнопки "Конструктор"
+  ${deleted_report_title}  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
+  Set Global Variable  ${deleted_report_title}
   Wait Until Keyword Succeeds  30  3  Click Element  ${constructor_drop_down}
   Дочекатись Загрузки Сторінки (ita)
   ${stat}  Run Keyword And Return Status  Wait Until Element is Visible  ${create_report}  10
@@ -310,6 +312,8 @@ Check Prev Test Status
 Натиснути пункт "Удалить отчет"
   Wait Until Keyword Succeeds  30  3  Click Element  ${delete_report}
   Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]  15
+  ${current_title}  Get Element Attribute  //div[@help-id="REPZSMPLRN"]/input  value
+  Should Be Equal  "${current_title}"  "${deleted_report_title}"
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=//*[text()='Удалить']
   Дочекатись Загрузки Сторінки (ita)
 
@@ -488,3 +492,8 @@ Input Type Flex
   ${items}    Get Length    ${text}
   : FOR    ${item}    IN RANGE    ${items}
   \    Press Key    ${locator}    ${text[${item}]}
+
+
+Перевірити що назва звіту не порожня
+  ${report_header}=  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
+  Should Be True  "${report_header}"
