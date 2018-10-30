@@ -492,3 +492,8 @@ Input Type Flex
   ${items}    Get Length    ${text}
   : FOR    ${item}    IN RANGE    ${items}
   \    Press Key    ${locator}    ${text[${item}]}
+
+
+Перевірити що назва звіту не порожня
+  ${report_header}=  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
+  Should Be True  "${report_header}"

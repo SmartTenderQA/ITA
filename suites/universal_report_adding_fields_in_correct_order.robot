@@ -59,11 +59,6 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   Запустити функцію додаткового меню  Универсальный отчет
 
 
-Перевірити що назва звіту не порожня
-  ${report_header}=  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
-  Should Be True  "${report_header}"
-
-
 Вибрати кілька довільних полей
   [Arguments]  ${value}
   Set Global Variable  ${column_elements}  (//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"cellmultiline")]
