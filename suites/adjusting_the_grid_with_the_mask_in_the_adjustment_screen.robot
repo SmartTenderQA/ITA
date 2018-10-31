@@ -76,18 +76,18 @@ ${Button1}  //div[@role="link"]
 
 
 Ввести значення в комірку
-  [Arguments]  ${value}  ${field}
-	Click Element  ${field}
-	Sleep  2
+    [Arguments]  ${value}  ${field}
+    Click Element  ${field}
+    Sleep  2
     Click Element  ${field}
     #Press Key  //html/body  \\13
-	Sleep  2
-	Click Element  ${field}
-	${input field}  Set Variable  ${field}//input
-	Clear Element Text  ${input field}
-	Input Type Flex  ${input field}  ${value}
-	Run Keyword And Ignore Error  Press Key  //html/body  \\13
-	Sleep  .5
+    Sleep  2
+    Click Element  ${field}
+    ${input field}  Set Variable  ${field}//input
+    Clear Element Text  ${input field}
+    Input Type Flex  ${input field}  ${value}
+    Run Keyword And Ignore Error  Press Key  //html/body  \\13
+    Sleep  .5
 
 
 Закрити валідаційне вікно
