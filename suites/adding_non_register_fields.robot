@@ -16,11 +16,12 @@ ${scroll field btn}                 xpath=//*[@help-id="REPZSMPLGRDSELECTFIELDS"
 ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 
 
-#  robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v hub:None suites/Adding_non_register_fields.robot
+#  robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v hub:None suites/adding_non_register_fields.robot
 #  команда для запуска
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
   Авторизуватися  ${login}  ${password}
+  Створити пустий список
 
 
 Відкрити головне меню та запустити функцію "Универсальный отчет"
@@ -43,18 +44,19 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   Перейти на вкладку "Поля"
 
 
-Перевірити розкриття полія та його довідника
-  Розкрити перше батьківське поле що має expander
-  Розкрити дочірній довідник з полями
-  Перевірити успішніть розгортання довідника полів
-
-
 Додати довільні поля з довідника основного поля
-  Вибрати довільні поля з довідника  3
+  [Template]  Вибрати довільні поля з довідників
+  1
+  2
+  3
+
+
+Перевірити що правильність вибору полів
+  Перевірити вибір полів
+
+
+Додати та перевірити запам'ятовування створеного звіту
   Натиснути кнопку "Добавить"
-
-
-Перевірка запам'ятовування створеного звіту після виходу
   Перевірити що обрано пункт  UI-Тестирование
   Перевірити відповідність заголовка звіту
 
@@ -66,28 +68,40 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 
 
 *** Keywords ***
-Розкрити перше батьківське поле що має expander
-  Click Element  ${exp field}[1]
-  Wait Until Page Contains Element  ${exp field}[1][contains(text(),'down')]
-
+Розкрити батьківське поле що має expander
+  [Arguments]  ${i}
+  Click Element  ${exp field}[${i}]
+  Wait Until Page Contains Element  ${exp field}[${i}]/ancestor::tr/following-sibling::tr[1]//*[contains(text(),'right')]
 
 
 Розкрити дочірній довідник з полями
-  Click Element  ${exp field}[2]
-  Wait Until Page Contains Element  ${exp field}[2][contains(text(),'down')]
+  [Arguments]  ${i}
+  ${i}  Evaluate  ${i} + 1
+  Click Element  ${exp field}[${i}]
+  Wait Until Page Contains Element  ${exp field}[${i}][contains(text(),'down')]
+
+
+Вибрати довільні поля з довідників
+  [Arguments]  ${index}
+  Розкрити батьківське поле що має expander  ${index}
+  Розкрити дочірній довідник з полями  ${index}
+  Перевірити успішніть розгортання довідника полів  ${index}
+  Додати довільне поле з довідника
+  Згорнути батьківське поле
+  Прокрутити список полів
 
 
 Перевірити успішніть розгортання довідника полів
-  Element Should Be Visible  ${exp field}[2][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
+  [Arguments]  ${i}
+  ${i}  Evaluate  ${i} + 1
+  Element Should Be Visible  ${exp field}[${i}][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
   Element Should Be Visible  xpath=(//*[contains(@class, 'selectable')]/table)[1]//tr//*[@style="padding-left:60px"][1]
 
 
-Вибрати довільні поля з довідника
-  [Arguments]  ${i}
-  Створити пустий список
-  #Прокрутити список полів
-  Repeat Keyword  ${i} times  Додати довільне поле з довідника
-  Перевірити вибір полів
+Згорнути батьківське поле
+  debug
+  Click Element  ${exp field}[contains(text(),'down')][1]
+  Sleep  .5
 
 
 Створити пустий список
@@ -97,7 +111,7 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 
 Прокрутити список полів
   Sleep  1
-  Drag And Drop By Offset  ${scroll field btn}  0  24
+  Drag And Drop By Offset  ${scroll field btn}  0  120
   Sleep  1
 
 
@@ -108,6 +122,9 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   ${fieldname}  Get Text  ${dict field}[${random}]
   Append To List  ${list}  ${fieldname}
   Click Element  ${add field btn}
+  ${added_table}  Get Text  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"selected")][last()]
+  ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
+  Should Be Equal  ${fieldname}  ${added_table}
 
 
 Перевірити вибір полів
@@ -119,7 +136,6 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   \  ${fieldname}  Get Text  ${added fields}[${index} + 1]
   \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
   \  Append To List  ${selected fields}  ${fieldname}
-  debug
   Should Be Equal  ${list}  ${selected fields}
 
 
@@ -127,7 +143,15 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   Select Frame  //iframe
   ${document_columns_sequence}  Create List
   ${selector}  Set Variable  xpath=((//div[contains(@class, "dxss-gt")])[1]/descendant::div[contains(@class, "dxss-tb")])
-  :FOR  ${items}  IN RANGE  ${right_count}
+  :FOR  ${items}  IN RANGE  ${fields count}
   \  ${document_column}  Get Text  ${selector}[${items} + 1]
+  \  ${document_column}  Replace String  ${document_column}  ${\n}  ${space}
   \  Append To List  ${document_columns_sequence}  ${document_column}
+  log  ${document_columns_sequence}
+  log  ${selected fields}
   Should Be Equal  ${document_columns_sequence}  ${selected fields}
+
+
+Натиснути кнопку "Сформировать отчет"
+  Wait Until Keyword Succeeds  15  3  Click Element  xpath=//*[contains(text(), 'Сформировать отчет')]
+  Дочекатись Загрузки Сторінки (ita)
