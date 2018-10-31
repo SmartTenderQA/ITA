@@ -497,3 +497,34 @@ Input Type Flex
 Перевірити що назва звіту не порожня
   ${report_header}=  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
   Should Be True  "${report_header}"
+
+
+Додати довільне поле
+  ${random}  random_number  1  10
+  ${value}  Get Text  xpath=((//*[contains(@class, 'selectable')]/table)[1]//tr//span)[${random}]
+  Set Global Variable  ${added_field}  ${value}
+  ${initial_count}  Get Element Count  ${right_table_elems}
+  Wait Until Keyword Succeeds  10  3  Click Element  xpath=((//*[contains(@class, 'selectable')]/table)[1]//tr//span)[${random}]
+  Wait Until Keyword Succeeds  10  3  Click Element  xpath=(//div[@class="dhxform_btn"])[3]  #  0  -30  ${add_filter}
+  Wait Until Page Contains Element  xpath=(${right_table_elems})[${initial_count} + 1]
+  ${added_table}  Get Text  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"selected")]
+  ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
+  Should Be Equal  ${value}  ${added_table}
+
+
+Запам'ятати послідовність доданих колонок
+  ${columns_sequence}  Create List
+  Set Global Variable  ${columns_sequence}
+  ${right_count}  Get Element Count  ${right_table_elems}
+  Set Global Variable  ${right_count}
+  :FOR  ${items}  IN RANGE  ${right_count}
+  \  ${added_column}  Get Text  xpath=(${right_table_elems})[${items} + 1]
+  \  Append To List  ${columns_sequence}  ${added_column}
+
+
+Обрати останній елемент правої таблиці
+  Set Global Variable  ${right_table_elems}  (//*[contains(@class, "selectable")]/table)[2]//td[contains(@class,"cellmultiline")]
+  Run Keyword And Ignore Error  Click Element  xpath=(${right_table_elems})[last()]
+  Sleep  .5
+  ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=(${right_table_elems})[last()]/parent::*[contains(@class, "rowselected")]
+  Run Keyword If  '${status}' == 'False'  Обрати останній елемент правої таблиці
