@@ -86,7 +86,7 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   Розкрити батьківське поле що має expander  ${index}
   Розкрити дочірній довідник з полями  ${index}
   Перевірити успішніть розгортання довідника полів  ${index}
-  Додати довільне поле з довідника
+  Додати довільне поле з довідника  ${index}
   Згорнути батьківське поле
   Прокрутити список полів
 
@@ -99,7 +99,7 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 
 
 Згорнути батьківське поле
-  debug
+  Sleep  .5
   Click Element  ${exp field}[contains(text(),'down')][1]
   Sleep  .5
 
@@ -111,17 +111,20 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 
 Прокрутити список полів
   Sleep  1
-  Drag And Drop By Offset  ${scroll field btn}  0  120
+  Drag And Drop By Offset  ${scroll field btn}  0  150
   Sleep  1
 
 
 Додати довільне поле з довідника
+  [Arguments]  ${index}
   ${random}  random_number  1  4
+  ${random}  Set Variable If  '${index}' == '3'  1  ${random}
   Click Element  ${dict field}[${random}]
   Wait Until Page Contains Element  ${dict field}[${random}]/ancestor::td[@class="cellselected"]
   ${fieldname}  Get Text  ${dict field}[${random}]
   Append To List  ${list}  ${fieldname}
   Click Element  ${add field btn}
+  Sleep  1
   ${added_table}  Get Text  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"selected")][last()]
   ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
   Should Be Equal  ${fieldname}  ${added_table}
