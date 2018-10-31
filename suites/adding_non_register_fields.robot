@@ -135,8 +135,9 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   Set Global Variable  ${selected fields}
   ${fields count}  Get Element Count  ${added fields}
   Set Global Variable  ${fields count}
-  :FOR  ${index}  IN RANGE   ${fields count}
-  \  ${fieldname}  Get Text  ${added fields}[${index} + 1]
+  :FOR  ${i}  IN RANGE   ${fields count}
+  \  ${i}  Evaluate  ${i} + 1
+  \  ${fieldname}  Get Text  ${added fields}[${i}]
   \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
   \  Append To List  ${selected fields}  ${fieldname}
   Should Be Equal  ${list}  ${selected fields}
@@ -146,8 +147,9 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   Select Frame  //iframe
   ${document_columns_sequence}  Create List
   ${selector}  Set Variable  xpath=((//div[contains(@class, "dxss-gt")])[1]/descendant::div[contains(@class, "dxss-tb")])
-  :FOR  ${items}  IN RANGE  ${fields count}
-  \  ${document_column}  Get Text  ${selector}[${items} + 1]
+  :FOR  ${i}  IN RANGE  ${fields count}
+  \  ${i}  Evaluate  ${i} + 1
+  \  ${document_column}  Get Text  ${selector}[${i}]
   \  ${document_column}  Replace String  ${document_column}  ${\n}  ${space}
   \  Append To List  ${document_columns_sequence}  ${document_column}
   log  ${document_columns_sequence}
