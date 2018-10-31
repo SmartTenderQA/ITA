@@ -111,7 +111,6 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
 Перевірити створені колонки
-  Execute Javascript    window.location.reload(true)
   Дочекатись Загрузки Сторінки (ita)
   Select Frame  //iframe
   ${document_columns_sequence}  Create List

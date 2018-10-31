@@ -61,6 +61,10 @@ Check Prev Test Status
   Run Keyword If  '${status}' == 'FAIL'  Fatal Error  Ой, щось пішло не так! Вимушена зупинка тесту.
 
 
+Очистити Кеш
+  Execute Javascript    window.location.reload(true)
+
+
 Отримати дані проекту
   [Arguments]  ${env}
   ${login}=     get_env_variable  ${env}  login
