@@ -420,9 +420,10 @@ Check Prev Test Status
 
 
 Стати на першу комірку та натиснути Enter
-  ${row}  Set Variable  xpath=//*[@class='gridbox']//td[contains(@class,'cellselected')]
+  ${row}  Set Variable  xpath=//*[@class='gridbox']//td[contains(@class,'gridViewRowHeader')]
   Wait Until Keyword Succeeds  10  3  Click Element  ${row}
-  ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=//*[@class='gridbox']//td[@class='cellselected editable']
+  Press Key  //body  \\13
+  ${status}  Run Keyword And Return Status  Wait Until Page Contains Element  xpath=//*[@class='gridbox']//td[@class='cellselected editable']
   Run Keyword If  '${status}' == 'False'  Стати на першу комірку та натиснути Enter
 
 
