@@ -429,7 +429,7 @@ Check Prev Test Status
 
 Ввести значення
   [Arguments]  ${value}
-  ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
+  ${row}  Set Variable  xpath=//tr[contains(@class, "rowselected")]/td[contains(@class, "editable")]/input[1]
   Input Type Flex  ${row}  ${value}
   Press Key  ${row}  ${enter btn}
 
