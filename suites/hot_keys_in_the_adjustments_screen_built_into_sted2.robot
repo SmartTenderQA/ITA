@@ -64,6 +64,10 @@ ${Button1}  //div[@role="link"]
 	${date}  smart_get_time  -4  d
 	Input Text  ${input}  ${date}
 	Set Global Variable  ${date}
+	${text}  Get Text  ${input}
+	${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${date}
+	Run Keyword If  ${status} == "False"  Заповнити поле з датою  ${i}
+
 
 
 Send Ctrl Enter To Current Element
