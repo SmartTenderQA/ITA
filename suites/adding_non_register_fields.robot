@@ -66,6 +66,12 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   Перевірити створені колонки
 
 
+Видалити створений звіт
+  Натиснути випадаючий список кнопки "Конструктор"
+  Натиснути пункт "Удалить отчет"
+  Перевірити що обрано пункт  UI-Тестирование
+  Перевірити що назва звіту не порожня
+
 
 *** Keywords ***
 Розкрити батьківське поле що має expander
@@ -145,6 +151,7 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 
 Перевірити створені колонки
   Select Frame  //iframe
+  Дочекатись Загрузки Сторінки (ita)
   ${document_columns_sequence}  Create List
   ${selector}  Set Variable  xpath=((//div[contains(@class, "dxss-gt")])[1]/descendant::div[contains(@class, "dxss-tb")])
   :FOR  ${i}  IN RANGE  ${fields count}
@@ -155,6 +162,7 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   log  ${document_columns_sequence}
   log  ${selected fields}
   Should Be Equal  ${document_columns_sequence}  ${selected fields}
+  Unselect Frame
 
 
 Натиснути кнопку "Сформировать отчет"

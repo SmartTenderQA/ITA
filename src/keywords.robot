@@ -423,13 +423,13 @@ Check Prev Test Status
   ${row}  Set Variable  xpath=//*[@class='gridbox']//td[contains(@class,'gridViewRowHeader')]
   Wait Until Keyword Succeeds  10  3  Click Element  ${row}
   Press Key  //body  \\13
-  ${status}  Run Keyword And Return Status  Wait Until Page Contains Element  xpath=//*[@class='gridbox']//td[@class='cellselected editable']
+  ${status}  Run Keyword And Return Status  Wait Until Page Contains Element  xpath=//tr[contains(@class, "rowselected")]/td[contains(@class, "editable")]
   Run Keyword If  '${status}' == 'False'  Стати на першу комірку та натиснути Enter
 
 
 Ввести значення
   [Arguments]  ${value}
-  ${row}  Set Variable  xpath=//*[@class='gridbox']//td[@class='cellselected editable']//input[1]
+  ${row}  Set Variable  xpath=//tr[contains(@class, "rowselected")]/td[contains(@class, "editable")]/input[1]
   Input Type Flex  ${row}  ${value}
   Press Key  ${row}  ${enter btn}
 
