@@ -31,6 +31,7 @@ ${Button1}  //div[@role="link"]
 
 Натиснути ctrl+Enter
 	Send Ctrl Enter To Current Element
+	Дочекатись Загрузки Сторінки (ita)
 
 
 Перевірити дату в колонці "Начало" екрану "Планировщик задач"
@@ -64,9 +65,9 @@ ${Button1}  //div[@role="link"]
 	${date}  smart_get_time  -4  d
 	Input Text  ${input}  ${date}
 	Set Global Variable  ${date}
-	${text}  Get Text  ${input}
+	${text}  Get Element Attribute  ${input}  value
 	${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${date}
-	Run Keyword If  ${status} == "False"  Заповнити поле з датою  ${i}
+	Run Keyword If  ${status} == ${false}  Заповнити поле з датою  ${i}
 
 
 
@@ -81,24 +82,29 @@ Send Ctrl Enter To Current Element
     Call Method    ${action chain}    perform
 
 
-Send PAGE_UPx40 To Current Element
+Send PAGE_UPx2 To Current Element
     ${keys}=    Evaluate    selenium.webdriver.common.keys.Keys    selenium
     ${s2l}=    Get Library Instance    Selenium2Library
     ${actionchain module}=    Evaluate    selenium.webdriver.common.action_chains    selenium
     ${action chain}=    Call Method    ${actionchain module}    ActionChains    ${s2l._current_browser()}
-    Repeat Keyword  40  Call Method    ${action chain}    key_down    ${keys.PAGE_UP}
+    Repeat Keyword  2  Call Method    ${action chain}    key_down    ${keys.PAGE_UP}
     Call Method    ${action chain}    perform
 
 
 Отримати всі дати
-	Sleep  5
 	Виділити екран "Планировщик задач"
 	${list}  Create List
 	${frame}  Set Variable  (//*[@data-guid-id and contains(., "Планировщик задач")])[last()]
 	${date element}  Set Variable  //div[@data-ps-id]//tr[@class]/td[1]
 	${n}  Get Element Count  ${frame}${date element}
 	${last}  Get Text  xpath=(${frame}${date element})[${n}]
-	Send PAGE_UPx40 To Current Element
+	${status}  Run Keyword And Return Status  Should Not Be Empty  ${last}
+	Run Keyword If  ${status} == ${false}  Отримати всі дати
+	:FOR  ${items}  IN RANGE  40
+	\  Send PAGE_UPx2 To Current Element
+	Дочекатись Загрузки Сторінки (ita)
+	${status}  Run Keyword And Return Status  Element Should Be Visible  //*[contains(text(), "История")]/following::tr[contains(@class, "Row")][1]
+	Run Keyword If  ${status} == "False"  Send PAGE_UPx40 To Current Element
 	${first}  Get Text  xpath=(${frame}${date element})[1]
 	Append To List  ${list}  ${last}
 	Append To List  ${list}  ${first}
