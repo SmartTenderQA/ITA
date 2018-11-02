@@ -2,3 +2,4 @@
 -v env:ITA
 -n non-critical
 --listener allure_robotframework
+-v platform:$platform
