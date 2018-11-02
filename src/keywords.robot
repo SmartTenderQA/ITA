@@ -20,7 +20,7 @@ ${browser}                            chrome
 ${alies}                              alies
 ${hub}                                http://autotest.it.ua:4444/wd/hub
 ${platform}                           ANY
-${capability}                         chrome
+${capability}                         None
 
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
@@ -50,11 +50,11 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Run Keyword If  '${capability}' == 'chrome'    Run Keyword  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
-  ...  ELSE IF    '${capability}' == 'chromeXP'  Run Keyword  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
-  ...  ELSE IF    '${capability}' == 'firefox '  Run Keyword  Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'edge'      Run Keyword  Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-  Run Keyword If  '${browser}' != 'edge'  Set Window Size  1280  1024
+  Run Keyword If  '${capability}' == 'chrome'    Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
+  ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
+  ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
+  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
+  Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
 Postcondition
