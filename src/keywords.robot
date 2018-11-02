@@ -16,9 +16,11 @@ ${browser}                            chrome
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?win=1&tz=3
 ...                                   ITCopyUpgrade=https://m.it.ua/ITCopyUpgrade/CLIENTRMD/(S(iuhcsthigv3rjj1qattj3aby))/?proj=it_RU&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
+
 ${alies}                              alies
 ${hub}                                http://autotest.it.ua:4444/wd/hub
 ${platform}                           ANY
+${capability}                         chrome
 
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
@@ -48,7 +50,10 @@ ${C# grid}                            ${command_c_grid}
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  #platformName:${platform}
+  Run Keyword If  '${capability}' == 'chrome'    Run Keyword  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
+  ...  ELSE IF    '${capability}' == 'chromeXP'  Run Keyword  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
+  ...  ELSE IF    '${capability}' == 'firefox '  Run Keyword  Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
+  ...  ELSE IF    '${capability}' == 'edge'      Run Keyword  Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
   Run Keyword If  '${browser}' != 'edge'  Set Window Size  1280  1024
 
 
