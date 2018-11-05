@@ -76,17 +76,23 @@ ${Button1}  //div[@role="link"]
 
 Ввести значення в комірку
     [Arguments]  ${value}  ${field}
+    Обрати комірку  ${field}
+    ${input field}  Set Variable  ${field}//input
+    #Clear Element Text  ${input field}
+    #${status}  Run Keyword
+    #Обрати комірку  ${field}
+    Input Type Flex  ${input field}  ${value}
+    Press Key  ${input field}  \\13
+    Sleep  .5
+
+
+Обрати комірку
+    [Arguments]  ${field}
     :FOR  ${i}  IN RANGE  20
     \  Click Element  ${field}
     \  Sleep  2
     \  ${status}  Run Keyword And Return Status  Page Should Contain Element  ${field}/self::*[contains(@class, "editable")]
     \  Exit For Loop IF  ${status} == ${True}
-    ${input field}  Set Variable  ${field}//input
-    Sleep  .5
-    Clear Element Text  ${input field}
-    Input Type Flex  ${input field}  ${value}
-    Sleep  .5
-    Press Key  ${input field}  \\13
 
 
 Закрити валідаційне вікно
