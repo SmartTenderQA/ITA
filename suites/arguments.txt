@@ -1,4 +1,4 @@
 -d test_output
 -v env:ITA
 -n non-critical
-#--listener allure_robotframework
+--listener allure_robotframework
