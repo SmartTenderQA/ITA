@@ -11,7 +11,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 *** Variables ***
 ${Button1}  //div[@role="link"]
 
-
+#  robot -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v env:ITA -v hub:None suites/hot_keys_in_the_adjustments_screen_built_into_sted2.robot
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
 	Авторизуватися  ${login}  ${password}
@@ -95,7 +95,7 @@ Send PAGE_UPx2 To Current Element
 	Виділити екран "Планировщик задач"
 	${list}  Create List
 	${frame}  Set Variable  (//*[@data-guid-id and contains(., "Планировщик задач")])[last()]
-	${date element}  Set Variable  //div[@data-ps-id]//tr[@class]/td[1]
+	${date element}  Set Variable  //div[contains(@class, "scrollable")]//tr[@class]/td[1]
 	${n}  Get Element Count  ${frame}${date element}
 	${last}  Get Text  xpath=(${frame}${date element})[${n}]
 	${status}  Run Keyword And Return Status  Should Not Be Empty  ${last}
