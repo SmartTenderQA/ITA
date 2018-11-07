@@ -66,7 +66,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 Ввести назву звіту
   [Arguments]  ${name}
-  Input Type Flex  ${report_title}  ${name}
+  Input Text  ${report_title}  ${name}
   Sleep  .5
   Press Key  ${report_title}  \\09
   Дочекатись загрузки сторінки (ita)
