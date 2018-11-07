@@ -72,28 +72,33 @@ ${Button1}  //div[@role="link"]
 	[Arguments]  ${value}
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
 	Ввести значення в комірку  ${value}  ${field}
-	Click Element At Coordinates  ${field}  0  30
 
 
 Ввести значення в комірку
     [Arguments]  ${value}  ${field}
-    Click Element  ${field}
-    Sleep  2
-    Click Element  ${field}
-    #Press Key  //html/body  \\13
-    Sleep  2
-    Click Element  ${field}
+    Обрати комірку  ${field}
     ${input field}  Set Variable  ${field}//input
-    Clear Element Text  ${input field}
+    #Clear Element Text  ${input field}
+    #${status}  Run Keyword
+    #Обрати комірку  ${field}
     Input Type Flex  ${input field}  ${value}
-    Run Keyword And Ignore Error  Press Key  //html/body  \\13
+    Press Key  ${input field}  \\13
     Sleep  .5
+
+
+Обрати комірку
+    [Arguments]  ${field}
+    :FOR  ${i}  IN RANGE  20
+    \  Click Element  ${field}
+    \  Sleep  2
+    \  ${status}  Run Keyword And Return Status  Page Should Contain Element  ${field}/self::*[contains(@class, "editable")]
+    \  Exit For Loop IF  ${status} == ${True}
 
 
 Закрити валідаційне вікно
 	[Arguments]  ${value}
 	${selector}  Set Variable  //div[@class="message-box" and contains(., "${value}")]
-	Wait Until Page Contains Element  ${selector}
+	Wait Until Element Is Visible  ${selector}
 	Click Element  ${selector}//*[contains(text(), "ОК")]
 	Sleep  1
 	Run Keyword And Ignore Error  Click Element  ${selector}//*[contains(text(), "ОК")]

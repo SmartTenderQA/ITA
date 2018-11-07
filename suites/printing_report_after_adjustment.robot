@@ -8,7 +8,7 @@ Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
 Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
-
+#  robot --consolecolors on -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/printing_report_after_adjustment.robot
 *** Test Cases ***
 Виконати передумови
   Відкрити сторінку ITA
@@ -18,7 +18,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 Створити звіт "UI-Тестирование (отчет)"
   Ввести назву регістру  UI-Тестирование
-  Ввести назву звіту  UI-Тестирование (отчет)
+  Ввести назву звіту  UI-Тестирование (печать отчета после корректировки)
   Натиснути кнопку "Сформировать отчет"
   Натиснути кнопку "Конструктор"
 
@@ -35,7 +35,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 Первірити результат збереження звіту
   Sleep  2
   Перевірити що обрано пункт  UI-Тестирование
-  Перевірити що назва звіту  UI-Тестирование (отчет)
+  Перевірити що назва звіту  UI-Тестирование (печать отчета после корректировки)
   Перевірити створені колонки
 
 
@@ -52,7 +52,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 Первірити результат видалення звіту
   Sleep  2
   Перевірити що обрано пункт  UI-Тестирование
-  Перевірити що назва звіту  UI-Тестирование (отчет)
+  Перевірити що назва звіту  UI-Тестирование (печать отчета после корректировки)
   Перевірити створені колонки
 
 
@@ -66,7 +66,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 Ввести назву звіту
   [Arguments]  ${name}
-  Input Type Flex  ${report_title}  ${name}
+  Input Text  ${report_title}  ${name}
   Sleep  .5
   Press Key  ${report_title}  \\09
   Дочекатись загрузки сторінки (ita)

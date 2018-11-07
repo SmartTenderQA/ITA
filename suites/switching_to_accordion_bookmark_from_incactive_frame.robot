@@ -11,7 +11,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 *** Variables ***
 
 # Команда для запуска
-# robot -L TRACE:INFO -A suites/arguments.txt -v browser:edge -v env:ITA -v hub:None suites/switching_to_accordion_bookmark_from_incactive_frame.robot
+# robot -L TRACE:INFO -A suites/arguments.txt -v capability:edge -v env:ITA -v hub:None suites/switching_to_accordion_bookmark_from_incactive_frame.robot
 
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
