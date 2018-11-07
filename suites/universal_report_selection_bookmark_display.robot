@@ -8,6 +8,7 @@ Test Setup  Check Prev Test Status
 Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
+#  robot --consolecolors on -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/universal_report_selection_bookmark_display.robot
 *** Test Cases ***
 Виконати передумови
   Відкрити сторінку ITA

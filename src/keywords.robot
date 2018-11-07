@@ -518,7 +518,7 @@ Input Type Flex
   Wait Until Keyword Succeeds  10  3  Click Element  xpath=(//div[@class="dhxform_btn"])[3]  #  0  -30  ${add_filter}
   Wait Until Page Contains Element  xpath=(${right_table_elems})[${initial_count} + 1]
   ${added_table}  Get Text  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"selected")]
-  ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
+  ${added_table}  Replace String  ${added_table}  \n  ${space}
   Should Be Equal  ${value}  ${added_table}
 
 
