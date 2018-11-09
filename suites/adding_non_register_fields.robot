@@ -14,6 +14,7 @@ ${dict field}                       xpath=((//*[contains(@class, 'selectable')]/
 ${add field btn}                    xpath=(//div[@class="dhxform_btn"])[3]
 ${scroll field btn}                 xpath=//*[@help-id="REPZSMPLGRDSELECTFIELDS"]//*[@class="ps__scrollbar-y"]
 ${added fields}                     xpath=(//td[contains(@class,'multiline')])
+${a}                                10
 
 
 #  robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v hub:None suites/adding_non_register_fields.robot
@@ -94,7 +95,7 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
   Перевірити успішніть розгортання довідника полів  ${index}
   Додати довільне поле з довідника  ${index}
   Згорнути батьківське поле
-  Прокрутити список полів
+#  Прокрутити список полів
 
 
 Перевірити успішніть розгортання довідника полів
@@ -117,7 +118,10 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 
 Прокрутити список полів
   Sleep  1
-  Drag And Drop By Offset  ${scroll field btn}  0  150
+#  ${a}  Set Variable  10
+  Execute Javascript  document.querySelector("tr[class*='Row']:nth-child(${a})").scrollIntoView(0)
+  ${a}  Evaluate  ${a} + 5
+#  Drag And Drop By Offset  ${scroll field btn}  0  150
   Sleep  1
 
 
@@ -168,3 +172,4 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 Натиснути кнопку "Сформировать отчет"
   Wait Until Keyword Succeeds  15  3  Click Element  xpath=//*[contains(text(), 'Сформировать отчет')]
   Дочекатись Загрузки Сторінки (ita)
+
