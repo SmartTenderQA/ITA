@@ -45,6 +45,7 @@ ${enter btn}                          \\13
 ${C# command}                         ${command_c}
 ${VFP command}                        ${command_vfp}
 ${C# grid}                            ${command_c_grid}
+${dropdown unexisting command}        ${dropdown_unexisting_table}
 
 
 *** Keywords ***

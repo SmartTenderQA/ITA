@@ -1,3 +1,5 @@
+# coding=utf-8
+
 command_c = """var form = new InputForm();
 using (var c = new GridCursor(SqlClient.Main.CreateCommand("select * from tapei")))
 {
@@ -63,3 +65,16 @@ using (var c = new GridCursor(SqlClient.Main.CreateCommand("select top 2 undoc f
                 };
                 form.Activate();
 }"""
+
+text = u"\"Несуществующая таблица\""
+dropdown_unexisting_table = """var form = new InputForm();
+form.Controls.AddLabel(""" + text + """);
+var kod = form.Controls.AddMultiCodeNameBox<int>();
+kod.Table = "TTTT";
+kod.CodeField = "FL";
+kod.CaptionFields = new [] {"FLN"};
+kod.Height = 10;
+kod.Width = 50;
+form.Activate();"""
+
+
