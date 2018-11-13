@@ -70,10 +70,11 @@ ${Button1}  //div[@role="link"]
 Перевірити зміну кольору поля пошуку
     ${selector}  Set Variable  //input[contains(@class, "dxeEditAreaSys")]
 	${list}  Create List  rgba(255, 230, 230, 1)  rgb(255, 230, 230)
-	Click Element  ${selector}
 	${elem}  Get Webelement  ${selector}
 	${bg color}  Call Method  ${elem}  value_of_css_property  background-color
-	Should Contain Any  ${list}  ${bg color}
+	${status}  Run Keyword And Return Status  Should Contain Any  ${list}  ${bg color}
+	Run Keyword If  ${status} == ${false}  Click Element  ${selector}
+	Run Keyword If  ${status} == ${false}  Перевірити зміну кольору поля пошуку
 
 
 Натиснути кнопку "ОК"
