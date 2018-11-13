@@ -100,5 +100,6 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 
 
 Перевірити у АДЄ значення очищено
+    ${values}  Set Variable  //*[@class="ade-val-container"]/*[@class="ade-val"]
     ${n}  Get Element Count  ${values}
     Should Be Equal  '0'  '${n}'
