@@ -23,7 +23,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 
 Консоль. VFP Виконати команду
-	#Ввести команду  ${VFP command}
+	Ввести команду  ${VFP command}
 	Натиснути кнопку "1 Выполнить"
 	Перевірити виконання команди VFP
 	Перевірити наявність кнопок "Да/Нет"

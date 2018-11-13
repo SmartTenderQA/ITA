@@ -66,6 +66,7 @@ using (var c = new GridCursor(SqlClient.Main.CreateCommand("select top 2 undoc f
                 form.Activate();
 }"""
 
+
 text = u"\"Несуществующая таблица\""
 dropdown_unexisting_table = """var form = new InputForm();
 form.Controls.AddLabel(""" + text + """);
@@ -97,3 +98,18 @@ if (form.Activate())
 {
             InfoManager.MessageBox("""+ cyrillic_mess +""", kod.Value);
 }"""
+
+
+edi_polling = """var form = new InputForm();
+var edi = form.Controls.AddMultiCodeNameBoxes("TAPEI")["EDI"];
+edi.Height = 10;
+form.Activate();"""
+
+
+checkbox_text = u"\"Функция доступна для вызова\""
+vfp_checkbox = """private m.check
+m.check = .t.
+=menuget([;|m.check|L|1|@*C3 ]+_trn(""" + checkbox_text + """)+[||valid()|||/SIZESAY:0])
+procedure valid
+return"""
+

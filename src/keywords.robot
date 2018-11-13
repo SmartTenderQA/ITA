@@ -43,7 +43,7 @@ ${toolbar}                            xpath=//*[@class="control-toolbar"]
 ${report_title}                       xpath=(//div[text()='Отчет']/ancestor::div[2]//input[@type='text'])[2]
 ${enter btn}                          \\13
 ${C# command}                         ${command_c}
-${VFP command}                        ${command_vfp}
+${VFP command}                        ${command vfp}
 ${C# grid}                            ${command_c_grid}
 ${dropdown unexisting command}        ${dropdown_unexisting_table}
 ${pulling from dropdown numerical1}    ${ade_pulling_from_dropdown_menu_numerical_first}

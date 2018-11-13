@@ -1,0 +1,45 @@
+<ns0:environment xmlns:ns0="urn:model.commons.qatools.yandex.ru">
+  <id>Robot Framework</id>
+  <name>odynr-VBox</name>
+  <url>http://odynr-VBox:8000</url>
+  <parameter>
+    <key>Robot Framework Platform</key>
+    <name>Robot Framework Platform</name>
+    <value>linux2</value>
+  </parameter>
+  <parameter>
+    <key>Robot Framework Version</key>
+    <name>Robot Framework Version</name>
+    <value>3.0.4</value>
+  </parameter>
+  <parameter>
+    <key>Robot Framework Full Version</key>
+    <name>Robot Framework Full Version</name>
+    <value>3.0.4 (Python 2.7.15rc1 on linux2)</value>
+  </parameter>
+  <parameter>
+    <key>Python version</key>
+    <name>Python version</name>
+    <value>2.7.15rc1</value>
+  </parameter>
+  <parameter>
+    <key>Interpreter</key>
+    <name>Interpreter</name>
+    <value>Python</value>
+  </parameter>
+  <parameter>
+    <key>Robot Framework Hostname</key>
+    <name>Robot Framework Hostname</name>
+    <value>odynr-VBox</value>
+  </parameter>
+  <parameter>
+    <key>Allure Adapter version</key>
+    <name>Allure Adapter version</name>
+    <value>1.1.1</value>
+  </parameter>
+  <parameter>
+    <key>Robot Framework CLI Arguments</key>
+    <name>Robot Framework CLI Arguments</name>
+    <value>['--listener', 'AllureReportLibrary.AllureListener', '-L', 'TRACE:INFO', '-A', 'suites/arguments.txt', '-v', 'browser:chrome', '-v', 'hub:None', 'suites/client_color_schemes_work.robot']</value>
+  </parameter>
+</ns0:environment>
