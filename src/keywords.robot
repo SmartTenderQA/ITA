@@ -46,6 +46,8 @@ ${C# command}                         ${command_c}
 ${VFP command}                        ${command vfp}
 ${C# grid}                            ${command_c_grid}
 ${dropdown unexisting command}        ${dropdown_unexisting_table}
+${pulling from dropdown numerical1}    ${ade_pulling_from_dropdown_menu_numerical_first}
+${pulling from dropdown numerical2}    ${ade_pulling_from_dropdown_menu_numerical_second}
 
 
 *** Keywords ***

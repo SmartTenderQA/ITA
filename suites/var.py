@@ -79,6 +79,27 @@ kod.Width = 50;
 form.Activate();"""
 
 
+cyrillic_mess = u"\"Выбранные значения - {0}\""
+ade_pulling_from_dropdown_menu_numerical_first = """var form = new InputForm();
+var kod = form.Controls.AddMultiCodeNameBoxSp12<int>("_TSTSN", "VALUE1", "0,4");
+kod.Height = 10;
+if (form.Activate())
+{
+            InfoManager.MessageBox("""+ cyrillic_mess +""", kod.Value);
+}"""
+
+
+ade_pulling_from_dropdown_menu_numerical_second = """var form = new InputForm();
+var kod = form.Controls.AddMultiCodeNameBoxSp12<int>("_TSTSN", "VALUE1", null);
+kod.Height = 10;
+kod.CodesDelimiter = ";";
+kod.Value = "1;2";
+if (form.Activate())
+{
+            InfoManager.MessageBox("""+ cyrillic_mess +""", kod.Value);
+}"""
+
+
 edi_polling = """var form = new InputForm();
 var edi = form.Controls.AddMultiCodeNameBoxes("TAPEI")["EDI"];
 edi.Height = 10;
