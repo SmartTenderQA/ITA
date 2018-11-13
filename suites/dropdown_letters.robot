@@ -107,6 +107,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 Натиснути "ОК"
     ${selector}  Set Variable  //*[@class="dhxtoolbar_text" and text()="OK"]
+    Wait Until Element Is Visible  ${selector}
     CLick Element  ${selector}
 
 
@@ -128,12 +129,11 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 
 Вибрати букви та одне пусте поле
-    ${dict of values}  Create Dictionary
-    :FOR  ${i}  IN RANGE  1  4
-    \  Click Element      ${checkbox}[${i}]
-    \  ${name}  get text  ${name field}[${i}]
-    \  ${code}  get text  ${code field}[${i}]
-    \  Set To Dictionary  ${dict of values}  ${name}  ${code}
+    Вибрати довільні букви (не пусті)
+    Вибрати пусте значення
+
+
+Вибрати пусте значення
     ${empty field}  get text  ${name field}[text()="Пустое"]
     ${empty code}   get text  ${name field}[text()="Пустое"]/../../following-sibling::div[2]//span
     Click Element  ${name field}[text()="Пустое"]/../../..//input
