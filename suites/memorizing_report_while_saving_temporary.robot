@@ -109,12 +109,3 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 Перевірити що відкрито початкову сторінку ITA
   Page Should Contain Element  (//*[@title="Вид"])[2]
 
-
-Перейти До Вкладки
-  [Arguments]  ${value}
-  ${selector}  Set variable  //a[contains(text(), '${value}')]
-  Wait Until Element Is Visible  ${selector}
-  Run Keyword And Ignore Error  Click Element  ${selector}
-  ${status}  Run Keyword And Return Status  Page Should Contain Element  ${selector}/parent::*[contains(@class, "active")]
-  Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
-  Дочекатись Загрузки Сторінки (ita)
