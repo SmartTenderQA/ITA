@@ -75,7 +75,7 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 Натиснути "Отменить все" в довіднику
     Wait Until Page Contains  Справочник единиц измерения. Выберите из списка
     Click Element  //*[text()="Отменить все"]
-    Sleep  .5
+    Дочекатись Загрузки Сторінки (ita)
 
 
 Натиснути "ОК" у довіднику
