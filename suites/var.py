@@ -113,3 +113,12 @@ m.check = .t.
 procedure valid
 return"""
 
+
+message_text = u"\"Выбранные значения"
+dropdown_letters = """var form = new InputForm();
+var kod = form.Controls.AddMultiCodeNameBoxSp12<string>("_TSTSC", "VALUE1", null);
+kod.Height = 10;
+if (form.Activate())
+{
+            InfoManager.MessageBox(""" + message_text + """ - {0}", kod.Value);
+}"""
