@@ -323,6 +323,7 @@ Check Prev Test Status
 
 Натиснути пункт "Удалить отчет"
   Wait Until Keyword Succeeds  30  3  Click Element  ${delete_report}
+  Перейти до вкладки  Общие
   Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]  15
   ${current_title}  Get Element Attribute  //div[@help-id="REPZSMPLRN"]/input  value
   Should Be Equal  "${current_title}"  "${deleted_report_title}"
@@ -541,3 +542,13 @@ Input Type Flex
   Sleep  .5
   ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=(${right_table_elems})[last()]/parent::*[contains(@class, "rowselected")]
   Run Keyword If  '${status}' == 'False'  Обрати останній елемент правої таблиці
+
+
+Перейти до вкладки
+  [Arguments]  ${value}
+  ${selector}  Set variable  //a[contains(text(), '${value}')]
+  Wait Until Element Is Visible  ${selector}
+  Run Keyword And Ignore Error  Click Element  ${selector}
+  ${status}  Run Keyword And Return Status  Page Should Contain Element  ${selector}/parent::*[contains(@class, "active")]
+  Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
+  Дочекатись Загрузки Сторінки (ita)
