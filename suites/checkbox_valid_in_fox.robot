@@ -32,6 +32,7 @@ Input By Line
 #  Ввод теста построчно
   [Arguments]  ${input_field}  ${text}
   ${lines_count}  Get Line Count  ${text}
+  Click Element  ${input_field}
   Clear Element Text  ${input_field}
   :FOR  ${i}  IN RANGE  ${lines_count}
   \  ${line}  Get Line  ${text}  ${i}
@@ -44,8 +45,8 @@ Input By Line
 Ввод команды в консоль
   [Arguments]  ${command}
   ${input_field}  set variable  //textarea[contains(@name, "DEBUGCONSOLE")]
-  Input By Line  ${input_field}  ${command}
-
+  ${status}  Run KEyword And Return Status  Input By Line  ${input_field}  ${command}
+  Run Keyword If  ${status} == ${false}  Ввести команду  ${command}
 
 Перевірити наявність чек-бокса
     ${name}  Get Text  //*[@class="dhxform_label_nav_link"]
