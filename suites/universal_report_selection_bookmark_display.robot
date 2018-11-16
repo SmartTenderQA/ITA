@@ -74,9 +74,11 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
   ${checkbox_count}  Get Element Count  //div[contains(@help-id, "CHECKBOX")]
   Should Be True  ${checkbox_count} > 1
   # наименования полей и операций
-  ${label_count}  Get Element Count
+  ${label_count1}  Get Element Count
   ...  //div[@class="dhxform_txt_label2" and text()[.="по"]]/following::div[contains(@class, "dhxform_txt_label2")]
-  Should Be True  ${label_count} >= 4
+  ${label_count2}  Get Element Count
+  ...  //div[@class="dhxform_txt_label2" and text()[.="по"]]/following::div[contains(@class, "dhxform_label_nav_link")]
+  Should Be True  ${label_count1} >= 2 and ${label_count2} >= 2
 
 
 Натиснути активну кнопку "Отбор"
