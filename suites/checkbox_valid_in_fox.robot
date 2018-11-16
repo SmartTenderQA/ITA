@@ -17,7 +17,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 Відкрити "Консоль" та виконати команду
 	Настиснути кнопку "Консоль"
     Перейти на вкладку  Vfp
-    Ввести команду  ${vfp checkbox}
+    Ввод команды в консоль  ${vfp checkbox}
     Натиснути кнопку "1 Выполнить"
 
 
@@ -27,13 +27,33 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
     Перевірити відсутність чек-бокса
 
 
-
-
-
 *** Keywords ***
+Input By Line
+#  Ввод теста построчно
+  [Arguments]  ${input_field}  ${text}
+  ${lines_count}  Get Line Count  ${text}
+  Clear Element Text  ${input_field}
+  :FOR  ${i}  IN RANGE  ${lines_count}
+  \  ${line}  Get Line  ${text}  ${i}
+  \  Input Type Flex  ${input_field}  ${line}
+  \  Sleep  .3
+  \  Press Key  ${input_field}  ${enter btn}
+  \  Sleep  .3
+
+
+Ввод команды в консоль
+  [Arguments]  ${command}
+  ${input_field}  set variable  //textarea[contains(@name, "DEBUGCONSOLE")]
+  Input By Line  ${input_field}  ${command}
+
+
 Перевірити наявність чек-бокса
     ${name}  Get Text  //*[@class="dhxform_label_nav_link"]
-    Should Be Equal  '${name}'  ' Функция доступна для вызова'
+    ${text}  Set Variable   Функция доступна для вызова
+    ${name}  Remove String  ${name}  \xa0
+    ${name}  Remove String  ${name}  ${SPACE}
+    ${text}  Remove String  ${text}  ${SPACE}
+    Should Be Equal  '${name}'  '${text}'
     Page Should contain element  //i[text()="check_box"]
 
 
