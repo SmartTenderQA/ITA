@@ -32,6 +32,7 @@ Input By Line
 #  Ввод теста построчно
   [Arguments]  ${input_field}  ${text}
   ${lines_count}  Get Line Count  ${text}
+  Sleep  .5
   Click Element  ${input_field}
   Clear Element Text  ${input_field}
   :FOR  ${i}  IN RANGE  ${lines_count}
