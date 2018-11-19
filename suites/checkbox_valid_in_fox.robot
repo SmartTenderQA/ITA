@@ -33,7 +33,7 @@ Input By Line
   [Arguments]  ${input_field}  ${text}
   ${lines_count}  Get Line Count  ${text}
   Sleep  .5
-  Click Element  ${input_field}
+  Wait Until Keyword Succeeds  15  2  Click Element  ${input_field}
   Clear Element Text  ${input_field}
   :FOR  ${i}  IN RANGE  ${lines_count}
   \  ${line}  Get Line  ${text}  ${i}
