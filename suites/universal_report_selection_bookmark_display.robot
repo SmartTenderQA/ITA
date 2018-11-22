@@ -5,7 +5,7 @@ Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
-Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
+Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 #  robot --consolecolors on -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/universal_report_selection_bookmark_display.robot

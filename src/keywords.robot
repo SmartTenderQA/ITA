@@ -48,6 +48,7 @@ ${C# grid}                            ${command_c_grid}
 ${dropdown unexisting command}        ${dropdown_unexisting_table}
 ${pulling from dropdown numerical1}    ${ade_pulling_from_dropdown_menu_numerical_first}
 ${pulling from dropdown numerical2}    ${ade_pulling_from_dropdown_menu_numerical_second}
+${log counter}                        1
 
 
 *** Keywords ***
@@ -62,6 +63,32 @@ Preconditions
 
 Postcondition
   Close All Browsers
+
+
+Something Went Wrong
+  Capture Page Screenshot
+  Log Location
+  Зберегти дані з логів
+
+
+Зберегти дані з логів
+  ${logQA}  Execute JavaScript  return document.getElementById("requests-log-target").textContent;
+  log  ${logQA}
+  ${json}  convert dict to json  ${logQA}
+  Create File  ${OUTPUTDIR}/logQA_${log counter}.json  ${json}
+  ${log counter}  Evaluate  ${log counter} + 1
+
+
+convert dict to json
+	[Arguments]  ${dict}
+	${json}  evaluate  json.dumps(${dict})  json
+	[Return]  ${json}
+
+
+convert json to dict
+	[Arguments]  ${json}
+	${dict}  Evaluate  json.loads('''${json}''')  json
+	[Return]  ${dict}
 
 
 Check Prev Test Status

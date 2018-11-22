@@ -5,7 +5,7 @@ Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
-Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
+Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Test Cases ***
