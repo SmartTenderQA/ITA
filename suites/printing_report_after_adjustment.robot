@@ -66,6 +66,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 Ввести назву звіту
   [Arguments]  ${name}
+  Click Element   ${report_title}
   Input Text  ${report_title}  ${name}
   Sleep  .5
   Press Key  ${report_title}  \\09
@@ -91,7 +92,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Натиснути кнопку "Конструктор"
   Run Keyword And Ignore Error  Click Element  //div[@id="REP_SIMPLESETTINGS"]
   Дочекатись Загрузки Сторінки (ita)
-  ${settings}  Run Keyword And Return Status  Wait Until Element is Visible  xpath=//div[contains(text(), 'Настройка отчета')]  10
+  ${settings}  Run Keyword And Return Status  Wait Until Page Contains  Настройка отчета  10
   Run Keyword If  '${settings}' == 'False'  Натиснути кнопку "Конструктор"
 
 
