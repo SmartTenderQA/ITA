@@ -10,7 +10,7 @@ Test Teardown  Run Keyword If Test Failed  Capture Page Screenshot
 
 *** Variables ***
 ${user icon}                            //*[@help-id="USERICONWRAPPER"]
-${user settings btn}                    //*[@help-id="RMDCLIENTSETTINGSBUTTON"]
+${user settings btn}                    //*[@id="RmdClientSettings"]/i
 ${color scheme tab}                     //*[text()="Цвета"]
 ${main color btn}                       //*[text()="Основной цвет"]/../following-sibling::div
 ${palette colors}                       //*[@class="color-palette"]//tr[1]/td
