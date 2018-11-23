@@ -72,6 +72,7 @@ Something Went Wrong
 
 
 Зберегти дані з логів
+  Run Keyword And Ignore Error  Unselect Frame
   ${logQA}  Execute JavaScript  return document.getElementById("requests-log-target").textContent;
   log  ${logQA}
   ${json}  convert dict to json  ${logQA}
