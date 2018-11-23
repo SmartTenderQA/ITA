@@ -299,7 +299,8 @@ Check Prev Test Status
 
 Вийти з функції "Универсальный отчет"
   Go Back
-  Wait Until Page Does Not Contain Element  xpath=//*[contains(text(), 'Сформировать отчет')]
+  Sleep  1
+  Wait Until Element Is Not Visible  xpath=//*[contains(text(), 'Сформировать отчет')]
 
 
 Натиснути випадаючий список кнопки "Конструктор"
@@ -342,6 +343,8 @@ Check Prev Test Status
 Натиснути кнопку "Добавить"
   Click Element  ${add_report}
   Дочекатись Загрузки Сторінки (ita)
+  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${add_report}
+  Run Keyword If  ${status} == ${False}  Натиснути кнопку "Добавить"
 
 
 Перевірити відповідність заголовка звіту
