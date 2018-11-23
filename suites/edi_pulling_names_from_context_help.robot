@@ -81,7 +81,7 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 Натиснути "ОК" у довіднику
     ${selector}  Set Variable  //*[@class="dhxtoolbar_text" and text()="OK"]
     CLick Element  ${selector}
-    Wait Until Page Does Not Contain  Справочник единиц измерения. Выберите из списка  20
+    Wait Until Page Does Not Contain Element  //div[text()="Справочник единиц измерения. Выберите из списка"]  20
 
 
 Перевірити у АДЄ наявніть вибраних значень
