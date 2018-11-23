@@ -46,8 +46,9 @@ Input By Line
 Ввод команды в консоль
   [Arguments]  ${command}
   ${input_field}  set variable  //textarea[contains(@name, "DEBUGCONSOLE")]
-  ${status}  Run KEyword And Return Status  Input By Line  ${input_field}  ${command}
-  Run Keyword If  ${status} == ${false}  Ввести команду  ${command}
+  Run Keyword If  '${capability}' != 'edge'  Ввести команду  ${command}
+  ...  ELSE  Input By Line  ${input_field}  ${command}
+
 
 Перевірити наявність чек-бокса
     ${name}  Get Text  //*[@class="dhxform_label_nav_link"]
