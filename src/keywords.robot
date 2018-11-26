@@ -48,7 +48,6 @@ ${C# grid}                            ${command_c_grid}
 ${dropdown unexisting command}        ${dropdown_unexisting_table}
 ${pulling from dropdown numerical1}    ${ade_pulling_from_dropdown_menu_numerical_first}
 ${pulling from dropdown numerical2}    ${ade_pulling_from_dropdown_menu_numerical_second}
-${log counter}                        1
 
 
 *** Keywords ***
@@ -76,8 +75,8 @@ Something Went Wrong
   ${logQA}  Execute JavaScript  return document.getElementById("requests-log-target").textContent;
   log  ${logQA}
   ${json}  convert dict to json  ${logQA}
-  Create File  ${OUTPUTDIR}/logQA_${log counter}.json  ${json}
-  ${log counter}  Evaluate  ${log counter} + 1
+  ${random}  Evaluate  random.randint(0, 999999)  modules=random
+  Create File  ${OUTPUTDIR}/logQA_${random}.json  ${json}
 
 
 convert dict to json
