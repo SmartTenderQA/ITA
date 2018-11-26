@@ -68,6 +68,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 Перевірити зміну кольору поля пошуку
     ${selector}  Set Variable  //input[contains(@class, "dxeEditAreaSys")]
+    Sleep  .5
+    Click Element  ${selector}
 	${list}  Create List  rgba(255, 230, 230, 1)  rgb(255, 230, 230)
 	${elem}  Get Webelement  ${selector}
 	${bg color}  Call Method  ${elem}  value_of_css_property  background-color
@@ -79,4 +81,4 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Натиснути кнопку "ОК"
   Click Element  //*[contains(@class, "dhx_toolbar_btn")]
   Wait Until Page Contains  Консоль отладки
-  Page Should Not Contain Element  //*[@class="dhxwin_active menuget"]
+  Wait Until Page Does Not Contain Element  //*[@class="dhxwin_active menuget"]
