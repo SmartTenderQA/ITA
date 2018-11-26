@@ -30,8 +30,8 @@ ${message-box}                        xpath=//*[@class='message-box']
 ${menu_tools}                         xpath=//*[contains(text(), 'Инструменты и настройки')]
 ${menu_report}                        xpath=(//*[contains(text(), 'Универсальный отчет')])[1]
 ${constructor_drop_down}              xpath=//*[contains(@title, 'Конструктор')]//*[@class="sb-dd"]
-${create_report}                      xpath=//*[contains(text(), 'Создать отчет')]
-${delete_report}                      xpath=//*[contains(text(), 'Удалить отчет')]
+${create_report}                      xpath=//div[@class="menu-item-text" and contains(text(), "Создать отчет")]
+${delete_report}                      xpath=//div[@class="menu-item-text" and contains(text(), "Удалить отчет")]
 ${report_name}                        xpath=//div[contains(@title, 'Введите наименование отчета')]/preceding-sibling::*//input
 ${add_filter}                         xpath=(//*[@class='dhxform_btn_filler'])[5]
 ${add_report}                         xpath=//*[text()='Добавить']
@@ -278,22 +278,44 @@ Check Prev Test Status
   [Arguments]  ${value}
   ${register_input}  Set Variable  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
   ${register_dropdown button}  Set Variable  (//*[@data-caption="+ Добавить"])[1]//*[@code='0']
-  ${selector}  Set variable  (//*[contains(text(),'${value}')])[1]
   Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  ${register_input}  30
   Click Element  ${register_input}
-  Wait Until Element Is Visible  ${register_dropdown button}  10
-  Run Keyword And Ignore Error  Double Click Element  ${register_dropdown button}
-  ${status}  Run Keyword And Return Status  Element Should Be Visible  ${selector}
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${register_dropdown button}
   Run Keyword If  ${status} == ${False}  В полі регістр вибрати пункт  ${value}
-  Run Keyword And Ignore Error  Click Element  ${selector}
+  Розкрити випадаючий список та обрати пункт  ${value}
   ${status2}  Run Keyword And Return Status  Перевірити що обрано пункт  ${value}
   Run Keyword If  ${status2} == ${False}  В полі регістр вибрати пункт  ${value}
+
+
+Розкрити випадаючий список та обрати пункт
+  [Arguments]  ${value}
+  ${register_dropdown button}  Set Variable  (//*[@data-caption="+ Добавить"])[1]//*[@code='0']
+  ${selector}  Set variable  (//*[contains(text(),'${value}')])[1]
+  Double Click Element  ${register_dropdown button}
+  Sleep  1
+  ${status}  Run Keyword And Return Status  Element Should Be Visible  //div[contains(@class, "dhxcombolist_multicolumn")]
+  Run Keyword If  ${status} == ${False}  Розкрити випадаючий список та обрати пункт  ${value}
+  Scroll To Element  div[class*=dhxcombo_cell_text_content]>span  ${value}
+
+
+
+Scroll To Element
+  [Arguments]  ${iterable_css}  ${target}
+  ${counter}  Get Element Count  css=${iterable_css}
+  ${dropdown_items}  Get WebElements  css=div[class*=dhxcombo_cell_text_content]>span
+  :FOR  ${i}  IN RANGE  ${counter}
+  \  ${text}  Execute JavaScript  let spans = document.querySelectorAll("${iterable_css}");  spans[${i}].scrollIntoView();  return spans[${i}].innerText;
+  \  ${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${target}
+  \  ${item}  Run Keyword If  ${status} == ${true}  Get From List  ${dropdown_items}  ${i}
+  \  Run Keyword If  ${status} == ${true}  Call Method  ${item}  click
+  \  Exit For Loop If  ${status} == ${True}
 
 
 Перевірити що обрано пункт
   [Arguments]  ${value}
   ${register} =  Get Element Attribute  (//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]    value
+  Capture Page Screenshot
   Should Be Equal  '${register}'  '${value}'
 
 
@@ -308,14 +330,14 @@ Check Prev Test Status
   Set Global Variable  ${deleted_report_title}
   Wait Until Keyword Succeeds  30  3  Click Element  ${constructor_drop_down}
   Дочекатись Загрузки Сторінки (ita)
-  ${stat}  Run Keyword And Return Status  Wait Until Element is Visible  ${create_report}  10
+  ${stat}  Run Keyword And Return Status  Element Should Be Visible  ${create_report}
   Run Keyword If  '${stat}' == 'False'  Натиснути випадаючий список кнопки "Конструктор"
 
 
 Натиснути пункт "Создать отчет"
   Click Element  ${create_report}
   Дочекатись Загрузки Сторінки (ita)
-  Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]
+  Element Should Be Visible  //*[@class="float-container-header-text" and text()="Настройка отчета"]
 
 
 Ввести довільну назву звіту
@@ -355,10 +377,10 @@ Check Prev Test Status
 Натиснути пункт "Удалить отчет"
   Wait Until Keyword Succeeds  30  3  Click Element  ${delete_report}
   Перейти до вкладки  Общие
-  Wait Until Element Is Visible  xpath=//div[contains(text(), 'Настройка отчета')]  15
+  Wait Until Element Is Visible  xpath=//*[@class="float-container-header-text" and text()="Настройка отчета"]  15
   ${current_title}  Get Element Attribute  //div[@help-id="REPZSMPLRN"]/input  value
   Should Be Equal  "${current_title}"  "${deleted_report_title}"
-  Wait Until Keyword Succeeds  30  3  Click Element  xpath=//*[text()='Удалить']
+  Wait Until Keyword Succeeds  30  3  Click Element  //*[@class = "dhxtoolbar_text" and text() = "Удалить"]
   Дочекатись Загрузки Сторінки (ita)
 
 
