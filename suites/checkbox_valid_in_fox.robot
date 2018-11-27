@@ -33,7 +33,8 @@ Input By Line
   [Arguments]  ${input_field}  ${text}
   ${lines_count}  Get Line Count  ${text}
   Sleep  .5
-  Wait Until Keyword Succeeds  15  2  Click Element At Coordinates  ${input_field}  5  5
+#  Wait Until Keyword Succeeds  15  2  Click Element At Coordinates  ${input_field}  5  5
+  Wait Until Keyword Succeeds  15  2  Click Element  ${input_field}
   Clear Element Text  ${input_field}
   :FOR  ${i}  IN RANGE  ${lines_count}
   \  ${line}  Get Line  ${text}  ${i}
@@ -45,9 +46,18 @@ Input By Line
 
 Ввод команды в консоль
   [Arguments]  ${command}
-  ${input_field}  set variable  //textarea[contains(@name, "DEBUGCONSOLE")]
+  Визначити індекс активної консолі
+  ${input_field}  set variable  //textarea[contains(@name, "DEBUGCONSOLE")][${console_index}]
   Run Keyword If  '${capability}' != 'edge'  Ввести команду  ${command}
   ...  ELSE  Input By Line  ${input_field}  ${command}
+
+
+Визначити індекс активної консолі
+  :FOR  ${console_index}  in range  1  5
+  \  ${status}  Run Keyword And Return Status
+  ...  Element Should Be Visible  //textarea[contains(@name, "DEBUGCONSOLE")][${console_index}]
+  \  Set Suite Variable  ${console_index}
+  \  Exit For Loop If  ${status} == ${true}
 
 
 Перевірити наявність чек-бокса
