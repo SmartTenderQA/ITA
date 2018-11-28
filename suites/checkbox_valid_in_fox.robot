@@ -56,7 +56,6 @@ Input By Line
   :FOR  ${console_index}  in range  1  5
   \  ${status}  Run Keyword And Return Status
   ...  Element Should Be Visible  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
-  \  debug
   \  Set Suite Variable  ${console_index}
   \  Exit For Loop If  ${status} == ${true}
 
