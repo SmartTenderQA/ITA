@@ -45,6 +45,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C# Виконати наступну команду
+  Sleep  1
   Ввести команду  ${pulling from dropdown numerical2}
   Натиснути кнопку "1 Выполнить"
 
