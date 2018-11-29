@@ -47,7 +47,7 @@ Input By Line
 Ввод команды в консоль
   [Arguments]  ${command}
   Визначити індекс активної консолі
-  ${input_field}  set variable  //textarea[contains(@name, "DEBUGCONSOLE")][${console_index}]
+  ${input_field}  set variable  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
   Run Keyword If  '${capability}' != 'edge'  Ввести команду  ${command}
   ...  ELSE  Input By Line  ${input_field}  ${command}
 
