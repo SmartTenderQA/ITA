@@ -214,7 +214,7 @@ Check Prev Test Status
 Ввести команду ITA_web2016
   [Arguments]  ${command}
   ${textarea}  Set Variable  xpath=(//*[contains(@id,'DEBUGCONSOLE')]//textarea)[1]
-  Wait Until Page Contains Element  ${textarea}
+  Wait Until Element Is Visible  ${textarea}
   ${count}  Get Element Count  ${textarea}
   Input Text  ${textarea}  ${command}
 
