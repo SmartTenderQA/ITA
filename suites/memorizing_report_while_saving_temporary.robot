@@ -91,9 +91,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Натиснути кнопку "Больше опций"(три крапки)
-  Click Element   //*[@class="material-icons control-toolbar-button-dropdown"]
-  ${status}  Run Keyword And Return Status  Wait Until Page Contains Element    //*[@class="material-icons control-toolbar-button-dropdown"]
-  Run Keyword If  ${status} == ${False}  Натиснути кнопку "Больше опций"(три крапки)
+  Wait Until Keyword Succeeds  15  2  Click Element  //*[@id="ViewMoreItemId"]
 
 
 Обрати пункт "Сохранить как новый"

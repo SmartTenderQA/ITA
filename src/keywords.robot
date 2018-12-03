@@ -599,7 +599,7 @@ z
 Перейти до вкладки
   [Arguments]  ${value}
   ${selector}  Set variable  //a[contains(text(), '${value}')]
-  Wait Until Element Is Visible  ${selector}
+  Wait Until Element Is Visible  ${selector}  15
   Run Keyword And Ignore Error  Click Element  ${selector}
   ${status}  Run Keyword And Return Status  Page Should Contain Element  ${selector}/parent::*[contains(@class, "active")]
   Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
