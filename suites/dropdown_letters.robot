@@ -43,6 +43,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Перевірити відповідність значень у message-box
     Звірити значення у message-box
     Натиснути "ОК" у message-box
+    Дочекатись загрузки сторінки (ita)
 
 
 Вибрати значення з випадаючого списку (одне пусте)
@@ -103,6 +104,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Закрити випадаючий список (ESC)
     Press Key  //*[@data-caption="+ Добавить"]//td[2]//input  \\27
     Wait Until element is Not visible  //*[text()="Наименование:"]/following-sibling::div/span
+    Sleep   1
 
 
 Натиснути "ОК"
