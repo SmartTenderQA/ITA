@@ -25,7 +25,7 @@ ${dialog_window}  //div[contains(@class, "active")]//div[@class="float-container
 
 
 Консоль. C# Виконати коман
-	Ввести команду  ${decimalPlaces_in_the_adjustment_screens}
+	Ввод команды в консоль  ${decimalPlaces_in_the_adjustment_screens}
 	Натиснути кнопку "1 Выполнить"
 
 
