@@ -25,7 +25,7 @@ ${Button1}  //div[@role="link"]
 
 
 Консоль. C# Виконати коман
-	Ввести команду  ${activating_a_screen}
+	Ввод команды в консоль  ${activating_a_screen}
 	Натиснути кнопку "1 Выполнить"
 
 

@@ -23,7 +23,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C#.grid Виконати команду
-  Ввести команду  ${C# grid}
+  Ввод команды в консоль  ${C# grid}
   Натиснути кнопку "1 Выполнить"
 
 

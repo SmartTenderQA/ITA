@@ -25,7 +25,7 @@ ${Button1}  //div[@role="link"]
 
 
 Консоль. C# Виконати коман
-	Ввести команду  ${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}
+	Ввод команды в консоль  ${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}
 	Натиснути кнопку "1 Выполнить"
 
 
