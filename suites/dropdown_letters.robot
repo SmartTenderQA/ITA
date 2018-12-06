@@ -75,6 +75,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 Розкрити випадаючий список
     Click element  //*[@data-caption="+ Добавить"]//td[4]
+    Дочекатись Загрузки Сторінки (ita)
     Wait Until element is visible  //*[text()="Наименование:"]/following-sibling::div/span
 
 
@@ -82,6 +83,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
     ${dict of values}  Create Dictionary
     :FOR  ${i}  IN RANGE  1  4
     \  Click Element      ${checkbox}[${i}]
+    \  Дочекатись Загрузки Сторінки (ita)
     \  ${name}  get text  ${name field}[${i}]
     \  ${code}  get text  ${code field}[${i}]
     \  Set To Dictionary  ${dict of values}  ${name}  ${code}
