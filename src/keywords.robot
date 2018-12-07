@@ -134,9 +134,12 @@ Check Prev Test Status
 Авторизуватися ITA_web2016
   [Arguments]  ${login}  ${password}=None
   Wait Until Page Contains  Вход в систему  60
-  Input Text  xpath=//*[@data-name="Login"]//input  ${login}
-  Input Text  xpath=//*[@data-name="Password"]//input  ${password}
-  Натиснути кнопку вхід
+  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
+  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
+  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Password"]//input  ${password}  ELSE
+  ...  Execute JavaScript  document.querySelector("[data-name=Password] input").value = "${password}"
+  Run Keyword If  "${capability}" != "edge"  Натиснути кнопку вхід  ELSE
+  ...  Execute JavaScript  document.querySelector("div.dxb").click()
   Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  xpath=//*[@title='Новое окно']
 
