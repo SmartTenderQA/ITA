@@ -133,7 +133,8 @@ ${a}                                10
   Wait Until Page Contains Element  ${dict field}[${random}]/ancestor::td[@class="cellselected"]
   ${fieldname}  Get Text  ${dict field}[${random}]
   Append To List  ${list}  ${fieldname}
-  Click Element  ${add field btn}
+  Wait Until Element Is Visible  ${add field btn}
+  Wait Until Keyword Succeeds  15  3  Click Element  ${add field btn}
   Sleep  1
   ${added_table}  Get Text  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"selected")][last()]
   ${added_table}  Replace String  ${added_table}  ${\n}  ${space}

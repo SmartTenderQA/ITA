@@ -217,7 +217,7 @@ Check Prev Test Status
 Ввести команду ITA_web2016
   [Arguments]  ${command}
   ${textarea}  Set Variable  xpath=(//*[contains(@id,'DEBUGCONSOLE')]//textarea)[1]
-  Wait Until Page Contains Element  ${textarea}
+  Wait Until Element Is Visible  ${textarea}
   ${count}  Get Element Count  ${textarea}
   Input Text  ${textarea}  ${command}
 
@@ -229,9 +229,9 @@ Check Prev Test Status
 Натиснути Кнопку "1 Выполнить" ITA
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
+  Дочекатись загрузки сторінки (ita)
   ${status}  Run Keyword And Return Status  Run Keyword And Ignore Error
-  ...  Wait Until Element Is Not Visible  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
-  Sleep  3
+  ...  Wait Until Page Does Not Contain Element  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
 
 
@@ -543,6 +543,7 @@ Scroll Page To Element XPATH
   ${registr name input}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Page Contains Element  ${registr name input}  10
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  ${registr name input}
   Clear Element Text  ${registr name input}
   Sleep  .5
@@ -602,8 +603,41 @@ z
 Перейти до вкладки
   [Arguments]  ${value}
   ${selector}  Set variable  //a[contains(text(), '${value}')]
-  Wait Until Element Is Visible  ${selector}
+  Wait Until Element Is Visible  ${selector}  15
   Run Keyword And Ignore Error  Click Element  ${selector}
   ${status}  Run Keyword And Return Status  Page Should Contain Element  ${selector}/parent::*[contains(@class, "active")]
   Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
   Дочекатись Загрузки Сторінки (ita)
+
+
+Input By Line
+#  Ввод теста построчно
+  [Arguments]  ${input_field}  ${text}
+  ${lines_count}  Get Line Count  ${text}
+  Sleep  .5
+#  Wait Until Keyword Succeeds  15  2  Click Element At Coordinates  ${input_field}  5  5
+  Wait Until Keyword Succeeds  15  2  Click Element  ${input_field}
+  Clear Element Text  ${input_field}
+  :FOR  ${i}  IN RANGE  ${lines_count}
+  \  ${line}  Get Line  ${text}  ${i}
+  \  Input Type Flex  ${input_field}  ${line}
+  \  Sleep  .3
+  \  Press Key  ${input_field}  ${enter btn}
+  \  Sleep  .3
+
+
+Ввод команды в консоль
+  [Arguments]  ${command}
+  Визначити індекс активної консолі
+  ${input_field}  set variable  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
+  Run Keyword If  '${capability}' != 'edge'  Ввести команду  ${command}
+  ...  ELSE  Input By Line  ${input_field}  ${command}
+
+
+Визначити індекс активної консолі
+  :FOR  ${console_index}  in range  1  5
+  \  ${status}  Run Keyword And Return Status
+  ...  Element Should Be Visible  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
+  \  Set Suite Variable  ${console_index}
+  \  Exit For Loop If  ${status} == ${true}
+

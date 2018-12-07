@@ -23,7 +23,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. VFP Виконати команду
-	Ввести команду  ${VFP command}
+	Ввод команды в консоль  ${VFP command}
 	Натиснути кнопку "1 Выполнить"
 	Перевірити виконання команди VFP
 	Перевірити наявність кнопок "Да/Нет"

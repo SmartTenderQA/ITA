@@ -23,7 +23,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C# Виконати команду
-  Ввести команду  ${pulling from dropdown numerical1}
+  Ввод команды в консоль  ${pulling from dropdown numerical1}
   Натиснути кнопку "1 Выполнить"
 
 
@@ -45,7 +45,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C# Виконати наступну команду
-  Ввести команду  ${pulling from dropdown numerical2}
+  Sleep  1
+  Ввод команды в консоль  ${pulling from dropdown numerical2}
   Натиснути кнопку "1 Выполнить"
 
 

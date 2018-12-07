@@ -23,7 +23,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Відкрити "Консоль" та виконати команду
     Настиснути кнопку "Консоль"
     Перейти на вкладку  C#
-    Ввести команду  ${dropdown letters}
+    Ввод команды в консоль  ${dropdown letters}
     Натиснути кнопку "1 Выполнить"
     Перевірити наявність напису "Код" та АДЄ
     Перевірити у АДЄ значення очищено
@@ -43,6 +43,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Перевірити відповідність значень у message-box
     Звірити значення у message-box
     Натиснути "ОК" у message-box
+    Дочекатись загрузки сторінки (ita)
 
 
 Вибрати значення з випадаючого списку (одне пусте)
@@ -74,6 +75,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 Розкрити випадаючий список
     Click element  //*[@data-caption="+ Добавить"]//td[4]
+    Дочекатись Загрузки Сторінки (ita)
     Wait Until element is visible  //*[text()="Наименование:"]/following-sibling::div/span
 
 
@@ -81,6 +83,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
     ${dict of values}  Create Dictionary
     :FOR  ${i}  IN RANGE  1  4
     \  Click Element      ${checkbox}[${i}]
+    \  Дочекатись Загрузки Сторінки (ita)
     \  ${name}  get text  ${name field}[${i}]
     \  ${code}  get text  ${code field}[${i}]
     \  Set To Dictionary  ${dict of values}  ${name}  ${code}
@@ -103,6 +106,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Закрити випадаючий список (ESC)
     Press Key  //*[@data-caption="+ Добавить"]//td[2]//input  \\27
     Wait Until element is Not visible  //*[text()="Наименование:"]/following-sibling::div/span
+    Sleep   1
 
 
 Натиснути "ОК"

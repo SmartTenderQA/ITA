@@ -27,7 +27,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C# Виконати команду
-  Ввести команду  ${data_editor_call}
+  Ввод команды в консоль  ${data_editor_call}
   Натиснути кнопку "1 Выполнить"
   Дочекатись Загрузки Сторінки (ita)
 

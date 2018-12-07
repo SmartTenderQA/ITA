@@ -23,7 +23,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C# Виконати команду
-	Ввести команду  ${dropdown unexisting command}
+	Ввод команды в консоль  ${dropdown unexisting command}
 	Натиснути кнопку "1 Выполнить"
 
 
