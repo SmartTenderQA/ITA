@@ -58,9 +58,19 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Відкрити випадаючий список
+  Активувати вікно якщо потрібно
   Run Keyword If  '${capability}' == 'edge'  Click Element at coordinates  //*[contains(@class, "fixed-invisible-ade-buttons")]  0  0
   ...  ELSE  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
   Element Should Not Be Visible  //*[contains(@style, "display: none") and @class="ade-list-back"]
+
+
+Активувати вікно якщо потрібно
+    ${placeholder}  Set Variable  //*[@data-caption="+ Добавить"]
+    ${status}  Run Keyword And Return Status  Element Should not Be Visible  ${placeholder}
+    Run Keyword If  ${status} == ${false}  Click Element  //*[contains(@class, "multy-value-ade")]
+    Sleep  3
+    ${status}  Run Keyword And Return Status  element should be visible  //*[contains(@class, "dhxcombo_input_container")]//input
+    Run Keyword If  ${status} == ${false}  Активувати вікно якщо потрібно
 
 
 Відкрити пошук
