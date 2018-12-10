@@ -74,7 +74,8 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 
 Розкрити випадаючий список
-    Click element  //*[@data-caption="+ Добавить"]//td[4]
+    Run Keyword If  '${capability}' == 'edge'  Click element at coordinates  //*[@data-caption="+ Добавить"]//td[4]  0  0
+    ...  ELSE    Click element  //*[@data-caption="+ Добавить"]//td[4]
     Дочекатись Загрузки Сторінки (ita)
     Wait Until element is visible  //*[text()="Наименование:"]/following-sibling::div/span
 
@@ -105,7 +106,8 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 Закрити випадаючий список (ESC)
     Press Key  //*[@data-caption="+ Добавить"]//td[2]//input  \\27
-    Wait Until element is Not visible  //*[text()="Наименование:"]/following-sibling::div/span
+    ${status}  Run Keyword And Return Status  Wait Until element is Not visible  //*[text()="Наименование:"]/following-sibling::div/span  10
+    Run Keyword If  ${status} == ${false}  Закрити випадаючий список (ESC)
     Sleep   1
 
 
