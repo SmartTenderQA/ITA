@@ -74,9 +74,21 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 
 Розкрити випадаючий список
-    Click element  //*[@data-caption="+ Добавить"]//td[4]
+    Активувати вікно якщо потрібно
+    Sleep  1
+    Run Keyword If  '${capability}' == 'edge'  Click element at coordinates  //*[@data-caption="+ Добавить"]//td[4]  0  0
+    ...  ELSE    Click element  //*[@data-caption="+ Добавить"]//td[4]
     Дочекатись Загрузки Сторінки (ita)
     Wait Until element is visible  //*[text()="Наименование:"]/following-sibling::div/span
+
+
+Активувати вікно якщо потрібно
+    ${placeholder}  Set Variable  //*[@data-caption="+ Добавить"]
+    ${status}  Run Keyword And Return Status  Element Should not Be Visible  ${placeholder}
+    Run Keyword If  ${status} == ${false}  Click Element  //*[contains(@class, "multy-value-ade")]
+    Sleep  3
+    ${status}  Run Keyword And Return Status  element should be visible  //*[contains(@class, "dhxcombo_input_container")]//input
+    Run Keyword If  ${status} == ${false}  Активувати вікно якщо потрібно
 
 
 Вибрати довільні букви (не пусті)
@@ -105,7 +117,8 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 Закрити випадаючий список (ESC)
     Press Key  //*[@data-caption="+ Добавить"]//td[2]//input  \\27
-    Wait Until element is Not visible  //*[text()="Наименование:"]/following-sibling::div/span
+    ${status}  Run Keyword And Return Status  Wait Until element is Not visible  //*[text()="Наименование:"]/following-sibling::div/span  10
+    Run Keyword If  ${status} == ${false}  Закрити випадаючий список (ESC)
     Sleep   1
 
 

@@ -47,6 +47,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   ${selector}  Set Variable  //*[contains(@class, "dhxform_txt_label2")]
   Wait Until Element Is Visible  ${selector}
   ${text}  Get Text  ${selector}
+  ${text}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
+  ${title}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${title}  ${SPACE}  ${EMPTY}
   Should Be Equal  ${text}  ${title}
 
 
@@ -56,8 +58,19 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Відкрити випадаючий список
-  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
+  Активувати вікно якщо потрібно
+  Run Keyword If  '${capability}' == 'edge'  Click Element at coordinates  //*[contains(@class, "fixed-invisible-ade-buttons")]  0  0
+  ...  ELSE  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
   Element Should Not Be Visible  //*[contains(@style, "display: none") and @class="ade-list-back"]
+
+
+Активувати вікно якщо потрібно
+    ${placeholder}  Set Variable  //*[@data-caption="+ Добавить"]
+    ${status}  Run Keyword And Return Status  Element Should not Be Visible  ${placeholder}
+    Run Keyword If  ${status} == ${false}  Click Element  //*[contains(@class, "multy-value-ade")]
+    Sleep  3
+    ${status}  Run Keyword And Return Status  element should be visible  //*[contains(@class, "dhxcombo_input_container")]//input
+    Run Keyword If  ${status} == ${false}  Активувати вікно якщо потрібно
 
 
 Відкрити пошук
