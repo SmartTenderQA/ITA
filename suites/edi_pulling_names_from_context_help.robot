@@ -62,11 +62,15 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 
 
 Натиснути на лупу (F10)
-#    Активувати вікно якщо потрібно
-    Run Keyword If  '${capability}' == 'edge'  Click Element  //*[contains(@class, "multy-value-ade")]
+    Run Keyword If  '${capability}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
+    Дочекатись загрузки сторінки (ita)
     ${selector}  Set Variable  //*[@id="HelpF10"]
-    Wait Until Element Is Visible  ${selector}
-    Wait Until Keyword Succeeds  15  2  Click Element  ${selector}
+    Wait Until Element Is Visible  ${selector}  15
+    Mouse Over  ${selector}
+    Sleep  1
+    ${status}  Run Keyword And Return Status  Click Element  ${selector}
+    run keyword if  ${status} == ${false}  Click Element  ${selector}
+    run keyword if  ${status} == ${false}  Wait Until Keyword Succeeds  15  2  Click Element  ${selector}
     Wait Until Page Does Not Contain Element  ${selector}
 
 
