@@ -63,9 +63,12 @@ ${Button1}  //div[@role="link"]
 	[Arguments]  ${i}
 	${input}  Set Variable  (//*[@class="dhxform_base"]//input)[${i}]
 	${date}  smart_get_time  -4  d
-	Input Text  ${input}  ${date}
+	Click Element  ${input}
+	Clear Element Text  ${input}
+	Input Type Flex  ${input}  ${date}
 	Set Global Variable  ${date}
 	${text}  Get Element Attribute  ${input}  value
+	Sleep  2
 	${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${date}
 	Run Keyword If  ${status} == ${false}  Заповнити поле з датою  ${i}
 
