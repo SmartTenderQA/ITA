@@ -61,7 +61,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Активувати вікно якщо потрібно
   Run Keyword If  '${capability}' == 'edge'  Click Element at coordinates  //*[contains(@class, "fixed-invisible-ade-buttons")]  0  0
   ...  ELSE  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
-  Element Should Not Be Visible  //*[contains(@style, "display: none") and @class="ade-list-back"]
+  Element Should Not Be Visible  //*[contains(@style, "display: none") and @class="ade-list-back"]//*
 
 
 Активувати вікно якщо потрібно

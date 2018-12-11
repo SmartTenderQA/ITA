@@ -53,16 +53,30 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 Перевірити наявність напису "Код ЕИ" та АДЄ
     ${selector}  Set Variable  //*[contains(@class,"dhxform_txt_label")]
     Wait Until Element Is Visible  ${selector}
-    ${label}  Get text  ${selector}
-    Should Be Equal  '${label}'  'Код ЕИ'
+    ${label}  set variable  Код ЕИ
+    ${text}  Get text  ${selector}
+    ${text}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
+    ${label}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${label}  ${SPACE}  ${EMPTY}
+    Should Be Equal  ${label}  ${text}
     Page Should Contain Element  //*[@class="dhxcombo_input_container "]
 
 
 Натиснути на лупу (F10)
+#    Активувати вікно якщо потрібно
+    Run Keyword If  '${capability}' == 'edge'  Click Element  //*[contains(@class, "multy-value-ade")]
     ${selector}  Set Variable  //*[@id="HelpF10"]
     Wait Until Element Is Visible  ${selector}
-    Click Element  ${selector}
+    Wait Until Keyword Succeeds  15  2  Click Element  ${selector}
     Wait Until Page Does Not Contain Element  ${selector}
+
+
+Активувати вікно якщо потрібно
+    ${placeholder}  Set Variable  //*[@data-caption="+ Добавить"]
+    ${status}  Run Keyword And Return Status  Element Should not Be Visible  ${placeholder}
+    Run Keyword If  ${status} == ${false}  Click Element  //*[contains(@class, "multy-value-ade")]
+    Sleep  3
+    ${status}  Run Keyword And Return Status  element should be visible  //*[contains(@class, "dhxcombo_input_container")]//input
+    Run Keyword If  ${status} == ${false}  Активувати вікно якщо потрібно
 
 
 Натиснути "Выбрать все" в довіднику
@@ -81,6 +95,7 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 Натиснути "ОК" у довіднику
     ${selector}  Set Variable  //*[@class="dhxtoolbar_text" and text()="OK"]
     CLick Element  ${selector}
+    Дочекатись загрузки сторінки (ita)
     Wait Until Page Does Not Contain Element  //div[text()="Справочник единиц измерения. Выберите из списка"]  20
 
 
