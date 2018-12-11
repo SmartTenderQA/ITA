@@ -76,9 +76,12 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Очистити вибір
+  Run Keyword If  '${capability}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
   ${selector}  Set Variable  //*[@class="dhxcombo_option dhxcombo_option_selected"]/../div//input
-  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
-  Wait Until Element Is Visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
+  click element at coordinates  //input[@class="dhxcombo_input dxeEditAreaSys"]  47  0
+#  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
+  Run Keyword If  ${status} == ${false}  Очистити вибір
   Click Element  //*[contains(@class, "dhxcombo_hdrcell_check")]//input
   ${options_quantity}  Get Element Count  ${selector}
   :FOR  ${i}  IN RANGE  1  ${options_quantity} + 1
@@ -130,7 +133,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 Обрати довільні варіанти
    ${selector}  Set Variable  //*[@class="dhxcombo_option dhxcombo_option_selected"]/../div//input
-   Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
+   click element at coordinates  //input[@class="dhxcombo_input dxeEditAreaSys"]  47  0
+#   Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
    Wait Until Element Is Visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
    ${options_quantity}  Get Element Count  ${selector}
    :FOR  ${i}  IN RANGE  3
