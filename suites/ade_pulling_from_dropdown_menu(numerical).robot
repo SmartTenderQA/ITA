@@ -83,6 +83,9 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
   Run Keyword If  ${status} == ${false}  Очистити вибір
   Click Element  //*[contains(@class, "dhxcombo_hdrcell_check")]//input
+  Sleep  1
+  Run Keyword If  '${capability}' == 'edge'  Click Element  //*[contains(@class, "dhxcombo_hdrcell_check")]//input
+  Sleep  1
   ${options_quantity}  Get Element Count  ${selector}
   :FOR  ${i}  IN RANGE  1  ${options_quantity} + 1
   \  Checkbox Should Not Be Selected  xpath=(${selector})[${i}]
@@ -132,7 +135,9 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Обрати довільні варіанти
+   Run Keyword If  '${capability}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
    ${selector}  Set Variable  //*[@class="dhxcombo_option dhxcombo_option_selected"]/../div//input
+   Sleep  2
    click element at coordinates  //input[@class="dhxcombo_input dxeEditAreaSys"]  47  0
 #   Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
    Wait Until Element Is Visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
@@ -140,6 +145,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
    :FOR  ${i}  IN RANGE  3
    \  ${random}  random_number  3  ${options_quantity}
    \  Click Element  (${selector})[${random}]
+   \  Sleep  1
 
 
 Перевірити порядок цифр в наступному вспливаючому вікні
