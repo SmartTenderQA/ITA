@@ -42,13 +42,13 @@ ${menu_scroll}                        xpath=//*[@class="start-menu-tree-view-con
 ${toolbar}                            xpath=//*[@class="control-toolbar"]
 ${report_title}                       xpath=(//div[text()='Отчет']/ancestor::div[2]//input[@type='text'])[2]
 ${enter btn}                          \\13
-${C# command}                         ${command_c}
-${VFP command}                        ${command vfp}
-${C# grid}                            ${command_c_grid}
-${dropdown unexisting command}        ${dropdown_unexisting_table}
-${pulling from dropdown numerical1}    ${ade_pulling_from_dropdown_menu_numerical_first}
-${pulling from dropdown numerical2}    ${ade_pulling_from_dropdown_menu_numerical_second}
-
+${C# command}                         C# command
+${VFP command}                        VFP command
+${C# grid}                            C# grid
+${dropdown unexisting command}        dropdown unexisting command
+${pulling from dropdown numerical1}   pulling from dropdown numerical1
+${pulling from dropdown numerical2}   pulling from dropdown numerical2
+${dropdown letters}                   dropdown letters
 
 *** Keywords ***
 Preconditions
@@ -202,16 +202,27 @@ Check Prev Test Status
 
 Ввести команду
   [Arguments]  ${command}
-  Repeat Keyword  2 times  Ввести команду ${env}  ${command}
+  Run Keyword  Ввести команду ${env}  ${command}
 
 
 Ввести команду ITA
   [Arguments]  ${command}
-  ${textarea}  Set Variable  //*[@aria-hidden='false']//textarea
-  Clear Element Text  ${textarea}
-  Sleep  .5
-  Input Text  ${textarea}  ${command}
-  Sleep  .5
+  Очистити поле пошуку команд якщо необхідно
+  Input Text  //input[contains(@class, "dxeEditAreaSys")]  ${command}
+  Press Key  //input[contains(@class, "dxeEditAreaSys")]  \\13
+  Дочекатись Загрузки Сторінки (ita)
+
+
+Очистити поле пошуку команд якщо необхідно
+  ${command_input}  Set Variable  //input[contains(@class, "dxeEditAreaSys")]
+  ${clear_button}  Set Variable  //div[@id="Clear"]
+  Click Element  ${command_input}
+  Sleep  1
+  ${text}  Get Element Attribute   ${command_input}  Value
+  ${status}  Run Keyword And Return Status  Should Be Empty  ${text}
+  Run Keyword If  ${status} == ${false}  Wait Until Element Is Visible  ${clear_button}
+  Run Keyword If  ${status} == ${false}  Click Element  ${clear_button}
+  Sleep  1
 
 
 Ввести команду ITA_web2016
@@ -637,7 +648,7 @@ Input By Line
 Визначити індекс активної консолі
   :FOR  ${console_index}  in range  1  5
   \  ${status}  Run Keyword And Return Status
-  ...  Element Should Be Visible  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
+  ...  Element Should Be Visible  (//div[contains(@help-id, "DEBUGCONSOLECMD")])[${console_index}]
   \  Set Suite Variable  ${console_index}
   \  Exit For Loop If  ${status} == ${true}
 
