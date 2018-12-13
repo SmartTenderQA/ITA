@@ -49,6 +49,15 @@ ${dropdown unexisting command}        dropdown unexisting command
 ${pulling from dropdown numerical1}   pulling from dropdown numerical1
 ${pulling from dropdown numerical2}   pulling from dropdown numerical2
 ${dropdown letters}                   dropdown letters
+${vfp checkbox}                       vfp checkbox
+${VFP command}                        VFP command
+${activating_validation_form}         activating_validation_form
+${activating_a_screen}                activating_a_screen
+${data_editor_call}                   data_editor_call
+
+${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}  decimalPlaces_in_the_adjustment_screens
+${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_screens
+
 
 *** Keywords ***
 Preconditions
