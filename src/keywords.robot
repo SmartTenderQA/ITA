@@ -218,15 +218,15 @@ Check Prev Test Status
 Ввести команду ITA
   [Arguments]  ${command}
   Очистити поле пошуку команд якщо необхідно
-  Input Text  //input[contains(@class, "dxeEditAreaSys")]  ${command}
+  Wait Until Keyword Succeeds  15  2  Input Text  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  ${command}
   Press Key  //input[contains(@class, "dxeEditAreaSys")]  \\13
   Дочекатись Загрузки Сторінки (ita)
 
 
 Очистити поле пошуку команд якщо необхідно
-  ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])
+  ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]
   ${clear_button}  Set Variable  //div[@id="Clear"]
-  Click Element  ${command_input}[${console_index}]
+  Click Element  ${command_input}
   Sleep  1
   ${text}  Get Element Attribute   ${command_input}  Value
   ${status}  Run Keyword And Return Status  Should Be Empty  ${text}
