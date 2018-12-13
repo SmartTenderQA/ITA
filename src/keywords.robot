@@ -56,7 +56,7 @@ ${activating_a_screen}                activating_a_screen
 ${data_editor_call}                   data_editor_call
 ${edi_polling}                        edi_polling
 
-${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}  decimalPlaces_in_the_adjustment_screens
+${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}  adjusting_the_grid_with_the_mask_in_the_adjustment_screen
 ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_screens
 
 
