@@ -54,6 +54,7 @@ ${VFP command}                        VFP command
 ${activating_validation_form}         activating_validation_form
 ${activating_a_screen}                activating_a_screen
 ${data_editor_call}                   data_editor_call
+${edi_polling}                        edi_polling
 
 ${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}  decimalPlaces_in_the_adjustment_screens
 ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_screens
@@ -223,9 +224,9 @@ Check Prev Test Status
 
 
 Очистити поле пошуку команд якщо необхідно
-  ${command_input}  Set Variable  //input[contains(@class, "dxeEditAreaSys")]
+  ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])
   ${clear_button}  Set Variable  //div[@id="Clear"]
-  Click Element  ${command_input}
+  Click Element  ${command_input}[${console_index}]
   Sleep  1
   ${text}  Get Element Attribute   ${command_input}  Value
   ${status}  Run Keyword And Return Status  Should Be Empty  ${text}
@@ -629,29 +630,26 @@ z
   Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
   Дочекатись Загрузки Сторінки (ita)
 
-
-Input By Line
-#  Ввод теста построчно
-  [Arguments]  ${input_field}  ${text}
-  ${lines_count}  Get Line Count  ${text}
-  Sleep  .5
-#  Wait Until Keyword Succeeds  15  2  Click Element At Coordinates  ${input_field}  5  5
-  Wait Until Keyword Succeeds  15  2  Click Element  ${input_field}
-  Clear Element Text  ${input_field}
-  :FOR  ${i}  IN RANGE  ${lines_count}
-  \  ${line}  Get Line  ${text}  ${i}
-  \  Input Type Flex  ${input_field}  ${line}
-  \  Sleep  .3
-  \  Press Key  ${input_field}  ${enter btn}
-  \  Sleep  .3
+#
+#Input By Line
+##  Ввод теста построчно
+#  [Arguments]  ${input_field}  ${text}
+#  ${lines_count}  Get Line Count  ${text}
+#  Sleep  .5
+#  Wait Until Keyword Succeeds  15  2  Click Element  ${input_field}
+#  Clear Element Text  ${input_field}
+#  :FOR  ${i}  IN RANGE  ${lines_count}
+#  \  ${line}  Get Line  ${text}  ${i}
+#  \  Input Type Flex  ${input_field}  ${line}
+#  \  Sleep  .3
+#  \  Press Key  ${input_field}  ${enter btn}
+#  \  Sleep  .3
 
 
 Ввод команды в консоль
   [Arguments]  ${command}
   Визначити індекс активної консолі
-  ${input_field}  set variable  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
-  Run Keyword If  '${capability}' != 'edge'  Ввести команду  ${command}
-  ...  ELSE  Input By Line  ${input_field}  ${command}
+  Ввести команду  ${command}
 
 
 Визначити індекс активної консолі
