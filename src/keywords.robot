@@ -219,7 +219,7 @@ Check Prev Test Status
   [Arguments]  ${command}
   Очистити поле пошуку команд якщо необхідно
   Wait Until Keyword Succeeds  15  2  Input Text  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  ${command}
-  Press Key  //input[contains(@class, "dxeEditAreaSys")]  \\13
+  Press Key  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  \\13
   Дочекатись Загрузки Сторінки (ita)
 
 
@@ -231,7 +231,7 @@ Check Prev Test Status
   ${text}  Get Element Attribute   ${command_input}  Value
   ${status}  Run Keyword And Return Status  Should Be Empty  ${text}
   Run Keyword If  ${status} == ${false}  Wait Until Element Is Visible  ${clear_button}
-  Run Keyword If  ${status} == ${false}  Click Element  ${clear_button}
+  Run Keyword If  ${status} == ${false}  Wait Until Keyword Succeeds  15  3  Click Element  ${clear_button}
   Sleep  1
 
 
@@ -583,7 +583,7 @@ Input Type Flex
   ${items}    Get Length    ${text}
   : FOR    ${item}    IN RANGE    ${items}
   \    Press Key    ${locator}    ${text[${item}]}
-z
+
 
 Перевірити що назва звіту не порожня
   ${report_header}=  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
