@@ -72,6 +72,7 @@ ${Button1}  //div[@role="link"]
 	[Arguments]  ${value}
 	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
 	Ввести значення в комірку  ${value}  ${field}
+	Дочекатись Загрузки Сторінки (ita)
 
 
 Ввести значення в комірку
@@ -83,14 +84,14 @@ ${Button1}  //div[@role="link"]
     #Обрати комірку  ${field}
     Input Type Flex  ${input field}  ${value}
     Press Key  ${input field}  \\13
-    Sleep  .5
+    Дочекатись Загрузки Сторінки (ita)
 
 
 Обрати комірку
     [Arguments]  ${field}
     :FOR  ${i}  IN RANGE  20
     \  Click Element  ${field}
-    \  Sleep  2
+    \  Дочекатись Загрузки Сторінки (ita)
     \  ${status}  Run Keyword And Return Status  Page Should Contain Element  ${field}/self::*[contains(@class, "editable")]
     \  Exit For Loop IF  ${status} == ${True}
 
@@ -100,9 +101,10 @@ ${Button1}  //div[@role="link"]
 	${selector}  Set Variable  //div[@class="message-box" and contains(., "${value}")]
 	Wait Until Element Is Visible  ${selector}
 	Click Element  ${selector}//*[contains(text(), "ОК")]
-	Sleep  1
+	Дочекатись Загрузки Сторінки (ita)
 	Run Keyword And Ignore Error  Click Element  ${selector}//*[contains(text(), "ОК")]
 	Wait Until Page Does Not Contain Element  ${selector}
+	Дочекатись Загрузки Сторінки (ita)
 
 
 Отримати та порівняти значення поля

@@ -70,7 +70,7 @@ ${Button1}  //div[@role="link"]
 
 
 Перевірити що поле вводу змінило фоновий колір на червоний
-  Sleep  .5
+  Дочекатись Загрузки Сторінки (ita)
   ${list}  Create List  rgba(255, 230, 230, 1)  rgb(255, 230, 230)
   ${elem}    Get Webelement    ${input_field_selector}
   ${bg_color}    Call Method    ${elem}    value_of_css_property    background-color
