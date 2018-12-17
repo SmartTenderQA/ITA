@@ -182,6 +182,7 @@ Check Prev Test Status
 
 
 Настиснути кнопку "Консоль"
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  ${console}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Page Contains  Консоль отладки
