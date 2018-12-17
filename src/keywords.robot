@@ -458,7 +458,7 @@ Scroll To Element
 
 Перейти до екрану "Коректировка"
   Click Element  ${F7}
-  Wait Until Element Is Visible  xpath=//div[contains(text(), 'Добавление. Учет изменения ПО')]
+  Wait Until Element Is Visible  xpath=(//div[@class="float-container-header-text" and text()="Добавление. Учет изменения ПО"])
 
 
 Натиснути "Требует действий со стороны службы поддержки"
