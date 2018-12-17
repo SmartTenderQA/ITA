@@ -533,6 +533,7 @@ Scroll Page To Element XPATH
 
 Запустити функцію
 	[Arguments]  ${fuction}
+	Дочекатись Загрузки Сторінки (ita)
 	Click Element  //div[@id and @data-start-params and contains(., "${fuction}")]
 	Дочекатись Загрузки Сторінки (ita)
 	Wait Until Page Contains Element  //span[contains(@title, "${fuction}")]
