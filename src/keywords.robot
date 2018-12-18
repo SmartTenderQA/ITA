@@ -133,7 +133,7 @@ Check Prev Test Status
 
 Авторизуватися ITA
   [Arguments]  ${login}  ${password}=None
-  Wait Until Page Contains  Вход в систему  60
+  Wait Until Element Is Visible  //div[@class="float-container-header-text" and text()="Вход в систему"]  60
   Вибрати користувача  ${login}
   Ввести пароль  ${password}
   Натиснути кнопку вхід
@@ -415,14 +415,25 @@ Scroll To Element
 
 
 Натиснути на логотип IT-Enterprise
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  ${logo}
+  Дочекатись Загрузки Сторінки (ita)
   Wait Until Element Is Visible  xpath=//*[@class="start-menu-tree-view-container"]  20
 
 
 Виконати пошук пункта меню
   [Arguments]  ${menu_name}
   #Wait Until Element Is Visible  xpath=//*[@start-menu-search-panel]  30
-  Wait Until Keyword Succeeds  20  2  Input Text  ${search}  ${menu_name}
+  :FOR  ${i}  IN RANGE  10
+  \  ${menu_name1}  Set Variable  ${menu_name}
+  \  Input Text  ${search}  ${menu_name}
+  \  Sleep  1
+  \  ${text}  Get Element Attribute  ${search}  value
+  \  ${text}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
+  \  ${menu_name1}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${menu_name}  ${SPACE}  ${EMPTY}
+  \  ${status}  Run Keyword And Return Status  Should be Equal  ${text}  ${menu name1}
+  \  Exit For Loop If  ${status} == ${true}
+#  Wait Until Keyword Succeeds  20  2  Input Text  ${search}  ${menu_name}
   Press Key  ${search}  ${enter btn}
   Sleep  1
   Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
