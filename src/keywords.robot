@@ -138,7 +138,8 @@ Check Prev Test Status
   Ввести пароль  ${password}
   Натиснути кнопку вхід
   Дочекатись загрузки сторінки (ita)
-  Wait Until Element Is Visible  xpath=//*[@title="Вид"]  60
+  Wait Until Page Contains Element  xpath=//*[@title="Вид"]  60
+  Wait Until Element Is Visible  xpath=//*[@title="Вид"]  30
 
 
 Авторизуватися ITA_web2016
