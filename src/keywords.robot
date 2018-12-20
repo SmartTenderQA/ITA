@@ -145,14 +145,19 @@ Check Prev Test Status
 Авторизуватися ITA_web2016
   [Arguments]  ${login}  ${password}=None
   Wait Until Page Contains  Вход в систему  60
-  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
-  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
+  Input Text  xpath=//*[@data-name="Login"]//input  ${login}
+  Sleep  1
+  ${text}  Get Element Attribute  xpath=//*[@data-name="Login"]//input  value
+  ${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${login}
+  Run Keyword If  ${status} == ${false}  Авторизуватися ITA_web2016  ${login}  ${password}
+#  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
+#  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
   Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Password"]//input  ${password}  ELSE
   ...  Execute JavaScript  document.querySelector("[data-name=Password] input").value = "${password}"
   Run Keyword If  "${capability}" != "edge"  Натиснути кнопку вхід  ELSE
   ...  Execute JavaScript  document.querySelector("div.dxb").click()
   Дочекатись загрузки сторінки (ita)
-  Wait Until Element Is Visible  xpath=//*[@title='Новое окно']
+  Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
 
 
 Вибрати користувача
@@ -217,15 +222,16 @@ Check Prev Test Status
   Run Keyword  Ввести команду ${env}  ${command}
 
 
+
 Ввести команду ITA
   [Arguments]  ${command}
-  Очистити поле пошуку команд якщо необхідно
+  Run Keyword  Очистити поле пошуку команд якщо необхідно ${env}
   Wait Until Keyword Succeeds  15  2  Input Text  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  ${command}
   Press Key  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  \\13
   Дочекатись Загрузки Сторінки (ita)
 
 
-Очистити поле пошуку команд якщо необхідно
+Очистити поле пошуку команд якщо необхідно ITA
   ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]
   ${clear_button}  Set Variable  //div[@id="Clear"]
   Click Element  ${command_input}
@@ -237,12 +243,24 @@ Check Prev Test Status
   Sleep  1
 
 
+Очистити поле пошуку команд якщо необхідно ITA_web2016
+  ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
+  Click Element  ${command_input}
+  Sleep  1
+  ${status}  Run Keyword And Return Status  Page Should Contain Element  //div[@data-caption="+ Добавить" and contains(@class , "actv")]
+  Run Keyword If  ${status} == ${false}  Очистити поле пошуку команд якщо необхідно ITA_web2016
+  ${text}  Get Element Attribute   ${command_input}  Value
+  ${status1}  Run Keyword And Return Status  Should Be Empty  ${text}
+  Run Keyword If  ${status1} == ${false}  Clear Element Text  ${command_input}
+
+
 Ввести команду ITA_web2016
   [Arguments]  ${command}
-  ${textarea}  Set Variable  xpath=(//*[contains(@id,'DEBUGCONSOLE')]//textarea)[1]
-  Wait Until Element Is Visible  ${textarea}
-  ${count}  Get Element Count  ${textarea}
-  Input Text  ${textarea}  ${command}
+  ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
+  Run Keyword  Очистити поле пошуку команд якщо необхідно ${env}
+  Wait Until Keyword Succeeds  15  2  Input Text  ${command_input}  ${command}
+  Press Key  ${command_input}  \\13
+  Sleep  1
 
 
 Натиснути кнопку "1 Выполнить"
