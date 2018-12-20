@@ -52,12 +52,14 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 *** Keywords ***
 Натиснути іконку з фото користувача
   Wait Until Element Is Visible  ${user icon}
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  ${user icon}
   Wait Until Element Is Visible  ${user settings btn}
 
 
 Натиснути на кнопку налаштувань користувача
   Wait Until Element Is Visible  ${user settings btn}
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  ${user settings btn}
   Wait Until Page Contains  Мои настройки
 
@@ -74,12 +76,14 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 Перейти на вкладку "Цветовые схемы"
   Wait Until Element Is Visible  ${color scheme tab}
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  ${color scheme tab}
   Wait Until Element Is Visible  //span[contains(text(),'Цвет')]
 
 
 Змінити основний колір в налаштуваннях
   Capture Page Screenshot
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  ${main color btn}
   Wait Until Element Is Visible  ${palette colors}
   ${n}  Get Element Count  ${palette colors}
