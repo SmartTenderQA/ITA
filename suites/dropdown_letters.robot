@@ -119,13 +119,14 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
     Press Key  //*[@data-caption="+ Добавить"]//td[2]//input  \\27
     ${status}  Run Keyword And Return Status  Wait Until element is Not visible  //*[text()="Наименование:"]/following-sibling::div/span  10
     Run Keyword If  ${status} == ${false}  Закрити випадаючий список (ESC)
-    Sleep   1
+    Sleep   2
 
 
 Натиснути "ОК"
     ${selector}  Set Variable  //*[@class="dhxtoolbar_text" and text()="OK"]
     Wait Until Element Is Visible  ${selector}
-    CLick Element  ${selector}
+    ${status}  Run Keyword And Return Status  CLick Element  ${selector}
+    Run Keyword If  ${status} == ${false}  Run Keywords  Закрити випадаючий список (ESC)  AND  Натиснути "ОК"
 
 
 Звірити значення у message-box
