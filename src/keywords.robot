@@ -67,7 +67,8 @@ Preconditions
   ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
   ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
   ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-  Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
+  ...  ELSE IF    '${capability}' == 'behal'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
+  #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
 Postcondition
@@ -145,17 +146,31 @@ Check Prev Test Status
 Авторизуватися ITA_web2016
   [Arguments]  ${login}  ${password}=None
   Wait Until Page Contains  Вход в систему  60
-  Input Text  xpath=//*[@data-name="Login"]//input  ${login}
+  #Input Text  xpath=//*[@data-name="Login"]//input  ${login}
   Sleep  1
-  ${text}  Get Element Attribute  xpath=//*[@data-name="Login"]//input  value
-  ${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${login}
-  Run Keyword If  ${status} == ${false}  Авторизуватися ITA_web2016  ${login}  ${password}
-#  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
-#  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
+  #${text}  Get Element Attribute  xpath=//*[@data-name="Login"]//input  value
+  #${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${login}
+  #Run Keyword If  ${status} == ${false}  Авторизуватися ITA_web2016  ${login}  ${password}
+  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
+  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
   Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Password"]//input  ${password}  ELSE
   ...  Execute JavaScript  document.querySelector("[data-name=Password] input").value = "${password}"
   Run Keyword If  "${capability}" != "edge"  Натиснути кнопку вхід  ELSE
   ...  Execute JavaScript  document.querySelector("div.dxb").click()
+
+#  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
+#  Execute JavaScript  document.querySelector("[data-name=Password] input").value = "${password}"
+#  Execute JavaScript  document.querySelector("div.dxb").click()
+
+
+  #${a}  Get WebElement  css=[data-name="Login"] input
+  #Call Method    ${a}    send_keys  ${login}
+  #${b}  Get WebElement  xpath=//*[@data-name="Password"]//input
+  #Call Method    ${b}    send_keys  ${password}
+  #${c}  Get WebElement  css=div.dxb
+  #Call Method    ${c}  click
+
+
   Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
 
