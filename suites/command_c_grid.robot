@@ -11,6 +11,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
   Відкрити сторінку ITA
+  debug
   Авторизуватися  ${login}  ${password}
 
 
