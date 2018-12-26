@@ -159,6 +159,8 @@ Check Prev Test Status
   ...  Input password ITA_web2016  ${password}
   Run Keyword If  "${capability}" != "edge"  Натиснути кнопку вхід  ELSE
   ...  Execute JavaScript  document.querySelector("div.dxb").click()
+  Дочекатись загрузки сторінки (ita)
+  Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
 
 #  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
 #  Execute JavaScript  document.querySelector("[data-name=Password] input").value = "${password}"
@@ -175,14 +177,9 @@ Input password ITA_web2016
   ${b}  Get WebElement  xpath=//*[@data-name="Password"]//input
   Call Method    ${b}    send_keys  ${password}
 
-
 ##  ${c}  Get WebElement  css=div.dxb
 ##  Call Method    ${c}  click
 #  Execute JavaScript  document.querySelector("div.dxb").click()
-
-
-  Дочекатись загрузки сторінки (ita)
-  Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
 
 
 Вибрати користувача
