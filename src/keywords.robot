@@ -198,6 +198,8 @@ Input password ITA_web2016
 
 Натиснути кнопку вхід ITA
   Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[2]  -40  0
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Not Visible  xpath=(//*[contains(text(), 'Войти')])[2]  120
+  Run Keyword If  ${status} == ${false}  Натиснути кнопку вхід ITA
 
 
 Натиснути кнопку вхід ITA_web2016
