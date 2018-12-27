@@ -691,3 +691,76 @@ Input Type Flex
   \  Set Suite Variable  ${console_index}
   \  Exit For Loop If  ${status} == ${true}
 
+
+
+Вибрати довільні поля з довідників
+  [Arguments]  ${index}
+  Визначити Індекс Активного Вікна
+  Розкрити батьківське поле що має expander  ${index}
+  Розкрити дочірній довідник з полями  ${index}
+  Перевірити успішніть розгортання довідника полів  ${index}
+  Додати довільне поле з довідника  ${index}
+  Згорнути батьківське поле
+#  Прокрутити список полів
+
+
+Розкрити батьківське поле що має expander
+  [Arguments]  ${i}
+  Click Element  ${exp field}[${i}]
+  Wait Until Page Contains Element  ${exp field}[${i}]/ancestor::tr/following-sibling::tr[1]//*[contains(text(),'right')]
+
+
+Розкрити дочірній довідник з полями
+  [Arguments]  ${i}
+  ${i}  Evaluate  ${i} + 1
+  Click Element  ${exp field}[${i}]
+  Wait Until Page Contains Element  ${exp field}[${i}][contains(text(),'down')]
+
+
+Перевірити успішніть розгортання довідника полів
+  [Arguments]  ${i}
+  ${i}  Evaluate  ${i} + 1
+  Wait Until Element Is Visible  ${exp field}[${i}][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  xpath=(//*[contains(@class, 'selectable')]/table)[1]//tr//*[@style="padding-left:60px"][1]
+  Run Keyword If  ${status} == ${false}  Wait Until Element Is Visible  xpath=(//*[contains(@class, 'selectable')]/table)[3]//tr//*[@style="padding-left:60px"][1]
+
+
+
+Згорнути батьківське поле
+  Sleep  .5
+  Click Element  ${exp field}[contains(text(),'down')][1]
+  Sleep  .5
+
+
+Створити пустий список
+  ${list}  Create List
+  Set Global Variable  ${list}
+
+
+Додати довільне поле з довідника
+  [Arguments]  ${index}
+  ${random}  random_number  1  4
+  ${random}  Set Variable If  '${index}' == '3'  1  ${random}
+  Click Element  ${dict field}[${random}]
+  Wait Until Page Contains Element  ${dict field}[${random}]/ancestor::td[@class="cellselected"]
+  ${fieldname}  Get Text  ${dict field}[${random}]
+  Append To List  ${list}  ${fieldname}
+  Wait Until Element Is Visible  ${add field btn}
+  Wait Until Keyword Succeeds  15  3  Click Element  ${add field btn}
+  Sleep  1
+  ${added_table}  Get Text  xpath=(//td[@class="cellmultiline cellselected"])[last()]
+  ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
+  Should Be Equal  ${fieldname}  ${added_table}
+
+
+Перевірити вибір полів
+  ${selected fields}  Create List
+  Set Global Variable  ${selected fields}
+  ${fields count}  Get Element Count  ${added fields}
+  Set Global Variable  ${fields count}
+  :FOR  ${i}  IN RANGE   ${fields count}
+  \  ${i}  Evaluate  ${i} + 1
+  \  ${fieldname}  Get Text  ${added fields}[${i}]
+  \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
+  \  Append To List  ${selected fields}  ${fieldname}
+  Should Be Equal  ${list}  ${selected fields}
