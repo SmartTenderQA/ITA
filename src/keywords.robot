@@ -151,6 +151,7 @@ Check Prev Test Status
   #${text}  Get Element Attribute  xpath=//*[@data-name="Login"]//input  value
   #${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${login}
   #Run Keyword If  ${status} == ${false}  Авторизуватися ITA_web2016  ${login}  ${password}
+  Run Keyword If  "${capability}" != "edge"   document.querySelector("[data-name=Login] input").value = ""
   Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
 #  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
   ...  Input Login ITA_web2016  ${login}
