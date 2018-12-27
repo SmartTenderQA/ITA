@@ -11,7 +11,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 *** Variables ***
 ${user icon}                            //*[@help-id="USERICONWRAPPER"]
 ${user settings btn}                    //*[@id="RmdClientSettings"]/i
-${color scheme tab}                     //*[text()="Цвета"]
+${color scheme tab}                     //div[@data-settings-type="1"]
 ${main color btn}                       //*[text()="Основной цвет"]/../following-sibling::div
 ${palette colors}                       //*[@class="color-palette"]//tr[1]/td
 ${client header}                        //*[@class="csw-header"]
@@ -25,6 +25,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 Запустить проект ITA
   Авторизуватися  ${login}  ${password}
+  Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
 Перейти в налаштування користувача
