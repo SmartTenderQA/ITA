@@ -536,7 +536,7 @@ Scroll To Element
   Click Element  (${row})[${n}]
   Sleep  2
   Press Key  //html/body  \\13
-  Sleep  2
+  Дочекатись Загрузки Сторінки (ita)
   Page Should Contain Element  //td[@class='cellselected editable']
   [Return]  (${row})[${n}]
 
@@ -554,8 +554,11 @@ Scroll To Element
   Double Click Element  ${selector}/../following-sibling::*
   Sleep  .5
   Press Key  //html/body  \\13
-  Sleep  1
+  Дочекатись Загрузки Сторінки (ita)
+  Press Key  //html/body  \\13
   ${text}  Get Text  ${selector}
+  ${status}  Run Keyword And Return Status  Should Not Be Empty  ${text}
+  Run Keyword If  ${status} == ${false}  Вибрати іншіу довільну комірку  ${selector}
   Page Should Contain Element  //td[text()="${text}"]
 
 
