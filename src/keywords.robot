@@ -67,7 +67,6 @@ Preconditions
   ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
   ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
   ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'behal'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
   #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
@@ -151,6 +150,7 @@ Check Prev Test Status
   #${text}  Get Element Attribute  xpath=//*[@data-name="Login"]//input  value
   #${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${login}
   #Run Keyword If  ${status} == ${false}  Авторизуватися ITA_web2016  ${login}  ${password}
+  Run Keyword If  "${capability}" == "edge"  Execute JavaScript   document.querySelector("[data-name=Login] input").value = ""
   Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
 #  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
   ...  Input Login ITA_web2016  ${login}
@@ -301,7 +301,11 @@ Input password ITA_web2016
 
 
 Натиснути кнопку "1 Выполнить" ITA_web2016
-  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
+  Sleep  5
+  Click Element  (//div[@class="dxb" and contains(@id, "DEBUG")])
+#  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
+  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[2]  30
+  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
 
 
 Перевірити виконання команди VFP
@@ -527,7 +531,8 @@ Scroll To Element
 
 Активувати комірку для редагування
   ${row}  Set Variable  //table[contains(@class,'obj')]//tr/td[2]
-  ${n}  random_number  2  5
+  ${count}  Get Element Count  ${row}
+  ${n}  random_number  1   ${count}
   Click Element  (${row})[${n}]
   Sleep  2
   Press Key  //html/body  \\13
