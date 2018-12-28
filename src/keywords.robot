@@ -549,6 +549,7 @@ Scroll To Element
   Double Click Element  ${selector}/../following-sibling::*
   Sleep  .5
   Press Key  //html/body  \\13
+  Sleep  1
   ${text}  Get Text  ${selector}
   Page Should Contain Element  //td[text()="${text}"]
 
