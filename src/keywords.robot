@@ -66,8 +66,7 @@ Preconditions
   Run Keyword If  '${capability}' == 'chrome'    Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
   ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
   ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  applicationName:text
-  ...  ELSE IF    '${capability}' == 'dimon'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  applicationName:text
+  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
   #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
