@@ -66,8 +66,8 @@ Preconditions
   Run Keyword If  '${capability}' == 'chrome'    Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
   ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
   ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'behal'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
+  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  applicationName:text
+  ...  ELSE IF    '${capability}' == 'dimon'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  applicationName:text
   #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
@@ -302,7 +302,11 @@ Input password ITA_web2016
 
 
 Натиснути кнопку "1 Выполнить" ITA_web2016
-  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
+  Sleep  5
+  Click Element  (//div[@class="dxb" and contains(@id, "DEBUG")])
+#  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
+  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[2]  30
+  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
 
 
 Перевірити виконання команди VFP
@@ -528,7 +532,8 @@ Scroll To Element
 
 Активувати комірку для редагування
   ${row}  Set Variable  //table[contains(@class,'obj')]//tr/td[2]
-  ${n}  random_number  2  5
+  ${count}  Get Element Count  ${row}
+  ${n}  random_number  1   ${count}
   Click Element  (${row})[${n}]
   Sleep  2
   Press Key  //html/body  \\13
