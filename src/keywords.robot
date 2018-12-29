@@ -304,9 +304,18 @@ Input password ITA_web2016
   Sleep  5
   Визначити потрібну кнопку
   Click Element  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]
+  Sleep  1
+  debug
+  Run Keyword If  '${capability}' == 'edge'  Execute Javascript  document.querySelector("input[value='1 Выполнить']").click()
 #  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
-  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  20
+  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  10
   Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
+
+
+Autistick Clicking
+  :FOR  ${i}  IN RANGE  15
+  \  Execute Javascript  document.querySelector("input[value='1 Выполнить']").click()
+  \  Sleep  1
 
 Визначити потрібну кнопку
   ${button}  Set Variable  (//div[@class="dxb" and contains(@id, "DEBUG")])
@@ -564,7 +573,8 @@ Scroll To Element
   Sleep  .5
   Press Key  //html/body  \\13
   Дочекатись Загрузки Сторінки (ita)
-  Press Key  //html/body  \\13
+  Click Element  ${selector}/../following-sibling::*
+  Sleep  .5
   ${text}  Get Text  ${selector}
   ${status}  Run Keyword And Return Status  Should Not Be Empty  ${text}
   Run Keyword If  ${status} == ${false}  Вибрати іншіу довільну комірку  ${selector}
