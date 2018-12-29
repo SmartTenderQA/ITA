@@ -66,7 +66,7 @@ Preconditions
   Run Keyword If  '${capability}' == 'chrome'    Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
   ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
   ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
+  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:w10dima
   #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
@@ -280,7 +280,7 @@ Input password ITA_web2016
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
-  ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
+  ${command_input}  Set Variable  (//input[@class="dhxcombo_input dxeEditAreaSys"])
   Run Keyword  Очистити поле пошуку команд якщо необхідно ${env}
   Wait Until Keyword Succeeds  15  2  Input Text  ${command_input}  ${command}
   Press Key  ${command_input}  \\13
@@ -302,10 +302,19 @@ Input password ITA_web2016
 
 Натиснути кнопку "1 Выполнить" ITA_web2016
   Sleep  5
-  Click Element  (//div[@class="dxb" and contains(@id, "DEBUG")])
+  Визначити потрібну кнопку
+  Click Element  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]
 #  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
-  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[2]  30
+  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  20
   Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
+
+Визначити потрібну кнопку
+  ${button}  Set Variable  (//div[@class="dxb" and contains(@id, "DEBUG")])
+  :FOR  ${button_index}  IN RANGE  1  5
+  \  ${text}  Get Text  ${button}[${button_index}]
+  \  ${status}  run keyword and return status  Should Contain  ${text}  \u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c  #Выполнить
+  \  Set Suite Variable  ${button_index}
+  \  Exit For Loop If  ${status} == ${true}
 
 
 Перевірити виконання команди VFP
