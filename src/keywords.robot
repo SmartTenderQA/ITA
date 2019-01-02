@@ -305,7 +305,6 @@ Input password ITA_web2016
   Визначити потрібну кнопку
   Click Element  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]
   Sleep  1
-  debug
   Run Keyword If  '${capability}' == 'edge'  Execute Javascript  document.querySelector("input[value='1 Выполнить']").click()
 #  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
   ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  10
