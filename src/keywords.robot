@@ -572,7 +572,7 @@ Scroll To Element
   Sleep  .5
   Press Key  //html/body  \\13
   Дочекатись Загрузки Сторінки (ita)
-  Click Element  ${selector}/../following-sibling::*
+  Run Keyword And Ignore Error  Click Element  xpath=(${selector}/../following-sibling::*/td)
   Sleep  .5
   ${text}  Get Text  ${selector}
   ${status}  Run Keyword And Return Status  Should Not Be Empty  ${text}
