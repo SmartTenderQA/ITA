@@ -159,7 +159,7 @@ Check Prev Test Status
   ...  Input password ITA_web2016  ${password}
   Run Keyword If  "${capability}" != "edge"  Натиснути кнопку вхід  ELSE
   ...  Execute JavaScript  document.querySelector("div.dxb").click()
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись Загрузки Сторінки (ITA_web2016)
   Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
 
 #  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
