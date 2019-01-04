@@ -797,3 +797,68 @@ Input Type Flex
   \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
   \  Append To List  ${selected fields}  ${fieldname}
   Should Be Equal  ${list}  ${selected fields}
+
+
+Натиснути пункт меню
+    [Arguments]  ${name}
+    ${selector}  Set Variable  xpath=(//table[@class="dxtlDataTable"]//label[text()="${name}"])[last()]
+    Wait Until Element Is Visible  ${selector}
+    Wait Until Keyword Succeeds  15  3  Click Element  ${selector}
+
+
+Відкрити функцію
+    [Arguments]  ${name}
+    ${selector}  Set Variable  xpath=(//table[@class="dxtlDataTable"]//label[text()="${name}"])[last()]
+    Wait Until Element Is Visible  ${selector}
+    Run Keyword And Ignore Error  Double Click Element  ${selector}
+    Дочекатись Загрузки Сторінки (ITA_web2016)
+    ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
+    Run Keyword If  ${status} == ${false}  Відкрити функцію  ${name}
+
+
+В поле Обьект ввести
+    [Arguments]  ${object}
+    Set Global Variable  ${object}
+    ${input_field}  Set Variable  //td[@class="dxic"]/input
+    Input Text  ${input_field}  ${object}
+    ${text}  Get Element Attribute  ${input_field}  value
+    ${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${object}
+    Run Keyword If  ${status} == ${false}  В поле Обьект ввести  ${object}
+
+
+Натиснути кнопку форми
+    [Arguments]  ${button}  ${window}=${EMPTY}
+    ${selector}  Set Variable  ${window}//*[@title='${button}']
+    Wait Until Element Is Visible  ${selector}  30
+    Sleep  .5
+    Click Element  ${selector}
+    Дочекатись загрузки сторінки (ITA_web2016)
+
+
+Натиснути кнопку
+    [Arguments]  ${button_name}
+    Wait Until Element Is Visible  //*[contains(@title,'${button_name}')]  30
+    Wait Until Keyword Succeeds  10  2  Click Element  //*[contains(@title,'${button_name}')]
+    Дочекатись загрузки сторінки (ITA_web2016)
+
+
+Перевірити наявність кнопки
+    [Arguments]  ${button_name}
+    Wait Until Element Is Visible  //*[contains(@title,'${button_name}')]  30
+
+
+Дочекатись загрузки сторінки (ITA_web2016)
+    ${loading_selector}  Set Variable  //img[contains(@class, "loadingImage")]  #//span[@id="LoadingPanel_TL"]  //table[@id="LoadingPanel"]
+    ${status}  ${message}  Run Keyword And Ignore Error  Wait Until Element Is Visible  ${loading_selector}  5
+    Run Keyword If  "${status}" == "PASS"  Run Keyword And Ignore Error  Wait Until Element Is Not Visible  ${loading_selector}  180
+
+
+Перевірити додавання об'єкту
+    [Arguments]  ${object}
+    Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[text()="${object}"]
+    Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[last() and text()="1"]  # стадия
+
+
+Перевірити що стадія документу
+    [Arguments]  ${stage}
+    Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[last() and text()="${stage}"]
