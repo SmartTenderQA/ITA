@@ -44,7 +44,7 @@ ${report_title}                       xpath=(//div[text()='Отчет']/ancestor
 ${enter btn}                          \\13
 ${C# command}                         C# command
 ${VFP command}                        VFP command
-${C# grid}                            C# grid
+${C# grid}                            C# grid                       # \x43\x23\x20\x67\x72\x69\x64
 ${dropdown unexisting command}        dropdown unexisting command
 ${pulling from dropdown numerical1}   pulling from dropdown numerical1
 ${pulling from dropdown numerical2}   pulling from dropdown numerical2
@@ -280,15 +280,18 @@ Input password ITA_web2016
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
-  ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
+  ${command_input}  Set Variable  (//input[@class="dhxcombo_input dxeEditAreaSys"])
   Run Keyword  Очистити поле пошуку команд якщо необхідно ${env}
-  Wait Until Keyword Succeeds  15  2  Input Text  ${command_input}  ${command}
+  Wait Until Keyword Succeeds  15  3  Input Type Flex  ${command_input}  ${command}
+  Sleep  .5
   Press Key  ${command_input}  \\13
   Sleep  1
+  Run Keyword If  '${capability}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
 
 
 Натиснути кнопку "1 Выполнить"
   Run Keyword  Натиснути кнопку "1 Выполнить" ${env}
+
 
 
 Натиснути Кнопку "1 Выполнить" ITA
@@ -302,10 +305,30 @@ Input password ITA_web2016
 
 Натиснути кнопку "1 Выполнить" ITA_web2016
   Sleep  5
-  Click Element  (//div[@class="dxb" and contains(@id, "DEBUG")])
+  Визначити потрібну кнопку
+  Press Button Execute
+  Sleep  1
 #  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
-  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[2]  30
-  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
+#  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  10
+#  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
+
+Press Button Execute
+  ${a}  Get WebElement  xpath=(//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]
+  Call Method    ${a}    click
+
+
+Autistick Clicking
+  :FOR  ${i}  IN RANGE  15
+  \  Execute Javascript  document.querySelector("input[value='1 Выполнить']").click()
+  \  Sleep  1
+
+Визначити потрібну кнопку
+  ${button}  Set Variable  (//div[@class="dxb" and contains(@id, "DEBUG")])
+  :FOR  ${button_index}  IN RANGE  1  5
+  \  ${text}  Get Text  ${button}[${button_index}]
+  \  ${status}  run keyword and return status  Should Contain  ${text}  \u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c  #Выполнить
+  \  Set Suite Variable  ${button_index}
+  \  Exit For Loop If  ${status} == ${true}
 
 
 Перевірити виконання команди VFP
@@ -555,7 +578,8 @@ Scroll To Element
   Sleep  .5
   Press Key  //html/body  \\13
   Дочекатись Загрузки Сторінки (ita)
-  Press Key  //html/body  \\13
+  Run Keyword And Ignore Error  Click Element  xpath=(${selector}/../following-sibling::*/td)
+  Sleep  .5
   ${text}  Get Text  ${selector}
   ${status}  Run Keyword And Return Status  Should Not Be Empty  ${text}
   Run Keyword If  ${status} == ${false}  Вибрати іншіу довільну комірку  ${selector}
