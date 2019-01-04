@@ -832,12 +832,23 @@ Input Type Flex
 
 Відкрити функцію
     [Arguments]  ${name}
+    ${status}  Run Keyword And Return Status  Покликать  ${name}
+    Run Keyword If  ${status} == ${false}  Совсем не кликается  ${name}
+
+Покликать
+    [Arguments]  ${name}
     ${selector}  Set Variable  xpath=(//table[@class="dxtlDataTable"]//label[text()="${name}"])[last()]
     Wait Until Element Is Visible  ${selector}
     Run Keyword And Ignore Error  Double Click Element  ${selector}
     Дочекатись Загрузки Сторінки (ITA_web2016)
     ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
-    Run Keyword If  ${status} == ${false}  Відкрити функцію  ${name}
+    Run Keyword If  ${status} == ${false}  Покликать  ${name}
+
+
+Совсем не кликается
+    [Arguments]  ${name}
+    Execute JavaScript  let event = new MouseEvent('dblclick', { 'view': window, 'bubbles': true, 'cancelable': true }); document.querySelector("div[tooltip='${name}']").dispatchEvent(event);
+    Дочекатись Загрузки Сторінки (ITA_web2016)
 
 
 В поле Обьект ввести
