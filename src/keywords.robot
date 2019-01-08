@@ -835,14 +835,17 @@ Input Type Flex
     ${status}  Run Keyword And Return Status  Покликать  ${name}
     Run Keyword If  ${status} == ${false}  Совсем не кликается  ${name}
 
+
 Покликать
     [Arguments]  ${name}
     ${selector}  Set Variable  xpath=(//table[@class="dxtlDataTable"]//label[text()="${name}"])[last()]
     Wait Until Element Is Visible  ${selector}
-    Run Keyword And Ignore Error  Double Click Element  ${selector}
-    Дочекатись Загрузки Сторінки (ITA_web2016)
-    ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
-    Run Keyword If  ${status} == ${false}  Покликать  ${name}
+    :FOR  ${i}  IN RANGE  10
+    \  Run Keyword And Ignore Error  Double Click Element  ${selector}
+    \  Дочекатись Загрузки Сторінки (ITA_web2016)
+    \  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
+    \  Exit For Loop If  ${status} != ${false}
+    \  Run Keyword If  ${i} == 9  Покликать  ${name}
 
 
 Совсем не кликается
