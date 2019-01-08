@@ -38,9 +38,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Натиснути Кнопку  Передать вперед (Alt+Right)
     Перевірити що з'явилось вікно Условие
     В формі Условие натиснути кнопку Да
-#   Написать проверку формы Текстовый документ
-    Press Key  //body  \\27
-#   Заглушка на время багов
+    Переконатись що з'явилось вікно Текстовый документ та закрити його
     Перевірити що стадія документу  2
 
 Видалити документ
@@ -78,3 +76,11 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Перевірити видалення документу
     Page Should Not Contain Element  //tr[contains(@class, "rowselected")]//td[text()="${object}"]
 
+
+Переконатись що з'явилось вікно Текстовый документ та закрити його
+    Wait Until Element Is Visible  //span[text()="Текстовый документ"]
+    Select Frame  //iframe[contains(@id, "PreviewIFrame")]
+    Wait Until Element Is Visible  //b[text()="Протокол тестирования"]
+    Unselect Frame
+    Click Element  //div[@class="dxpc-closeBtn"]
+    Дочекатись Загрузки Сторінки (ITA_web2016)
