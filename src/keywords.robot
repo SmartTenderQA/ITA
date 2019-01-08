@@ -845,7 +845,7 @@ Input Type Flex
     \  Дочекатись Загрузки Сторінки (ITA_web2016)
     \  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
     \  Exit For Loop If  ${status} != ${false}
-    \  Run Keyword If  ${i} == 9  Покликать  ${name}
+    \  Run Keyword If  ${i} == 9  Совсем не кликается  ${name}
 
 
 Совсем не кликается
