@@ -804,7 +804,7 @@ Input Type Flex
   Append To List  ${list}  ${fieldname}
   Wait Until Element Is Visible  ${add field btn}
   Wait Until Keyword Succeeds  15  3  Click Element  ${add field btn}
-  Sleep  1
+  Дочекатись Загрузки Сторінки (ita)
   ${added_table}  Get Text  xpath=(//td[@class="cellmultiline cellselected"])[last()]
   ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
   Should Be Equal  ${fieldname}  ${added_table}

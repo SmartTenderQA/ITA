@@ -15,7 +15,7 @@ ${added fields}                     xpath=(//td[contains(@class,'multiline')])
 ${a}                                10
 
 
-#  robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v hub:None suites/adding_non_register_fields_template.robot
+#  robot -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/adding_non_register_fields_template.robot
 #  команда для запуска
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
