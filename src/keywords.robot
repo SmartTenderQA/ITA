@@ -7,6 +7,7 @@ Library     OperatingSystem
 Library     Faker/faker.py
 Library     service.py
 Library     String
+Library   	../suites/data.py
 
 
 *** Variables ***
@@ -67,7 +68,8 @@ Preconditions
   ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
   ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
   ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'behal'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
+  ...  ELSE IF    '${capability}' == 'behal'     Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
+  ...  ELSE  Open Browser  ${url.${env}}  chrome
   #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
@@ -177,8 +179,8 @@ Input password ITA_web2016
   ${b}  Get WebElement  xpath=//*[@data-name="Password"]//input
   Call Method    ${b}    send_keys  ${password}
 
-##  ${c}  Get WebElement  css=div.dxb
-##  Call Method    ${c}  click
+#  ${c}  Get WebElement  css=div.dxb
+#  Call Method    ${c}  click
 #  Execute JavaScript  document.querySelector("div.dxb").click()
 
 
@@ -242,7 +244,6 @@ Input password ITA_web2016
 Ввести команду
   [Arguments]  ${command}
   Run Keyword  Ввести команду ${env}  ${command}
-
 
 
 Ввести команду ITA
