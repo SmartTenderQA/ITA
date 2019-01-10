@@ -843,6 +843,8 @@ Input Type Flex
     :FOR  ${i}  IN RANGE  10
     \  Run Keyword And Ignore Error  Double Click Element  ${selector}
     \  Дочекатись Загрузки Сторінки (ITA_web2016)
+    \  Run Keyword And Ignore Error  Click Element  ${selector}
+    \  Sleep  1
     \  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
     \  Exit For Loop If  ${status} != ${false}
     \  Run Keyword If  ${i} == 9  Совсем не кликается  ${name}
