@@ -1,6 +1,26 @@
 *** Settings ***
+Documentation
+Metadata  Задача в PLD
+...  586000
+Metadata  Название теста
+...  Маска в корректируемых ячейках Grid
+Metadata  Заявитель
+...  МЕЛЕНТЬЕВ
+Metadata  Окружения
+...  - chrome
+...  - ff
+...  - chrome-XP
+Metadata  Идея теста
+...  Валидационные проверки на вводимые значения двух полей
+...
+...  Первое поле принимает позитивные и негативные значения
+...
+...  Второе только позитивные
+Metadata  Команда запуска
+...  robot --consolecolors on -L TRACE:INFO -A suites/arguments.txt suites/mask_in_adjustable_grid_cells.robot
+
 Resource  ../src/keywords.robot
-Suite Setup  Preconditions
+Suite Setup  Precondition
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
 Test Teardown  Run Keyword If Test Failed  Something Went Wrong
@@ -9,37 +29,52 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 *** Variables ***
 ${mask_in_adjustable_grid_cells}  		mask_in_adjustable_grid_cells
 ${result window}						(//*[@class='dhx_cell_wins']
-${COUNT field}							//td)[8]
-${ONLY_COUNT field}						//td)[9]
+${negative field}						//td)[8]
+${positive field}						//td)[9]
 
 
 *** Test Cases ***
-123
+Перевірити дані в полях
+	${first_field value}  Отримати значення поля  negative
+	${second_field value}  Отримати значення поля  positive
+	Should Be Equal  ${first_field value}  ${300}
+	Should Be Equal  ${second_field value}  ${200}
+
+
+Ввести від'ємне число в перше поле
+	${negative value}  Evaluate  random.randint(-999,-1)  random
+	Ввести значення в поле  negative  ${negative value}
+	${get value}  Отримати значення поля  negative
+	Should Be Equal  ${get value}  ${negative value}
+
+
+Ввести позитивне число в друге поле
+	${positive value}  Evaluate  random.randint(1,999)  random
+	Ввести значення в поле  positive  ${positive value}
+	${get value}  Отримати значення поля  positive
+	Should Be Equal  ${get value}  ${positive value}
+
+
+Перевірити неможливість введення знака "-" в друге поле
+	${negative value}  Evaluate  random.randint(-999,-1)  random
+	Ввести значення в поле  positive  ${negative value}  ${False}
+	${get value}  Отримати значення поля  positive
+	${absolute value}  Evaluate  abs(${negative value})
+	Should Be Equal  ${get value}  ${absolute value}
+
+
+*** Keywords ***
+Precondition
+	Preconditions
 	Відкрити сторінку ITA
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
 	Ввод команды в консоль  ${mask_in_adjustable_grid_cells}
 	Натиснути кнопку "1 Выполнить"
-	${COUNT value}  Отримати значення поля  COUNT
-	${ONLY_COUNT value}  Отримати значення поля  ONLY_COUNT
-	Should Be Equal  ${COUNT value}  ${300}
-	Should Be Equal  ${ONLY_COUNT value}  ${200}
-	${NEW COUNT value}  Evaluate  random.randint(-999,-1)  random
-	Ввести значення в поле  COUNT  ${NEW COUNT value}
-	${NEW ONLY_COUNT value}  Evaluate  random.randint(1,999)  random
-	Ввести значення в поле  ONLY_COUNT  ${NEW ONLY_COUNT value}
-	${COUNT value}  Отримати значення поля  COUNT
-	${ONLY_COUNT value}  Отримати значення поля  ONLY_COUNT
-	Should Be Equal  ${COUNT value}  ${NEW COUNT value}
-	Should Be Equal  ${ONLY_COUNT value}  ${NEW ONLY_COUNT value}
-	Ввести значення в поле  ONLY_COUNT  ${NEW COUNT value}  ${False}
-	${get}  Отримати значення поля  ONLY_COUNT
-	${abs}  Evaluate  abs(${NEW COUNT value})
-	Should Be Equal  ${get}  ${abs}
 
 
-*** Keywords ***
+
 Отримати значення поля
 	[Arguments]  ${field}
 	${selector}  Set Variable  ${result window}${${field} field}

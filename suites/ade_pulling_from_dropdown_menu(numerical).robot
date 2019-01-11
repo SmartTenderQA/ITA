@@ -151,7 +151,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Перевірити порядок цифр в наступному вспливаючому вікні
   ${text}  Get Text  //*[@class="message-box-content-body"]/p
   ${text}  Fetch From Right  ${text}  -
-  Should Contain  ${text}  ;
+  ${length}  Get Length  ${text}
+  Run Keyword If  ${length} > 2  Should Contain  ${text}  ;
   ${text}  Get Regexp Matches  ${text}  \\d+
   Should Be Equal  ${text}  ${added_numbers}
   Click Element  //*[contains(@class, "message-box-button")]

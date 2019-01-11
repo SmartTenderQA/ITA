@@ -45,7 +45,7 @@ ${report_title}                       xpath=(//div[text()='Отчет']/ancestor
 ${enter btn}                          \\13
 ${C# command}                         C# command
 ${VFP command}                        VFP command
-${C# grid}                            C# grid
+${C# grid}                            C# grid                       # \x43\x23\x20\x67\x72\x69\x64
 ${dropdown unexisting command}        dropdown unexisting command
 ${pulling from dropdown numerical1}   pulling from dropdown numerical1
 ${pulling from dropdown numerical2}   pulling from dropdown numerical2
@@ -68,7 +68,7 @@ Preconditions
   ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
   ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
   ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'behal'     Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
+#  ...  ELSE IF    '${capability}' == 'behal'     Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
   ...  ELSE  Open Browser  ${url.${env}}  chrome
   #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
@@ -153,6 +153,7 @@ Check Prev Test Status
   #${text}  Get Element Attribute  xpath=//*[@data-name="Login"]//input  value
   #${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${login}
   #Run Keyword If  ${status} == ${false}  Авторизуватися ITA_web2016  ${login}  ${password}
+  Run Keyword If  "${capability}" == "edge"  Execute JavaScript   document.querySelector("[data-name=Login] input").value = ""
   Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
 #  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
   ...  Input Login ITA_web2016  ${login}
@@ -161,7 +162,7 @@ Check Prev Test Status
   ...  Input password ITA_web2016  ${password}
   Run Keyword If  "${capability}" != "edge"  Натиснути кнопку вхід  ELSE
   ...  Execute JavaScript  document.querySelector("div.dxb").click()
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись Загрузки Сторінки (ITA_web2016)
   Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
 
 #  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
@@ -200,6 +201,8 @@ Input password ITA_web2016
 
 Натиснути кнопку вхід ITA
   Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[2]  -40  0
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Not Visible  xpath=(//*[contains(text(), 'Войти')])[2]  120
+  Run Keyword If  ${status} == ${false}  Run Keyword And Ignore Error  Натиснути кнопку вхід ITA
 
 
 Натиснути кнопку вхід ITA_web2016
@@ -279,15 +282,18 @@ Input password ITA_web2016
 
 Ввести команду ITA_web2016
   [Arguments]  ${command}
-  ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
+  ${command_input}  Set Variable  (//input[@class="dhxcombo_input dxeEditAreaSys"])
   Run Keyword  Очистити поле пошуку команд якщо необхідно ${env}
-  Wait Until Keyword Succeeds  15  2  Input Text  ${command_input}  ${command}
+  Wait Until Keyword Succeeds  15  3  Input Type Flex  ${command_input}  ${command}
+  Sleep  .5
   Press Key  ${command_input}  \\13
   Sleep  1
+  Run Keyword If  '${capability}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
 
 
 Натиснути кнопку "1 Выполнить"
   Run Keyword  Натиснути кнопку "1 Выполнить" ${env}
+
 
 
 Натиснути Кнопку "1 Выполнить" ITA
@@ -300,7 +306,31 @@ Input password ITA_web2016
 
 
 Натиснути кнопку "1 Выполнить" ITA_web2016
-  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
+  Sleep  5
+  Визначити потрібну кнопку
+  Press Button Execute
+  Sleep  1
+#  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
+#  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  10
+#  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
+
+Press Button Execute
+  ${a}  Get WebElement  xpath=(//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]
+  Call Method    ${a}    click
+
+
+Autistick Clicking
+  :FOR  ${i}  IN RANGE  15
+  \  Execute Javascript  document.querySelector("input[value='1 Выполнить']").click()
+  \  Sleep  1
+
+Визначити потрібну кнопку
+  ${button}  Set Variable  (//div[@class="dxb" and contains(@id, "DEBUG")])
+  :FOR  ${button_index}  IN RANGE  1  5
+  \  ${text}  Get Text  ${button}[${button_index}]
+  \  ${status}  run keyword and return status  Should Contain  ${text}  \u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c  #Выполнить
+  \  Set Suite Variable  ${button_index}
+  \  Exit For Loop If  ${status} == ${true}
 
 
 Перевірити виконання команди VFP
@@ -526,11 +556,12 @@ Scroll To Element
 
 Активувати комірку для редагування
   ${row}  Set Variable  //table[contains(@class,'obj')]//tr/td[2]
-  ${n}  random_number  2  5
+  ${count}  Get Element Count  ${row}
+  ${n}  random_number  1   ${count}
   Click Element  (${row})[${n}]
   Sleep  2
   Press Key  //html/body  \\13
-  Sleep  2
+  Дочекатись Загрузки Сторінки (ita)
   Page Should Contain Element  //td[@class='cellselected editable']
   [Return]  (${row})[${n}]
 
@@ -548,7 +579,12 @@ Scroll To Element
   Double Click Element  ${selector}/../following-sibling::*
   Sleep  .5
   Press Key  //html/body  \\13
+  Дочекатись Загрузки Сторінки (ita)
+  Run Keyword And Ignore Error  Click Element  xpath=(${selector}/../following-sibling::*/td)
+  Sleep  .5
   ${text}  Get Text  ${selector}
+  ${status}  Run Keyword And Return Status  Should Not Be Empty  ${text}
+  Run Keyword If  ${status} == ${false}  Вибрати іншіу довільну комірку  ${selector}
   Page Should Contain Element  //td[text()="${text}"]
 
 
@@ -714,3 +750,159 @@ Input Type Flex
   \  Set Suite Variable  ${console_index}
   \  Exit For Loop If  ${status} == ${true}
 
+
+
+Вибрати довільні поля з довідників
+  [Arguments]  ${index}
+  Визначити Індекс Активного Вікна
+  Розкрити батьківське поле що має expander  ${index}
+  Розкрити дочірній довідник з полями  ${index}
+  Перевірити успішніть розгортання довідника полів  ${index}
+  Додати довільне поле з довідника  ${index}
+  Згорнути батьківське поле
+#  Прокрутити список полів
+
+
+Розкрити батьківське поле що має expander
+  [Arguments]  ${i}
+  Click Element  ${exp field}[${i}]
+  Wait Until Page Contains Element  ${exp field}[${i}]/ancestor::tr/following-sibling::tr[1]//*[contains(text(),'right')]
+
+
+Розкрити дочірній довідник з полями
+  [Arguments]  ${i}
+  ${i}  Evaluate  ${i} + 1
+  Click Element  ${exp field}[${i}]
+  Wait Until Page Contains Element  ${exp field}[${i}][contains(text(),'down')]
+
+
+Перевірити успішніть розгортання довідника полів
+  [Arguments]  ${i}
+  ${i}  Evaluate  ${i} + 1
+  Wait Until Element Is Visible  ${exp field}[${i}][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
+  ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  xpath=(//*[contains(@class, 'selectable')]/table)[1]//tr//*[@style="padding-left:60px"][1]
+  Run Keyword If  ${status} == ${false}  Wait Until Element Is Visible  xpath=(//*[contains(@class, 'selectable')]/table)[3]//tr//*[@style="padding-left:60px"][1]
+
+
+
+Згорнути батьківське поле
+  Sleep  .5
+  Click Element  ${exp field}[contains(text(),'down')][1]
+  Sleep  .5
+
+
+Створити пустий список
+  ${list}  Create List
+  Set Global Variable  ${list}
+
+
+Додати довільне поле з довідника
+  [Arguments]  ${index}
+  ${random}  random_number  1  4
+  ${random}  Set Variable If  '${index}' == '3'  1  ${random}
+  Click Element  ${dict field}[${random}]
+  Wait Until Page Contains Element  ${dict field}[${random}]/ancestor::td[@class="cellselected"]
+  ${fieldname}  Get Text  ${dict field}[${random}]
+  Append To List  ${list}  ${fieldname}
+  Wait Until Element Is Visible  ${add field btn}
+  Wait Until Keyword Succeeds  15  3  Click Element  ${add field btn}
+  Дочекатись Загрузки Сторінки (ita)
+  ${added_table}  Get Text  xpath=(//td[@class="cellmultiline cellselected"])[last()]
+  ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
+  Should Be Equal  ${fieldname}  ${added_table}
+
+
+Перевірити вибір полів
+  ${selected fields}  Create List
+  Set Global Variable  ${selected fields}
+  ${fields count}  Get Element Count  ${added fields}
+  Set Global Variable  ${fields count}
+  :FOR  ${i}  IN RANGE   ${fields count}
+  \  ${i}  Evaluate  ${i} + 1
+  \  ${fieldname}  Get Text  ${added fields}[${i}]
+  \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
+  \  Append To List  ${selected fields}  ${fieldname}
+  Should Be Equal  ${list}  ${selected fields}
+
+
+Натиснути пункт меню
+    [Arguments]  ${name}
+    ${selector}  Set Variable  xpath=(//table[@class="dxtlDataTable"]//label[text()="${name}"])[last()]
+    Wait Until Element Is Visible  ${selector}
+    Wait Until Keyword Succeeds  15  3  Click Element  ${selector}
+
+
+Відкрити функцію
+    [Arguments]  ${name}
+    ${status}  Run Keyword And Return Status  Покликать  ${name}
+    Run Keyword If  ${status} == ${false}  Совсем не кликается  ${name}
+
+
+Покликать
+    [Arguments]  ${name}
+    ${selector}  Set Variable  xpath=(//table[@class="dxtlDataTable"]//label[text()="${name}"])[last()]
+    Wait Until Element Is Visible  ${selector}
+    :FOR  ${i}  IN RANGE  10
+    \  Run Keyword And Ignore Error  Double Click Element  ${selector}
+    \  Дочекатись Загрузки Сторінки (ITA_web2016)
+    \  Run Keyword And Ignore Error  Click Element  ${selector}
+    \  Sleep  1
+    \  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
+    \  Exit For Loop If  ${status} != ${false}
+    \  Run Keyword If  ${i} == 9  Совсем не кликается  ${name}
+
+
+Совсем не кликается
+    [Arguments]  ${name}
+    Execute JavaScript  let event = new MouseEvent('dblclick', { 'view': window, 'bubbles': true, 'cancelable': true }); document.querySelector("div[tooltip='${name}']").dispatchEvent(event);
+    Дочекатись Загрузки Сторінки (ITA_web2016)
+
+
+В поле Обьект ввести
+    [Arguments]  ${object}
+    Set Global Variable  ${object}
+    ${input_field}  Set Variable  //td[@class="dxic"]/input
+    Input Text  ${input_field}  ${object}
+    ${text}  Get Element Attribute  ${input_field}  value
+    ${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${object}
+    Run Keyword If  ${status} == ${false}  В поле Обьект ввести  ${object}
+
+
+Натиснути кнопку форми
+    [Arguments]  ${button}  ${window}=${EMPTY}
+    ${selector}  Set Variable  ${window}//*[@title='${button}']
+    Wait Until Element Is Visible  ${selector}  30
+    Sleep  .5
+    Click Element  ${selector}
+    Дочекатись загрузки сторінки (ITA_web2016)
+
+
+Натиснути кнопку
+    [Arguments]  ${button_name}
+    Wait Until Element Is Visible  //*[contains(@title,'${button_name}')]  30
+    Wait Until Keyword Succeeds  10  2  Click Element  //*[contains(@title,'${button_name}')]
+    Дочекатись загрузки сторінки (ITA_web2016)
+
+
+Перевірити наявність кнопки
+    [Arguments]  ${button_name}
+    Wait Until Element Is Visible  //*[contains(@title,'${button_name}')]  30
+
+
+Дочекатись загрузки сторінки (ITA_web2016)
+    ${loading_selector}  Set Variable  //img[contains(@class, "loadingImage")]  #//span[@id="LoadingPanel_TL"]  //table[@id="LoadingPanel"]
+    ${status}  ${message}  Run Keyword And Ignore Error  Wait Until Element Is Visible  ${loading_selector}  5
+    Run Keyword If  "${status}" == "PASS"  Run Keyword And Ignore Error  Wait Until Element Is Not Visible  ${loading_selector}  180
+
+
+Перевірити додавання об'єкту
+    [Arguments]  ${object}
+    Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[text()="${object}"]
+    Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[last() and text()="1"]  # стадия
+
+
+Перевірити що стадія документу
+    [Arguments]  ${stage}
+    ${actual_stage}  Get Text  //tr[contains(@class, "rowselected")]//td[last()]
+    Log  ${actual_stage}
+    Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[last() and text()="${stage}"]
