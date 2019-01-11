@@ -105,9 +105,6 @@ Precondition
 Зробити поле активним для редагування
 	[Arguments]  ${selector}
 	Click Element  ${selector}
-	Sleep  1
-	${status}  Run Keyword And Return Status
-	...  Page Should Contain Element  ${selector}//input
-	Run Keyword If  ${status} != ${True}
-	...  Зробити поле активним для редагування  ${selector}
+	Sleep  2
+	Press Key  //html/body  \\13
 	Sleep  1
