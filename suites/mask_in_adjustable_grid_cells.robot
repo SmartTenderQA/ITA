@@ -109,3 +109,4 @@ Precondition
 	...  Page Should Contain Element  ${selector}//input
 	Run Keyword If  ${status} != ${True}
 	...  Зробити поле активним для редагування  ${selector}
+	Sleep  1
