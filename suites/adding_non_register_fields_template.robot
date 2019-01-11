@@ -160,6 +160,12 @@ ${a}                                10
   ${fields_count}  Get Length  ${values}
   :FOR  ${field}  IN RANGE  1  ${fields_count} + 1
   \  ${fieldname}  Get Text  (//div[contains(@id, "TR_tb.")])[${field}]
+  \  ${status}  Run Keyword And Return Status  Should Not Be Empty  ${fieldname}
+  \  Run Keyword If  ${status} == ${false}  Click Element  (//div[contains(@id, "TR_tb.")])[${field}]
+  \  Run Keyword If  ${status} == ${false}  Sleep  1
+  \  ${fieldname_temp}  Run Keyword If  ${status} == ${false}  Get Text  (//div[contains(@id, "TR_tb.")])[${field}]
+  \  ${status}  Run Keyword And Return Status  Should Not Be Empty  ${fieldname_temp}
+  \  Run Keyword If  ${status} != ${false}  Set Suite Variable  ${fieldname}  ${fieldname_temp}
   \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
   \  Append To List  ${selected fields}  ${fieldname}
   Should Be Equal  ${values}  ${selected fields}
