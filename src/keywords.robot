@@ -901,4 +901,6 @@ Input Type Flex
 
 Перевірити що стадія документу
     [Arguments]  ${stage}
+    ${actual_stage}  Get Text  //tr[contains(@class, "rowselected")]//td[last()]
+    Log  ${actual_stage}
     Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[last() and text()="${stage}"]
