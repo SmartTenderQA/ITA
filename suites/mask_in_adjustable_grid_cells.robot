@@ -88,7 +88,8 @@ Precondition
 	[Arguments]  ${field}  ${value}  ${with_check}=True
 	${selector}  Set Variable  ${result window}${${field} field}
 	Зробити поле активним для редагування  ${selector}
-	Input Text  ${selector}//input  ${value}
+	${str value}  Evaluate  str(${value})
+	Input Type Flex  ${selector}//input  ${str value}
 	${get}  Отримати значення поля  ${field}
 	Run Keyword If  ${with_check}	Перевірити введені дані  ${get}  ${value}
 	Press Key  ${selector}//input  \\13
@@ -108,3 +109,4 @@ Precondition
 	Sleep  2
 	Press Key  //html/body  \\13
 	Sleep  1
+
