@@ -31,6 +31,7 @@ ${mask_in_adjustable_grid_cells}  		mask_in_adjustable_grid_cells
 ${result window}						(//*[@class='dhx_cell_wins']
 ${negative field}						//td)[8]
 ${positive field}						//td)[9]
+${enter_key}							\\13
 
 
 *** Test Cases ***
@@ -57,7 +58,7 @@ ${positive field}						//td)[9]
 
 Перевірити неможливість введення знака "-" в друге поле
 	${negative value}  Evaluate  random.randint(-999,-1)  random
-	Ввести значення в поле  positive  ${negative value}  ${False}
+	Ввести значення в поле  positive  ${negative value}
 	${get value}  Отримати значення поля  positive
 	${absolute value}  Evaluate  abs(${negative value})
 	Should Be Equal  ${get value}  ${absolute value}
@@ -78,35 +79,26 @@ Precondition
 Отримати значення поля
 	[Arguments]  ${field}
 	${selector}  Set Variable  ${result window}${${field} field}
-	Зробити поле активним для редагування  ${selector}
-	${value}  Get Element Attribute  ${selector}//input  value
-	${value}  Evaluate  int(${value})
+	${get}  Get Text  ${selector}
+	${value}  Evaluate  int(${get})
 	[Return]  ${value}
 
 
 Ввести значення в поле
-	[Arguments]  ${field}  ${value}  ${with_check}=True
+	[Arguments]  ${field}  ${value}
 	${selector}  Set Variable  ${result window}${${field} field}
-	Зробити поле активним для редагування  ${selector}
+	Активувати поле  ${selector}
+	Press Key  //html/body  ${enter_key}
 	${str value}  Evaluate  str(${value})
-	Input Type Flex  ${selector}//input  ${str value}
-	${get}  Отримати значення поля  ${field}
-	Run Keyword If  ${with_check}	Перевірити введені дані  ${get}  ${value}
+	Run Keyword If  '${capability}' == 'firefox'
+	...  Input Type Flex  	${selector}//input  ${str value}  ELSE
+	...  Input Text  		${selector}//input  ${str value}
 	Press Key  ${selector}//input  \\13
+	${get}  Отримати значення поля  ${field}
 
 
-Перевірити введені дані
-	[Arguments]  ${get}  ${value}
-	${status}  Run Keyword And Return Status
-	...  Should Be Equal  ${get}  ${value}
-	Run Keyword If  ${status} != ${True}
-	...  Ввести значення в поле  ${field}  ${value}
-
-
-Зробити поле активним для редагування
+Активувати поле
 	[Arguments]  ${selector}
-	Click Element  ${selector}
-	Sleep  2
-	Press Key  //html/body  \\13
-	Sleep  1
-
+	${class}  Get Element Attribute  ${selector}  class
+	Run Keyword If  '${class}' != 'cellselected'
+	...  Click Element  ${selector}
