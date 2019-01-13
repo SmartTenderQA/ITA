@@ -90,7 +90,7 @@ Precondition
 	Активувати поле  ${selector}
 	Press Key  //html/body  ${enter_key}
 	${str value}  Evaluate  str(${value})
-	Run Keyword If  '${capability}' == 'firefox'
+	Run Keyword If  '${capability}' != 'chromeXP'
 	...  Input Type Flex  	${selector}//input  ${str value}  ELSE
 	...  Input Text  		${selector}//input  ${str value}
 	Press Key  ${selector}//input  \\13
