@@ -60,7 +60,6 @@ ${enter_key}							\\13
 	${negative value}  Evaluate  "%.4f" % float(random.randint(-9999,-1))  random
 	Ввести значення в поле  positive  ${negative value}
 	${get value}  Отримати значення поля  positive
-	${get abs}  Evaluate  "%.4f" % float(abs(${get value}))
 	${expected value}  Evaluate  "%.4f" % float(abs(${negative value}))
 	Should Be Equal  ${get value}  ${expected value}
 
@@ -129,9 +128,9 @@ Precondition
 	${selector}  Set Variable  ${result window}${${field} field}
 	Активувати поле  ${selector}
 	Press Key  //html/body  ${enter_key}
-	Run Keyword If  '${capability}' != 'chromeXP'
-	...  Input Type Flex  	${selector}//input  ${value}  ELSE
-	...  Input Text  		${selector}//input  ${value}
+	Run Keyword If  '${capability}' == 'chromeXP' or '${capability}' == 'edge'
+	...  Input Text  		${selector}//input  ${value}  ELSE
+	...  Input Type Flex  	${selector}//input  ${value}
 	Press Key  ${selector}//input  \\13
 
 
