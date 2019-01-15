@@ -11,6 +11,9 @@ Metadata  Окружения
 ...  - ff
 ...  - chrome-XP
 ...  - edge
+Metadata  Проекты
+...  ITA
+...  ITA_web2016
 Metadata  Команда запуска
 ...  robot --consolecolors on -L TRACE:INFO -A suites/arguments.txt suites/work_in_the_screen_with_the_grid.robot
 
