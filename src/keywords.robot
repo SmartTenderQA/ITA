@@ -288,7 +288,8 @@ Input password ITA_web2016
   Sleep  .5
   Press Key  ${command_input}  \\13
   Sleep  1
-  Run Keyword If  '${capability}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
+  #тут какая то хрень, я не зная что игнорю
+  Run Keyword And Ignore Error  Run Keyword If  '${capability}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
 
 
 Натиснути кнопку "1 Выполнить"

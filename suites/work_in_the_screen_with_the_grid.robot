@@ -22,7 +22,9 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Variables ***
-${page}				(//*[@class="dhxwin_active menuget"]|//*[@id="pcModalMode_PW-1"])    #ITA|web_2016
+&{page_dict}
+...					ITA=//*[@class="dhxwin_active menuget"]
+...					ITA_web2016=//*[@id="pcModalMode_PW-1"]
 ${grid}				//tr[contains(@class, "Row")]//td[2]
 ${dropdown list}	//*[@class="dhxcombolist_material" and contains(@style, "display: block;")]//*[@id="1" or @id="2" or @id="3"]
 
@@ -42,6 +44,8 @@ ${dropdown list}	//*[@class="dhxcombolist_material" and contains(@style, "displa
 
 *** Keywords ***
 Precondition
+	${page}  Set Variable  ${page_dict.${env}}
+	Set Global Variable  ${page}
 	Preconditions
 	Відкрити сторінку ITA
 	Авторизуватися  ${login}  ${password}
@@ -59,7 +63,7 @@ Precondition
 
 Count After
 	[Arguments]  ${n}
-	${n after}  Get Element Count  ${grid}
+	${n after}  Get Element Count  ${page}${grid}
 	${should}  Evaluate  ${n} + 1
 	Should Be Equal  ${n after}  ${should}
 
