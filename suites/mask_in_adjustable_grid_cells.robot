@@ -38,30 +38,70 @@ ${enter_key}							\\13
 Перевірити дані в полях
 	${first_field value}  Отримати значення поля  negative
 	${second_field value}  Отримати значення поля  positive
-	Should Be Equal  ${first_field value}  ${300}
-	Should Be Equal  ${second_field value}  ${200}
+	Should Be Equal  ${first_field value}  300.0000
+	Should Be Equal  ${second_field value}  200.0000
 
 
 Ввести від'ємне число в перше поле
-	${negative value}  Evaluate  random.randint(-999,-1)  random
+	${negative value}  Evaluate  "%.4f" % float(random.randint(-999,-1))  random
 	Ввести значення в поле  negative  ${negative value}
 	${get value}  Отримати значення поля  negative
 	Should Be Equal  ${get value}  ${negative value}
 
 
 Ввести позитивне число в друге поле
-	${positive value}  Evaluate  random.randint(1,999)  random
+	${positive value}  Evaluate  "%.4f" % float(random.randint(1,9999))  random
 	Ввести значення в поле  positive  ${positive value}
 	${get value}  Отримати значення поля  positive
 	Should Be Equal  ${get value}  ${positive value}
 
 
-Перевірити неможливість введення знака "-" в друге поле
-	${negative value}  Evaluate  random.randint(-999,-1)  random
+Перевірити неможливість вводу знака "-" в друге поле
+	${negative value}  Evaluate  "%.4f" % float(random.randint(-9999,-1))  random
 	Ввести значення в поле  positive  ${negative value}
 	${get value}  Отримати значення поля  positive
-	${absolute value}  Evaluate  abs(${negative value})
-	Should Be Equal  ${get value}  ${absolute value}
+	${expected value}  Evaluate  "%.4f" % float(abs(${negative value}))
+	Should Be Equal  ${get value}  ${expected value}
+
+
+Перевірити неможливість вводу ascii_uppercase, ascii_lowercase, punctuation для кожного поля
+	:FOR  ${field}  IN  negative  positive
+	\  ${string}  Evaluate  str(''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.punctuation) for _ in range(50)))  random, string
+	\  Ввести значення в поле  ${field}  ${string}
+	\  ${get value}  Отримати значення поля  ${field}
+	\  ${get value}  Evaluate  "%.4f" % float(abs(${get value}))
+	\  ${expected value}  Evaluate  "%.4f" % float(0)
+	\  Should Be Equal  ${get value}  ${expected value}
+
+
+Перевірити формат(xxxx.xxxx) значення для кожного поля
+	:FOR  ${field}  IN  negative  positive
+	\  ${long value}  Evaluate  random.randint(10000000,99999999)  random
+	\  Ввести значення в поле  ${field}  '${long value}'
+	\  ${get value}  Отримати значення поля  ${field}
+	\  ${expected value}  Evaluate  float(${long value})/10000
+	\  ${status}  Evaluate  ${get value} == ${expected value}
+	\  Should Be True  ${status}
+
+
+Перевірити максимальну довжину значення для кожного поля
+	:FOR  ${field}  IN  negative  positive
+	\  ${long value}  Evaluate  random.randint(100000000000,999999999999)  random
+	\  Ввести значення в поле  ${field}  '${long value}'
+	\  ${get value}  Отримати значення поля  ${field}
+	\  ${expected value}  Evaluate  float(int(${long value})/10000)/10000
+	\  ${status}  Evaluate  ${get value} == ${expected value}
+	\  Should Be True  ${status}
+
+
+Перевірити можливість вводу коротких чисел з крапкою для кожного поля
+	:FOR  ${field}  IN  negative  positive
+	\  ${short value}  Evaluate  str(random.randint(10, 99)) + '.' + str(random.randint(10, 99))  random
+	\  Ввести значення в поле  ${field}  '${short value}
+	\  ${get value}  Отримати значення поля  ${field}
+	\  ${expected value}  Evaluate  "%.4f" % float(${short value})
+	\  ${status}  Evaluate  ${get value} == ${expected value}
+	\  Should Be True  ${status}
 
 
 *** Keywords ***
@@ -75,12 +115,11 @@ Precondition
 	Натиснути кнопку "1 Выполнить"
 
 
-
 Отримати значення поля
 	[Arguments]  ${field}
 	${selector}  Set Variable  ${result window}${${field} field}
 	${get}  Get Text  ${selector}
-	${value}  Evaluate  int(${get})
+	${value}  Evaluate  "%.4f" % float(${get})
 	[Return]  ${value}
 
 
@@ -89,12 +128,10 @@ Precondition
 	${selector}  Set Variable  ${result window}${${field} field}
 	Активувати поле  ${selector}
 	Press Key  //html/body  ${enter_key}
-	${str value}  Evaluate  str(${value})
-	Run Keyword If  '${capability}' != 'chromeXP'
-	...  Input Type Flex  	${selector}//input  ${str value}  ELSE
-	...  Input Text  		${selector}//input  ${str value}
+	Run Keyword If  '${capability}' == 'chromeXP' or '${capability}' == 'edge'
+	...  Input Text  		${selector}//input  ${value}  ELSE
+	...  Input Type Flex  	${selector}//input  ${value}
 	Press Key  ${selector}//input  \\13
-	${get}  Отримати значення поля  ${field}
 
 
 Активувати поле
