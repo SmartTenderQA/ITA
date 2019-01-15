@@ -830,7 +830,7 @@ Input Type Flex
     ${selector}  Set Variable  xpath=(//table[@class="dxtlDataTable"]//label[text()="${name}"])[last()]
     Wait Until Element Is Visible  ${selector}
     Wait Until Keyword Succeeds  15  3  Click Element  ${selector}
-
+    Sleep  1
 
 Відкрити функцію
     [Arguments]  ${name}
