@@ -906,3 +906,10 @@ Input Type Flex
     ${actual_stage}  Get Text  //tr[contains(@class, "rowselected")]//td[last()]
     Log  ${actual_stage}
     Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[last() and text()="${stage}"]
+
+
+get_tooltip-panel_value
+	${tooltip-panel}  Set Variable  css=.tooltip-panel
+	Wait Until Page Contains Element  ${tooltip-panel}
+	${text}  Get Text  ${tooltip-panel}
+	[Return]  ${text}
