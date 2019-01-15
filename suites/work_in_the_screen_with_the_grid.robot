@@ -22,7 +22,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Variables ***
-${page}				//*[@class="dhxwin_active menuget"]
+${page}				//*[@class="dhxwin_active menuget"]|//*[@id="pcModalMode_PW-1"]    #ITA|web_2016
 ${grid}				//tr[contains(@class, "Row")]//td[2]
 ${dropdown list}	//*[@class="dhxcombolist_material" and contains(@style, "display: block;")]//*[@id="1" or @id="2" or @id="3"]
 
@@ -52,7 +52,7 @@ Precondition
 
 
 Натиснути "Добавить"
-	${n}  Get Element Count  ${grid}
+	${n}  Get Element Count  ${page}${grid}
 	Click Element  ${page}//*[@title="Добавить"]
 	Wait Until Keyword Succeeds  10  1  Count After  ${n}
 
