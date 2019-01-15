@@ -309,7 +309,7 @@ Input password ITA_web2016
   Sleep  5
   Визначити потрібну кнопку
   Press Button Execute
-  Sleep  1
+  Дочекатись Загрузки Сторінки (ITA_web2016)
 #  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
 #  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  10
 #  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
