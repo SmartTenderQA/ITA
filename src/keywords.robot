@@ -200,7 +200,8 @@ Input password ITA_web2016
 
 
 Натиснути кнопку вхід ITA
-  Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[2]  -40  0
+  Run Keyword And Ignore Error  Click Element  xpath=(//*[contains(text(), 'Войти')])[2]
+  Run Keyword And Ignore Error  Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[2]  -40  0
   ${status}  Run Keyword And Return Status  Wait Until Element Is Not Visible  xpath=(//*[contains(text(), 'Войти')])[2]  120
   Run Keyword If  ${status} == ${false}  Run Keyword And Ignore Error  Натиснути кнопку вхід ITA
 
