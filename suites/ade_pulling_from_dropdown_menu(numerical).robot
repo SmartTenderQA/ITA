@@ -121,6 +121,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Натиснути кнопку "ОК"
+  Дочекатись Загрузки Сторінки (ita)
   Click Element  //*[contains(@class, "dhx_toolbar_btn")]
   ${status}  Run Keyword And Return Status  Wait Until Page Contains Element  //*[@class="message-box-content-body"]
   Run Keyword If  ${status} == ${false}  Натиснути кнопку "ОК"
