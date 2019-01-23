@@ -4,6 +4,7 @@ Library     BuiltIn
 Library     Collections
 Library     DebugLibrary
 Library     OperatingSystem
+Library	    RequestsLibrary
 Library     Faker/faker.py
 Library     service.py
 Library     String
