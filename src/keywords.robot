@@ -70,7 +70,20 @@ Preconditions
   ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
 #  ...  ELSE IF    '${capability}' == 'behal'     Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
   ...  ELSE  Open Browser  ${url.${env}}  chrome
+  Отримати та залогувати data_session
   #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
+
+
+Отримати та залогувати data_session
+	${s2b}  get_library_instance  Selenium2Library
+	${webdriver}  Call Method  ${s2b}  _current_browser
+	Create Session  api  http://autotest.it.ua:4444/grid/api/testsession?session=${webdriver.__dict__['capabilities']['webdriver.remote.sessionid']}
+	${data}  Get Request  api  \
+	${data}  Set Variable  ${data.json()}
+	Log  ${webdriver}
+	Log  ${webdriver.__dict__}
+	Log  ${webdriver.__dict__['capabilities']}
+	Log  ${data}
 
 
 Postcondition
