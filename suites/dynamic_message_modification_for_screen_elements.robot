@@ -27,20 +27,20 @@ ${checkbox}			//*[@class="dhxform_img"]//i
 *** Test Cases ***
 Перевірити виконання команди
 	Page Should Contain Element  ${page}${checkbox}
-	${value}  get_tooltip-panel_value
-	Should Be Equal  ${value}  [VAR1]
+	Wait Until Keyword Succeeds  10  1
+	...  tooltip-panel value should be equal  [VAR1]
 
 
 Активувати чекбокс та перевірити результат
 	Операція над чекбоксом  select
-	${value}  get_tooltip-panel_value
-	Should Be Equal  ${value}  Checked [VAR1]
+	Wait Until Keyword Succeeds  10  1
+	...  tooltip-panel value should be equal  Checked [VAR1]
 
 
 Зробити чекбокс не активнми та перевірити результат
 	Операція над чекбоксом  unselect
-	${value}  get_tooltip-panel_value
-	Should Be Equal  ${value}  Unchecked [VAR1]
+	Wait Until Keyword Succeeds  10  1
+	...  tooltip-panel value should be equal  Unchecked [VAR1]
 
 
 *** Keywords ***
@@ -52,6 +52,12 @@ Precondition
 	Перейти на вкладку  C#
 	Ввод команды в консоль  dynamic_message_modification_for_screen_elements
 	Натиснути кнопку "1 Выполнить"
+
+
+tooltip-panel value should be equal
+	[Arguments]  ${text}
+	${value}  get_tooltip-panel_value
+	Should Be Equal  ${value}  ${text}
 
 
 Операція над чекбоксом
