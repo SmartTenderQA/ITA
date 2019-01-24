@@ -55,14 +55,14 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
     Wait Until Element Is Visible  ${selector}
     ${label}  set variable  Код ЕИ
     ${text}  Get text  ${selector}
-    ${text}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
-    ${label}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${label}  ${SPACE}  ${EMPTY}
+    ${text}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
+    ${label}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${label}  ${SPACE}  ${EMPTY}
     Should Be Equal  ${label}  ${text}
     Page Should Contain Element  //*[@class="dhxcombo_input_container "]
 
 
 Натиснути на лупу (F10)
-    Run Keyword If  '${capability}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
+    Run Keyword If  '${browser}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
     Дочекатись загрузки сторінки (ita)
     ${selector}  Set Variable  //*[@id="HelpF10"]
     Wait Until Element Is Visible  ${selector}  15

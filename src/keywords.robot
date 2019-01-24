@@ -12,7 +12,6 @@ Library   	../suites/data.py
 
 
 *** Variables ***
-${browser}                            chrome
 &{url}
 ...                                   ITA=https://webclient.it-enterprise.com/clientrmd/(S(nwqigpdz3z031icvawluswqc))/?qa-mode=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?qa-mode=1&win=1&tz=3
@@ -20,9 +19,9 @@ ${browser}                            chrome
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 
 ${alies}                              alies
+${browser}                            chrome
 ${hub}                                http://autotest.it.ua:4444/wd/hub
 ${platform}                           ANY
-${capability}                         None
 
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
@@ -65,17 +64,12 @@ ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_scre
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Run Keyword If  '${capability}' == 'chrome'    Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
-  ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
-  ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-#  ...  ELSE IF    '${capability}' == 'behal'     Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
-  ...  ELSE  Open Browser  ${url.${env}}  chrome
-  Отримати та залогувати data_session
-  #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
+  Отримати та залогувати selenium_session
+  Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
 
-Отримати та залогувати data_session
+Отримати та залогувати selenium_session
 	${s2b}  get_library_instance  Selenium2Library
 	${webdriver}  Call Method  ${s2b}  _current_browser
 	Create Session  api  http://autotest.it.ua:4444/grid/api/testsession?session=${webdriver.__dict__['capabilities']['webdriver.remote.sessionid']}
@@ -167,14 +161,14 @@ Check Prev Test Status
   #${text}  Get Element Attribute  xpath=//*[@data-name="Login"]//input  value
   #${status}  Run Keyword And Return Status  Should Be Equal  ${text}  ${login}
   #Run Keyword If  ${status} == ${false}  Авторизуватися ITA_web2016  ${login}  ${password}
-  Run Keyword If  "${capability}" == "edge"  Execute JavaScript   document.querySelector("[data-name=Login] input").value = ""
-  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
+  Run Keyword If  "${browser}" == "edge"  Execute JavaScript   document.querySelector("[data-name=Login] input").value = ""
+  Run Keyword If  "${browser}" != "edge"  Input Text  xpath=//*[@data-name="Login"]//input  ${login}  ELSE
 #  ...  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
   ...  Input Login ITA_web2016  ${login}
-  Run Keyword If  "${capability}" != "edge"  Input Text  xpath=//*[@data-name="Password"]//input  ${password}  ELSE
+  Run Keyword If  "${browser}" != "edge"  Input Text  xpath=//*[@data-name="Password"]//input  ${password}  ELSE
 #  ...  Execute JavaScript  document.querySelector("[data-name=Password] input").value = "${password}"
   ...  Input password ITA_web2016  ${password}
-  Run Keyword If  "${capability}" != "edge"  Натиснути кнопку вхід  ELSE
+  Run Keyword If  "${browser}" != "edge"  Натиснути кнопку вхід  ELSE
   ...  Execute JavaScript  document.querySelector("div.dxb").click()
   Дочекатись Загрузки Сторінки (ITA_web2016)
   Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
@@ -304,7 +298,7 @@ Input password ITA_web2016
   Press Key  ${command_input}  \\13
   Sleep  1
   #тут какая то хрень, я не зная что игнорю
-  Run Keyword And Ignore Error  Run Keyword If  '${capability}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
+  Run Keyword And Ignore Error  Run Keyword If  '${browser}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
 
 
 Натиснути кнопку "1 Выполнить"
@@ -517,8 +511,8 @@ Scroll To Element
   \  Input Text  ${search}  ${menu_name}
   \  Sleep  1
   \  ${text}  Get Element Attribute  ${search}  value
-  \  ${text}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
-  \  ${menu_name1}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${menu_name}  ${SPACE}  ${EMPTY}
+  \  ${text}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
+  \  ${menu_name1}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${menu_name}  ${SPACE}  ${EMPTY}
   \  ${status}  Run Keyword And Return Status  Should be Equal  ${text}  ${menu name1}
   \  Exit For Loop If  ${status} == ${true}
 #  Wait Until Keyword Succeeds  20  2  Input Text  ${search}  ${menu_name}

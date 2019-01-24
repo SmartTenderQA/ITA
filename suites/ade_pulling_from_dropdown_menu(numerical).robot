@@ -76,7 +76,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Очистити вибір
-  Run Keyword If  '${capability}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
+  Run Keyword If  '${browser}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
   ${selector}  Set Variable  //*[@class="dhxcombo_option dhxcombo_option_selected"]/../div//input
   click element at coordinates  //input[@class="dhxcombo_input dxeEditAreaSys"]  47  0
 #  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
@@ -84,7 +84,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Run Keyword If  ${status} == ${false}  Очистити вибір
   Click Element  //*[contains(@class, "dhxcombo_hdrcell_check")]//input
   Sleep  1
-  Run Keyword If  '${capability}' == 'edge'  Click Element  //*[contains(@class, "dhxcombo_hdrcell_check")]//input
+  Run Keyword If  '${browser}' == 'edge'  Click Element  //*[contains(@class, "dhxcombo_hdrcell_check")]//input
   Sleep  1
   ${options_quantity}  Get Element Count  ${selector}
   :FOR  ${i}  IN RANGE  1  ${options_quantity} + 1
@@ -136,7 +136,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Обрати довільні варіанти
-   Run Keyword If  '${capability}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
+   Run Keyword If  '${browser}' == 'edge'  Click Element At Coordinates  //*[contains(@class, "multy-value-ade")]  -140  0
    ${selector}  Set Variable  //*[@class="dhxcombo_option dhxcombo_option_selected"]/../div//input
    Sleep  2
    click element at coordinates  //input[@class="dhxcombo_input dxeEditAreaSys"]  47  0

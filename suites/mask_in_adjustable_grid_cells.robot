@@ -128,7 +128,7 @@ Precondition
 	${selector}  Set Variable  ${result window}${${field} field}
 	Активувати поле  ${selector}
 	Press Key  //html/body  ${enter_key}
-	Run Keyword If  '${capability}' == 'chromeXP' or '${capability}' == 'edge'
+	Run Keyword If  '${platform}' == 'XP' or '${browser}' == 'edge'
 	...  Input Text  		${selector}//input  ${value}  ELSE
 	...  Input Type Flex  	${selector}//input  ${value}
 	Press Key  ${selector}//input  \\13

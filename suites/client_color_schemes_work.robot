@@ -25,7 +25,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 Запустить проект ITA
   Авторизуватися  ${login}  ${password}
-  Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
+  Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
 
 Перейти в налаштування користувача

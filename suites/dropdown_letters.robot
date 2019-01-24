@@ -76,7 +76,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Розкрити випадаючий список
     Активувати вікно якщо потрібно
     Sleep  1
-    Run Keyword If  '${capability}' == 'edge'  Click element at coordinates  //*[@data-caption="+ Добавить"]//td[4]  0  0
+    Run Keyword If  '${browser}' == 'edge'  Click element at coordinates  //*[@data-caption="+ Добавить"]//td[4]  0  0
     ...  ELSE    Click element  //*[@data-caption="+ Добавить"]//td[4]
     Дочекатись Загрузки Сторінки (ita)
     Wait Until element is visible  //*[text()="Наименование:"]/following-sibling::div/span

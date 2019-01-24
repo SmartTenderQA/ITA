@@ -47,8 +47,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   ${selector}  Set Variable  //*[contains(@class, "dhxform_txt_label2")]
   Wait Until Element Is Visible  ${selector}
   ${text}  Get Text  ${selector}
-  ${text}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
-  ${title}  Run Keyword If  '${capability}' == 'edge'  Replace String  ${title}  ${SPACE}  ${EMPTY}
+  ${text}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
+  ${title}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${title}  ${SPACE}  ${EMPTY}
   Should Be Equal  ${text}  ${title}
 
 
@@ -59,7 +59,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 Відкрити випадаючий список
   Активувати вікно якщо потрібно
-  Run Keyword If  '${capability}' == 'edge'  Click Element at coordinates  //*[contains(@class, "fixed-invisible-ade-buttons")]  0  0
+  Run Keyword If  '${browser}' == 'edge'  Click Element at coordinates  //*[contains(@class, "fixed-invisible-ade-buttons")]  0  0
   ...  ELSE  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
   Element Should Not Be Visible  //*[contains(@style, "display: none") and @class="ade-list-back"]//*
 

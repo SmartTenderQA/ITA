@@ -176,8 +176,8 @@ ${a}                                10
   Set Global Variable  ${selected fields}
   ${fields_count}  Get Length  ${groups}
   :FOR  ${field}  IN RANGE  3  6
-  \  Run Keyword If  '${capability}' != 'firefox'  click element at coordinates  xpath=(//div[contains(@id, "TR_tb.0.") and @class="dxss-tb"])[${field}]  0  30
-  \  Run Keyword If  '${capability}' == 'firefox'  Click Element  xpath=(//div[contains(@id, "TR_tb.0.") and @class="dxss-tb"])[${field}]
+  \  Run Keyword If  '${browser}' != 'firefox'  click element at coordinates  xpath=(//div[contains(@id, "TR_tb.0.") and @class="dxss-tb"])[${field}]  0  30
+  \  Run Keyword If  '${browser}' == 'firefox'  Click Element  xpath=(//div[contains(@id, "TR_tb.0.") and @class="dxss-tb"])[${field}]
   \  Sleep  2
   \  ${fieldname}  Get Text  xpath=(//div[contains(@id, "TR_tb.0.") and @class="dxss-tb"])[${field}]
   \  ${fieldname}  Fetch From Left  ${fieldname}  ]
