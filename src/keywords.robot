@@ -12,7 +12,6 @@ Library   	../suites/data.py
 
 
 *** Variables ***
-${browser}                            chrome
 &{url}
 ...                                   ITA=https://webclient.it-enterprise.com/clientrmd/(S(nwqigpdz3z031icvawluswqc))/?qa-mode=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?qa-mode=1&win=1&tz=3
@@ -20,9 +19,9 @@ ${browser}                            chrome
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 
 ${alies}                              alies
+${browser}                            chrome
 ${hub}                                http://autotest.it.ua:4444/wd/hub
 ${platform}                           ANY
-${capability}                         None
 
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
@@ -65,17 +64,12 @@ ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_scre
 *** Keywords ***
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
-  Run Keyword If  '${capability}' == 'chrome'    Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:WIN10
-  ...  ELSE IF    '${capability}' == 'chromeXP'  Open Browser  ${url.${env}}  chrome   ${alies}  ${hub}  platformName:XP
-  ...  ELSE IF    '${capability}' == 'firefox'   Open Browser  ${url.${env}}  firefox  ${alies}  ${hub}
-  ...  ELSE IF    '${capability}' == 'edge'      Open Browser  ${url.${env}}  edge     ${alies}  ${hub}
-#  ...  ELSE IF    '${capability}' == 'behal'     Open Browser  ${url.${env}}  edge     ${alies}  ${hub}  id:sb118
-  ...  ELSE  Open Browser  ${url.${env}}  chrome
-  Отримати та залогувати data_session
-  #Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
+  Отримати та залогувати selenium_session
+  Run Keyword If  '${capability}' != 'edge'      Set Window Size  1280  1024
 
 
-Отримати та залогувати data_session
+Отримати та залогувати selenium_session
 	${s2b}  get_library_instance  Selenium2Library
 	${webdriver}  Call Method  ${s2b}  _current_browser
 	Create Session  api  http://autotest.it.ua:4444/grid/api/testsession?session=${webdriver.__dict__['capabilities']['webdriver.remote.sessionid']}
