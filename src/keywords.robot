@@ -15,6 +15,12 @@ Library   	../suites/data.py
 &{url}
 ...                                   ITA=https://webclient.it-enterprise.com/clientrmd/(S(nwqigpdz3z031icvawluswqc))/?qa-mode=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?qa-mode=1&win=1&tz=3
+...									  ITAO=https://webclient.it-enterprise.com/clientrmd/(S(23aump3cogqlhthke21dnsjw))/Splash?proj=K_ITAO12C2_RU&dbg=1
+...									  ITAO_web2016=https://webclient.it-enterprise.com/client/(S(1pf3scfg4rfdrdim10hecbry))/Splash?proj=K_ITAO12C2_RU&dbg=1
+...									  EMP=http://emp2019.it.ua/Emp2019/clientrmd
+...									  EMP_web2016=http://emp2019.it.ua/Emp2019/client
+...									  EMPO=http://empo.it.ua/empo/clientrmd
+...									  EMPO_web2016=http://m.it.ua/2019/emp2019/CLIENT?proj=CPSQL_EMPO2019_RU
 ...                                   ITCopyUpgrade=https://m.it.ua/ITCopyUpgrade/CLIENTRMD/(S(iuhcsthigv3rjj1qattj3aby))/?qa-mode=1&proj=it_RU&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 
