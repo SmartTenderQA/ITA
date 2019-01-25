@@ -678,7 +678,7 @@ Scroll Page To Element XPATH
   Sleep  .5
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
-  Press Key  ${registr name input}  \\09
+  Press Key  //body  \\13
   Дочекатись загрузки сторінки (ita)
   ${registr name}  Get Element Attribute  ${registr name input}  value
   ${check name}  Run Keyword And Return Status  Should Be Equal  ${registr name}  ${name}
