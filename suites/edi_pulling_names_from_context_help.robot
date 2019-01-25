@@ -12,7 +12,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 
 
-#robot -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/edi_pulling_names_from_context_help.robot
+#robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v hub:none suites/edi_pulling_names_from_context_help.robot
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
     Авторизуватися  ${login}  ${password}
@@ -71,6 +71,7 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
     ${status}  Run Keyword And Return Status  Click Element  ${selector}
     run keyword if  ${status} == ${false}  Click Element  ${selector}
     run keyword if  ${status} == ${false}  Wait Until Keyword Succeeds  15  2  Click Element  ${selector}
+    Дочекатись Загрузки Сторінки (ita)
     Wait Until Page Does Not Contain Element  ${selector}
 
 

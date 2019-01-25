@@ -20,7 +20,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 *** Test Cases ***
 # команда запуску
-# robot -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/client_color_schemes_work.robot
+# robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v platform:WIN10 -v hub:none suites/client_color_schemes_work.robot
 
 
 Запустить проект ITA
