@@ -72,7 +72,7 @@ Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
   Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
   Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
-  ...  Отримати та залогувати data_session
+  ...  Отримати та залогувати selenium_session
   Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
 
