@@ -51,6 +51,7 @@ Precondition
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
+	Ввод команды в консоль  handling_pressing_keys_with_an_input_field_on_the_screen
 
 
 Перевірити корректність роботи команди
