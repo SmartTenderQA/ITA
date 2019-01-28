@@ -17,8 +17,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Створити звіт "UI-Тестирование (отчет)"
-  Ввести назву регістру  UI-Тестирование
-  Ввести назву звіту  UI-Тестирование (печать отчета после корректировки)
+  Заповнити поле "Регистр"  UI-Тестирование
+  Заповнити поле "Отчет"  UI-Тестирование (печать отчета после корректировки)
   Натиснути кнопку "Сформировать отчет"
   Натиснути кнопку "Конструктор"
 
@@ -57,6 +57,31 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Keywords ***
+Заповнити поле "Регистр"
+    [Arguments]  ${name}
+    Run Keyword If  '${browser}' != 'edge'  Ввести назву регістру  ${name}
+    ...  ELSE  Run Keyword  Ввод в поле регистр Edge  ${name}
+
+
+Заповнити поле "Отчет"
+    [Arguments]  ${name}
+    Run Keyword If  '${browser}' != 'edge'  Ввести назву звіту  ${name}
+    ...  ELSE  Run Keyword  Ввод в поле отчет Edge  ${name}
+
+
+Ввод в поле регистр Edge
+    [Arguments]  ${name}
+    ${registr name input}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
+    Clear Element Text  ${registr name input}
+    ${a}  Get WebElement  ${registr name input}
+    Call Method    ${a}    send_keys  ${name}
+    Sleep  1
+    Run Keyword And Ignore Error  Click Element  ${report_title}
+    Sleep  1
+    Run Keyword And Ignore Error  Click Element  ${report_title}
+    Дочекатись Загрузки Сторінки (ita)
+
+
 Відкрити головне меню та знайти пункт меню "Универсальный Отчет"
   Натиснути на логотип IT-Enterprise
   Натиснути пункт головного меню  Администрирование системы
@@ -66,8 +91,10 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 Ввести назву звіту
   [Arguments]  ${name}
-  Click Element   ${report_title}
-  Input Text  ${report_title}  ${name}
+  Set Global Variable  ${name}
+  Click Element   ${report_title}/parent::*
+  Clear Element Text  ${report_title}
+  Input Type Flex  ${report_title}  ${name}
   Sleep  .5
   Підтвердити введення та перевірити що поле звіту не активне
   ${report}  Get Element Attribute  ${report_title}  value
@@ -76,11 +103,27 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Run Keyword If  '${check_title}' == 'False'  Ввести назву звіту  ${name}
 
 
+Ввод в поле отчет Edge
+    [Arguments]  ${name}
+    Clear Element Text  ${report_title}
+    ${a}  Get WebElement  ${report_title}
+    Call Method    ${a}    send_keys  ${name}
+    Sleep  1
+    Run Keyword And Ignore Error  Click Element  xpath=(//*[text()='Регистр']/../..//input)[1]
+    Sleep  1
+    Run Keyword And Ignore Error  Click Element  ${report_title}
+    Дочекатись Загрузки Сторінки (ITA_web2016)
+    ${report}  Get Element Attribute  ${report_title}  value
+    ${check_title}  Run Keyword And Return Status  Should Be Equal  ${report}  ${name}
+    Run Keyword If  '${check_title}' == 'False'  Ввод в поле отчет Edge  ${name}
+
+
 Підтвердити введення та перевірити що поле звіту не активне
   Press Key  ${report_title}  \\09
   Sleep  1
   ${status}  Run Keyword And Return Status  Wait Until Page Does Not Contain Element  (//div[@data-caption="+ Добавить"])[2]/self::*[contains(@class, "actv")]
-  Run Keyword If  ${status} == ${False}  Підтвердити введення та перевірити що поле звіту не активне
+  ${status2}  Run Keyword And Return Status  Element Should Not Be Visible  xpath=//*[@class="message-content-body" and contains (text(), 'Запись не найдена')]
+  Run Keyword If  (${status} == ${False}) or (${status2} == ${False})  Ввести назву звіту  ${name}
 
 
 Натиснути кнопку "Сформировать отчет"
