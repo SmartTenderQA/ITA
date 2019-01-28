@@ -36,6 +36,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 Створити та ввести нову назву регістру
 	Створити та ввести нову назву регістру
+	Run Keyword If  '${browser}' == 'edge'  Edge magic
 
 
 Перевірити поведінку системи на зміну назви Регістру
@@ -46,6 +47,13 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 
 *** Keywords ***
+Edge magic
+    Click Element  (//*[text()='Регистр']/../..//input)[1]
+    Sleep  1
+    Click Element  ${report_title}
+    Sleep  1
+
+
 Натиснути кнопку "Универсальный отчет"
     Wait Until Element Is Visible  ${button univ. report}
     Click Element				   ${button univ. report}

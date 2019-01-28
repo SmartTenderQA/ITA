@@ -69,20 +69,26 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Click Element   ${report_title}
   Input Text  ${report_title}  ${name}
   Sleep  .5
-  Press Key  ${report_title}  \\09
-  Дочекатись загрузки сторінки (ita)
+  Підтвердити введення та перевірити що поле звіту не активне
   ${report}  Get Element Attribute  ${report_title}  value
   ${check_title}  Run Keyword And Return Status  Should Be Equal  ${report}  ${name}
   Run Keyword If  '${check_title}' == 'False'  Clear Element Text  ${report_title}
   Run Keyword If  '${check_title}' == 'False'  Ввести назву звіту  ${name}
 
 
+Підтвердити введення та перевірити що поле звіту не активне
+  Press Key  ${report_title}  \\09
+  Sleep  1
+  ${status}  Run Keyword And Return Status  Wait Until Page Does Not Contain Element  (//div[@data-caption="+ Добавить"])[2]/self::*[contains(@class, "actv")]
+  Run Keyword If  ${status} == ${False}  Підтвердити введення та перевірити що поле звіту не активне
+
+
 Натиснути кнопку "Сформировать отчет"
-  ${selector}  Set Variable  //div[contains(@id, "TR_tb.0.0")]
+  ${selector}  Set Variable  xpath=//div[contains(@id, "TR_tb.0.0")]
   Click Element   //*[@id="REP_SIMPLEPRINT"]
   Дочекатись Загрузки Сторінки (ita)
   Select Frame  //iframe
-  Wait Until Page Contains Element  ${selector}
+  Wait Until Page Contains Element  ${selector}  10
   ${report_text}  Get Text  ${selector}
   ${status}  Run Keyword And Return Status  Should Not Be Empty  ${report_text}
   Unselect Frame

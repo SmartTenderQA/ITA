@@ -73,7 +73,8 @@ ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_scre
 Preconditions
   ${login}  ${password}  Отримати дані проекту  ${env}
   Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
-  Отримати та залогувати selenium_session
+  Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
+  ...  Отримати та залогувати selenium_session
   Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
 
@@ -679,7 +680,7 @@ Scroll Page To Element XPATH
   Sleep  .5
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
-  Press Key  ${registr name input}  \\09
+  Press Key  //body  \\13
   Дочекатись загрузки сторінки (ita)
   ${registr name}  Get Element Attribute  ${registr name input}  value
   ${check name}  Run Keyword And Return Status  Should Be Equal  ${registr name}  ${name}
