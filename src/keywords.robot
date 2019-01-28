@@ -210,10 +210,17 @@ Input password ITA_web2016
 
 
 Натиснути кнопку вхід webrmd
+  Run Keyword If  '${browser}' == 'firefox'  Натиснути кнопку вхід webrmd selenium
   Run Keyword And Ignore Error  Click Element  xpath=(//*[contains(text(), 'Войти')])[2]
   Run Keyword And Ignore Error  Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[2]  -40  0
   ${status}  Run Keyword And Return Status  Wait Until Element Is Not Visible  xpath=(//*[contains(text(), 'Войти')])[2]  120
   Run Keyword If  ${status} == ${false}  Run Keyword And Ignore Error  Натиснути кнопку вхід rmd
+
+
+Натиснути кнопку вхід webrmd selenium
+  ${button}  Get Webelement  //*[@dir="ltr" and contains(@class, "raised-button")]
+  Call Method  ${button}  click
+
 
 
 Натиснути кнопку вхід web2016
@@ -389,6 +396,7 @@ Autistick Clicking
   Дочекатись загрузки сторінки (ita)
   Wait Until Element Is Visible  ${register_input}  30
   Click Element  ${register_input}
+  Дочекатись загрузки сторінки (ita)
   ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${register_dropdown button}
   Run Keyword If  ${status} == ${False}  В полі регістр вибрати пункт  ${value}
   Розкрити випадаючий список та обрати пункт  ${value}
