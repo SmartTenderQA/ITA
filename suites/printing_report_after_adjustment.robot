@@ -109,7 +109,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Run Keyword And Ignore Error  Click Element  xpath=(//*[text()='Регистр']/../..//input)[1]
     Sleep  1
     Run Keyword And Ignore Error  Click Element  ${report_title}
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись Загрузки Сторінки (ita)
     ${report}  Get Element Attribute  ${report_title}  value
     ${check_title}  Run Keyword And Return Status  Should Be Equal  ${report}  ${name}
     Run Keyword If  '${check_title}' == 'False'  Ввод в поле отчет Edge  ${name}
