@@ -24,6 +24,8 @@ Library   	../suites/data.py
 ...                                   ITCopyUpgrade=https://m.it.ua/ITCopyUpgrade/CLIENTRMD/(S(iuhcsthigv3rjj1qattj3aby))/?qa-mode=1&proj=it_RU&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 
+${env}								  ITA
+
 ${alies}                              alies
 ${browser}                            chrome
 ${hub}                                http://autotest.it.ua:4444/wd/hub
