@@ -76,7 +76,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 В формі Копир натиснути кнопку Да
     Click Element  //div[@id="IMMessageBoxBtnYes"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити створення копії документа

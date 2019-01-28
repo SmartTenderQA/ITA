@@ -75,13 +75,13 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     [Arguments]  ${remark}
     Розкрити випадаючий список кнопки Вернуть назад
     Click Element  //span[@class="dx-vam" and text()="Замечание"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
     Wait Until Element Is Visible  //span[@class="dxpc-headerText dx-vam" and text()="Замечание"]
     Select Frame  //iframe[contains(@name, "DesignIFrame")]
     Input Text  //body  ${remark}
     Unselect Frame
     Click Element  //span[@class="dxr-lblText" and text()="OK"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити інформацію про зауваження

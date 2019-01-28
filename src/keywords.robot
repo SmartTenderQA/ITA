@@ -172,7 +172,7 @@ Check Prev Test Status
   ...  Input password ITA_web2016  ${password}
   Run Keyword If  "${browser}" != "edge"  Натиснути кнопку вхід  ELSE
   ...  Execute JavaScript  document.querySelector("div.dxb").click()
-  Дочекатись Загрузки Сторінки (ITA_web2016)
+  Дочекатись загрузки сторінки (web2016)
   Wait Until Element Is Visible  xpath=//*[@title='Новое окно']  120
 
 #  Execute JavaScript  document.querySelector("[data-name=Login] input").value = "${login}"
@@ -839,7 +839,7 @@ Input Type Flex
     Wait Until Element Is Visible  ${selector}
     :FOR  ${i}  IN RANGE  10
     \  Run Keyword And Ignore Error  Double Click Element  ${selector}
-    \  Дочекатись Загрузки Сторінки (ITA_web2016)
+    \  Дочекатись загрузки сторінки (web2016)
     \  Run Keyword And Ignore Error  Click Element  ${selector}
     \  Sleep  1
     \  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
@@ -850,7 +850,7 @@ Input Type Flex
 Совсем не кликается
     [Arguments]  ${name}
     Execute JavaScript  let event = new MouseEvent('dblclick', { 'view': window, 'bubbles': true, 'cancelable': true }); document.querySelector("div[tooltip='${name}']").dispatchEvent(event);
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 В поле Обьект ввести
@@ -869,14 +869,14 @@ Input Type Flex
     Wait Until Element Is Visible  ${selector}  30
     Sleep  .5
     Click Element  ${selector}
-    Дочекатись загрузки сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Натиснути кнопку
     [Arguments]  ${button_name}
     Wait Until Element Is Visible  //*[contains(@title,'${button_name}')]  30
     Wait Until Keyword Succeeds  10  2  Click Element  //*[contains(@title,'${button_name}')]
-    Дочекатись загрузки сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити наявність кнопки
@@ -884,7 +884,7 @@ Input Type Flex
     Wait Until Element Is Visible  //*[contains(@title,'${button_name}')]  30
 
 
-Дочекатись загрузки сторінки (ITA_web2016)
+Дочекатись загрузки сторінки (web2016)
     ${loading_selector}  Set Variable  //img[contains(@class, "loadingImage")]  #//span[@id="LoadingPanel_TL"]  //table[@id="LoadingPanel"]
     ${status}  ${message}  Run Keyword And Ignore Error  Wait Until Element Is Visible  ${loading_selector}  5
     Run Keyword If  "${status}" == "PASS"  Run Keyword And Ignore Error  Wait Until Element Is Not Visible  ${loading_selector}  180

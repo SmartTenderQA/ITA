@@ -63,12 +63,12 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 В формі Условие натиснути кнопку Отмена
     Click Element  //div[@id="IMMessageBoxBtnCancel"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 В формі Условие натиснути кнопку Да
     Click Element  //div[@id="IMMessageBoxBtnYes"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити видалення документу
@@ -81,4 +81,4 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Wait Until Element Is Visible  //b[text()="Протокол тестирования"]
     Unselect Frame
     Click Element  //div[@class="dxpc-closeBtn"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
