@@ -107,7 +107,6 @@ ${enter_key}							\\13
 *** Keywords ***
 Precondition
 	Preconditions
-	Відкрити сторінку ITA
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#

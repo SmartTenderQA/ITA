@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -11,7 +9,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 #  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v capability:chrome -v hub:None suites/policies_and_exceptions.robot
 
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 
@@ -127,7 +125,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Перейти до вкладки Таблицы
     Wait Until Keyword Succeeds  10  2  Click Element  //div[@id="MainSted2TabPageHeaderLabel_2"]
     Wait Until Element Is Visible  //div[@id="MainSted2TabPageHeaderLabelActive_2"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити Наявність Сповіщення Про Неможливість Додавання
@@ -138,7 +136,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Перейти до вкладки Объекты
    Wait Until Keyword Succeeds  10  2  Click Element  //div[@id="MainSted2TabPageHeaderLabel_1"]
    Wait Until Element Is Visible  //div[@id="MainSted2TabPageHeaderLabelActive_1"]
-   Дочекатись Загрузки Сторінки (ITA_web2016)
+   Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити наявність комбобокса Действует/Отменен

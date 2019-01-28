@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -13,7 +11,6 @@ ${Button1}  //div[@role="link"]
 
 *** Test Cases ***
 Виконати передумови
-  Відкрити сторінку ITA
   Авторизуватися  ${login}  ${password}
   Настиснути кнопку "Консоль"
   Перейти на вкладку  C#

@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -16,7 +14,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 #robot -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/dropdown_letters.robot
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
     Авторизуватися  ${login}  ${password}
 
 

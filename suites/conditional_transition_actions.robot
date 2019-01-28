@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -10,7 +8,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 #  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v capability:chrome -v hub:None suites/conditional_transition_actions.robot
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 
@@ -65,12 +63,12 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 В формі Условие натиснути кнопку Отмена
     Click Element  //div[@id="IMMessageBoxBtnCancel"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 В формі Условие натиснути кнопку Да
     Click Element  //div[@id="IMMessageBoxBtnYes"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити видалення документу
@@ -83,4 +81,4 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Wait Until Element Is Visible  //b[text()="Протокол тестирования"]
     Unselect Frame
     Click Element  //div[@class="dxpc-closeBtn"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)

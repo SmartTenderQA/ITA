@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -13,7 +11,7 @@ ${Button1}  //div[@role="link"]
 
 #  robot -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v env:ITA -v hub:None suites/hot_keys_in_the_adjustments_screen_built_into_sted2.robot
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 

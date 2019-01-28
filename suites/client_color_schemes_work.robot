@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -23,9 +21,8 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 # robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v platform:WIN10 -v hub:none suites/client_color_schemes_work.robot
 
 
-Запустить проект ITA
+Авторизуватися
   Авторизуватися  ${login}  ${password}
-  Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
 
 Перейти в налаштування користувача

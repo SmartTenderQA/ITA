@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -11,7 +9,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 #  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v capability:chrome -v hub:None suites/change_of_stages.robot
 
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 
@@ -77,13 +75,13 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     [Arguments]  ${remark}
     Розкрити випадаючий список кнопки Вернуть назад
     Click Element  //span[@class="dx-vam" and text()="Замечание"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
     Wait Until Element Is Visible  //span[@class="dxpc-headerText dx-vam" and text()="Замечание"]
     Select Frame  //iframe[contains(@name, "DesignIFrame")]
     Input Text  //body  ${remark}
     Unselect Frame
     Click Element  //span[@class="dxr-lblText" and text()="OK"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити інформацію про зауваження

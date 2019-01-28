@@ -9,7 +9,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 #  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v browser:chrome -v hub:None suites/copier_stapler.robot
 
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 
@@ -76,7 +76,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 В формі Копир натиснути кнопку Да
     Click Element  //div[@id="IMMessageBoxBtnYes"]
-    Дочекатись Загрузки Сторінки (ITA_web2016)
+    Дочекатись загрузки сторінки (web2016)
 
 
 Перевірити створення копії документа

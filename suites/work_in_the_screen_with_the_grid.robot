@@ -26,8 +26,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 *** Variables ***
 &{page_dict}
-...					ITA=//*[@class="dhxwin_active menuget"]
-...					ITA_web2016=//*[@id="pcModalMode_PW-1"]
+...					webrmd=//*[@class="dhxwin_active menuget"]
+...					web2016=//*[@id="pcModalMode_PW-1"]
 ${grid}				//tr[contains(@class, "Row")]//td[2]
 ${dropdown list}	//*[@class="dhxcombolist_material" and contains(@style, "display: block;")]//*[@id="1" or @id="2" or @id="3"]
 
@@ -47,15 +47,14 @@ ${dropdown list}	//*[@class="dhxcombolist_material" and contains(@style, "displa
 
 *** Keywords ***
 Precondition
-	${page}  Set Variable  ${page_dict.${env}}
-	Set Global Variable  ${page}
 	Preconditions
-	Відкрити сторінку ITA
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
 	Ввод команды в консоль  work_in_the_screen_with_the_grid
 	Натиснути кнопку "1 Выполнить"
+	${page}  Set Variable  ${page_dict.${ui}}
+	Set Global Variable  ${page}
 
 
 Натиснути "Добавить"
