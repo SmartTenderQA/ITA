@@ -1,8 +1,6 @@
 *** Settings ***
 Documentation    Suite description
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -16,8 +14,7 @@ ${button univ. report}   //*[@class="module-item-container" and @title="Унив
 
 
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
-	Відкрити сторінку ITA
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 

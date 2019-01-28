@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -10,7 +8,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 #  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v capability:chrome -v hub:None suites/conditional_transition_actions.robot
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 

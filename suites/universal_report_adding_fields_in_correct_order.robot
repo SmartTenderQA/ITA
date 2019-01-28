@@ -1,8 +1,6 @@
 *** Settings ***
 Documentation    Suite description
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -10,12 +8,12 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Test Cases ***
-Відкрити сторінку ITA
+Авторизуватися
   Авторизуватися  ${login}  ${password}
-  Відкрити головне меню та знайти пункт меню "Универсальный Отчет"
 
 
 Створити звіт "UI-Тестирование"
+  Відкрити головне меню та знайти пункт меню "Универсальный Отчет"
   Ввести назву регістру  UI-Тестирование
   Перевірити що назва звіту не порожня
   Натиснути випадаючий список кнопки "Конструктор"

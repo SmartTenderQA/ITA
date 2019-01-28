@@ -8,7 +8,6 @@ Library	    RequestsLibrary
 Library     Faker/faker.py
 Library     service.py
 Library     String
-Library   	../suites/data.py
 
 
 *** Variables ***
@@ -21,10 +20,12 @@ Library   	../suites/data.py
 ...									  EMP_web2016=http://emp2019.it.ua/Emp2019/client
 ...									  EMPO=http://empo.it.ua/empo/clientrmd
 ...									  EMPO_web2016=http://m.it.ua/2019/emp2019/CLIENT?proj=CPSQL_EMPO2019_RU
-...                                   ITCopyUpgrade=https://m.it.ua/ITCopyUpgrade/CLIENTRMD/(S(iuhcsthigv3rjj1qattj3aby))/?qa-mode=1&proj=it_RU&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
-...                                   BUHETLA2=https://webclient.it-enterprise.com/client/(S(3fxdkqyoyyvaysv2iscf02h3))/?proj=K_BUHETLA2_RU&dbg=1&win=1&tz=3
 
 ${env}								  ITA
+
+${login}								uitest
+${password}								291263
+
 
 ${alies}                              alies
 ${browser}                            chrome
@@ -71,11 +72,11 @@ ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_scre
 
 *** Keywords ***
 Preconditions
-  ${login}  ${password}  Отримати дані проекту  ${env}
+  ${ui}  Вибрати інтерфейс  ${env}
   Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
   Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
   ...  Отримати та залогувати selenium_session
-  Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
+  #Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
 
 Отримати та залогувати selenium_session
@@ -130,30 +131,22 @@ Check Prev Test Status
   Execute Javascript    window.location.reload(true)
 
 
-Отримати дані проекту
+Вибрати інтерфейс
   [Arguments]  ${env}
-  ${login}=     get_env_variable  ${env}  login
-  Set Global Variable  ${login}
-  ${password}=  get_env_variable  ${env}  password
-  Set Global Variable  ${password}
-  [Return]  ${login}  ${password}
-
-
-Відкрити сторінку ITA
-  Go To  ${url.${env}}
-  Run Keyword If  '${env}' == 'ITA'  Location Should Contain  /clientrmd/
-  Run Keyword If  '${env}' == 'ITA_web2016'  Location Should Contain  /client/
-  Run Keyword If  '${env}' == 'ITCopyUpgrade'  Set Global Variable  ${env}  ITA
+  Run Keyword If  'web2016' in '${env}'
+  ...  Set Global Variable  ${ui}  web2016  ELSE
+  ...  Set Global Variable  ${ui}  webrmd
+  [Return]  ${ui}
 
 
 Авторизуватися
-  [Arguments]  ${login}  ${password}=None
-  Run Keyword  Авторизуватися ${env}  ${login}  ${password}
+  [Arguments]  ${login}=NONE  ${password}=NONE
+  Run Keyword  Авторизуватися ${ui}  ${login}  ${password}
 
 
-Авторизуватися ITA
+Авторизуватися webrmd
   [Arguments]  ${login}  ${password}=None
-  Wait Until Element Is Visible  //div[@class="float-container-header-text" and text()="Вход в систему"]  60
+  Wait Until Element Is Visible  ${login_field}  120
   Вибрати користувача  ${login}
   Ввести пароль  ${password}
   Натиснути кнопку вхід
@@ -162,7 +155,7 @@ Check Prev Test Status
   Wait Until Element Is Visible  xpath=//*[@title="Вид"]  30
 
 
-Авторизуватися ITA_web2016
+Авторизуватися web2016
   [Arguments]  ${login}  ${password}=None
   Wait Until Page Contains  Вход в систему  60
   #Input Text  xpath=//*[@data-name="Login"]//input  ${login}
@@ -213,17 +206,17 @@ Input password ITA_web2016
 
 
 Натиснути кнопку вхід
-  Run Keyword  Натиснути кнопку вхід ${env}
+  Run Keyword  Натиснути кнопку вхід ${ui}
 
 
-Натиснути кнопку вхід ITA
+Натиснути кнопку вхід webrmd
   Run Keyword And Ignore Error  Click Element  xpath=(//*[contains(text(), 'Войти')])[2]
   Run Keyword And Ignore Error  Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[2]  -40  0
   ${status}  Run Keyword And Return Status  Wait Until Element Is Not Visible  xpath=(//*[contains(text(), 'Войти')])[2]  120
-  Run Keyword If  ${status} == ${false}  Run Keyword And Ignore Error  Натиснути кнопку вхід ITA
+  Run Keyword If  ${status} == ${false}  Run Keyword And Ignore Error  Натиснути кнопку вхід rmd
 
 
-Натиснути кнопку вхід ITA_web2016
+Натиснути кнопку вхід web2016
   Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[1]  -40  0
 
 
@@ -241,10 +234,10 @@ Input password ITA_web2016
 
 Перейти на вкладку
   [Arguments]  ${console_name}
-  Run Keyword  Перейти на вкладку ${env}  ${console_name}
+  Run Keyword  Перейти на вкладку ${ui}  ${console_name}
 
 
-Перейти на вкладку ITA
+Перейти на вкладку webrmd
   [Arguments]  ${console_name}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=//li/*[contains(text(), '${console_name}')]
   ${status}  Run Keyword And Return Status
@@ -252,7 +245,7 @@ Input password ITA_web2016
   Run Keyword If  '${status}' == 'False'  Перейти на вкладку  ${console_name}
 
 
-Перейти на вкладку ITA_web2016
+Перейти на вкладку web2016
   [Arguments]  ${console_name}
   ${tab}  Set Variable  xpath=(//li//span[contains(text(), '${console_name}')])
   ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${tab}[2]
@@ -264,18 +257,30 @@ Input password ITA_web2016
 
 Ввести команду
   [Arguments]  ${command}
-  Run Keyword  Ввести команду ${env}  ${command}
+  Run Keyword  Ввести команду ${ui}  ${command}
 
 
-Ввести команду ITA
+Ввести команду webrmd
   [Arguments]  ${command}
-  Run Keyword  Очистити поле пошуку команд якщо необхідно ${env}
+  Run Keyword  Очистити поле пошуку команд якщо необхідно ${ui}
   Wait Until Keyword Succeeds  15  2  Input Text  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  ${command}
   Press Key  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  \\13
   Дочекатись Загрузки Сторінки (ita)
 
 
-Очистити поле пошуку команд якщо необхідно ITA
+Ввести команду web2016
+  [Arguments]  ${command}
+  ${command_input}  Set Variable  (//input[@class="dhxcombo_input dxeEditAreaSys"])
+  Run Keyword  Очистити поле пошуку команд якщо необхідно ${ui}
+  Wait Until Keyword Succeeds  15  3  Input Type Flex  ${command_input}  ${command}
+  Sleep  .5
+  Press Key  ${command_input}  \\13
+  Sleep  1
+  #тут какая то хрень, я не зная что игнорю
+  Run Keyword And Ignore Error  Run Keyword If  '${browser}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
+
+
+Очистити поле пошуку команд якщо необхідно webrmd
   ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]
   ${clear_button}  Set Variable  //div[@id="Clear"]
   Click Element  ${command_input}
@@ -287,51 +292,39 @@ Input password ITA_web2016
   Sleep  1
 
 
-Очистити поле пошуку команд якщо необхідно ITA_web2016
+Очистити поле пошуку команд якщо необхідно web2016
   ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
   Click Element  ${command_input}
   Sleep  1
   ${status}  Run Keyword And Return Status  Page Should Contain Element  //div[@data-caption="+ Добавить" and contains(@class , "actv")]
-  Run Keyword If  ${status} == ${false}  Очистити поле пошуку команд якщо необхідно ITA_web2016
+  Run Keyword If  ${status} == ${false}  Очистити поле пошуку команд якщо необхідно web2016
   ${text}  Get Element Attribute   ${command_input}  Value
   ${status1}  Run Keyword And Return Status  Should Be Empty  ${text}
   Run Keyword If  ${status1} == ${false}  Clear Element Text  ${command_input}
 
 
-Ввести команду ITA_web2016
-  [Arguments]  ${command}
-  ${command_input}  Set Variable  (//input[@class="dhxcombo_input dxeEditAreaSys"])
-  Run Keyword  Очистити поле пошуку команд якщо необхідно ${env}
-  Wait Until Keyword Succeeds  15  3  Input Type Flex  ${command_input}  ${command}
-  Sleep  .5
-  Press Key  ${command_input}  \\13
-  Sleep  1
-  #тут какая то хрень, я не зная что игнорю
-  Run Keyword And Ignore Error  Run Keyword If  '${browser}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
-
-
 Натиснути кнопку "1 Выполнить"
-  Run Keyword  Натиснути кнопку "1 Выполнить" ${env}
+  Run Keyword  Натиснути кнопку "1 Выполнить" ${ui}
 
 
-
-Натиснути Кнопку "1 Выполнить" ITA
+Натиснути Кнопку "1 Выполнить" webrmd
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
   Дочекатись загрузки сторінки (ita)
   ${status}  Run Keyword And Return Status  Run Keyword And Ignore Error
   ...  Wait Until Page Does Not Contain Element  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
-  Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" ITA
+  Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" rmd
 
 
-Натиснути кнопку "1 Выполнить" ITA_web2016
+Натиснути кнопку "1 Выполнить" web2016
   Sleep  5
   Визначити потрібну кнопку
   Press Button Execute
-  Дочекатись Загрузки Сторінки (ITA_web2016)
+  Дочекатись Загрузки Сторінки (web2016)
 #  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
 #  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  10
-#  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" ITA_web2016
+#  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" web2016
+
 
 Press Button Execute
   ${a}  Get WebElement  xpath=(//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]
@@ -550,7 +543,6 @@ Scroll To Element
   Дочекатись загрузки сторінки (ita)
 
 
-
 Перейти до першого знайденого пункта меню
   ${first_search_item}  Set Variable  xpath=((//*[@class="search-panel-text"]/ancestor::div[2]//div/*[text()='Универсальный'])[2]
   Wait Until Keyword Succeeds  10  2  Click Element  ${first_search_item}
@@ -740,21 +732,6 @@ Input Type Flex
   Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
   Дочекатись Загрузки Сторінки (ita)
 
-#
-#Input By Line
-##  Ввод теста построчно
-#  [Arguments]  ${input_field}  ${text}
-#  ${lines_count}  Get Line Count  ${text}
-#  Sleep  .5
-#  Wait Until Keyword Succeeds  15  2  Click Element  ${input_field}
-#  Clear Element Text  ${input_field}
-#  :FOR  ${i}  IN RANGE  ${lines_count}
-#  \  ${line}  Get Line  ${text}  ${i}
-#  \  Input Type Flex  ${input_field}  ${line}
-#  \  Sleep  .3
-#  \  Press Key  ${input_field}  ${enter btn}
-#  \  Sleep  .3
-
 
 Ввод команды в консоль
   [Arguments]  ${command}
@@ -768,7 +745,6 @@ Input Type Flex
   ...  Element Should Be Visible  (//div[contains(@help-id, "DEBUGCONSOLECMD")])[${console_index}]
   \  Set Suite Variable  ${console_index}
   \  Exit For Loop If  ${status} == ${true}
-
 
 
 Вибрати довільні поля з довідників

@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -12,7 +10,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 ${dialog_window}  //div[contains(@class, "active")]//div[@class="float-container-header"]/..
 
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 

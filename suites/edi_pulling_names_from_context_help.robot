@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -14,7 +12,7 @@ ${values}          //*[@class="ade-val-container"]/*[@class="ade-val"]
 
 #robot -L TRACE:INFO -A suites/arguments.txt -v browser:chrome -v hub:none suites/edi_pulling_names_from_context_help.robot
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
     Авторизуватися  ${login}  ${password}
 
 

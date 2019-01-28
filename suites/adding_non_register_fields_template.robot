@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -18,7 +16,7 @@ ${a}                                10
 #  robot -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/adding_non_register_fields_template.robot
 #  команда для запуска
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
   Авторизуватися  ${login}  ${password}
   Створити пустий список
 

@@ -9,7 +9,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 #  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v capability:chrome -v hub:None suites/copier_stapler.robot
 
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 

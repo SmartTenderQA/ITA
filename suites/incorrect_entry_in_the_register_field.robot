@@ -1,8 +1,7 @@
 *** Settings ***
 Documentation    Suite description
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
+
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -16,8 +15,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 
 *** Test Cases ***
-Відкрити сторінку ITA та авторизуватись
-	Відкрити сторінку ITA
+Авторизуватись
 	Авторизуватися  ${login}  ${password}
 
 

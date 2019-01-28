@@ -1,7 +1,5 @@
 *** Settings ***
 Resource  ../src/keywords.robot
-Variables   var.py
-Library   data.py
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -11,7 +9,6 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 #  robot --consolecolors on -L TRACE:INFO -A suites/arguments.txt -v capability:chrome -v hub:None suites/universal_report_selection_bookmark_display.robot
 *** Test Cases ***
 Виконати передумови
-  Відкрити сторінку ITA
   Авторизуватися  ${login}  ${password}
   Відкрити головне меню та знайти пункт меню "Универсальный Отчет"
 

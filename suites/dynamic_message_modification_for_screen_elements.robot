@@ -46,7 +46,6 @@ ${checkbox}			//*[@class="dhxform_img"]//i
 *** Keywords ***
 Precondition
 	Preconditions
-	Відкрити сторінку ITA
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
