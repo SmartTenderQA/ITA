@@ -922,7 +922,9 @@ Input Type Flex
     [Arguments]  ${stage}
     ${actual_stage}  Get Text  //tr[contains(@class, "rowselected")]//td[last()]
     Log  ${actual_stage}
-    Page Should Contain Element  //tr[contains(@class, "rowselected")]//td[last() and text()="${stage}"]
+    ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=//tr[contains(@class, "rowselected")]//td[last() and text()="${stage}"]
+    [Return]  ${status}
+
 
 
 get_tooltip-panel_value

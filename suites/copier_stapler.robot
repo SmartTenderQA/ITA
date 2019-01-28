@@ -6,7 +6,7 @@ Test Setup  Check Prev Test Status
 Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
-#  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v capability:chrome -v hub:None suites/copier_stapler.robot
+#  robot -L TRACE:INFO -A suites/arguments.txt -v env:ITA_web2016 -v browser:chrome -v hub:None suites/copier_stapler.robot
 
 *** Test Cases ***
 Відкрити сторінку ITA та авторизуватись
@@ -45,7 +45,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Провести оригінал документу
     Обрати оригінал документу
     Натиснути Кнопку  Передать вперед (Alt+Right)
-    Перевірити що стадія документу  Архив
+    ${status}  Перевірити що стадія документу  Архив
+    Run Keyword If  ${status} == ${false}  Натиснути Кнопку  Передать вперед (Alt+Right)
     Перевірити відсутність копії документу
 
 
