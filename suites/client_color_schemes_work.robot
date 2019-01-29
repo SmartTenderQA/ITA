@@ -26,6 +26,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 
 Перейти в налаштування користувача
+  Розгорнути вікно браузера (XP)
   Натиснути іконку з фото користувача
   Натиснути на кнопку налаштувань користувача
 
@@ -48,6 +49,10 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 
 *** Keywords ***
+Розгорнути вікно браузера (XP)
+  Maximize Browser Window
+
+
 Натиснути іконку з фото користувача
   Wait Until Element Is Visible  ${user icon}
   Дочекатись Загрузки Сторінки (ita)
