@@ -681,7 +681,6 @@ Scroll Page To Element XPATH
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
   Press Key  //body  \\13
-  Run Keyword If  '${browser}' == 'edge'  Edge magic register  ${name}
   Дочекатись загрузки сторінки (ita)
   ${registr name}  Get Element Attribute  ${registr name input}  value
   ${check name}  Run Keyword And Return Status  Should Be Equal  ${registr name}  ${name}
