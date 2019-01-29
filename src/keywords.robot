@@ -453,17 +453,17 @@ Scroll To Element
 Натиснути пункт "Создать отчет"
   Click Element  ${create_report}
   Дочекатись Загрузки Сторінки (ita)
-  Element Should Be Visible  //*[@class="float-container-header-text" and text()="Настройка отчета"]
 
 
 Ввести довільну назву звіту
+  Wait Until Element Is Visible  //*[@class="float-container-header-text" and text()="Настройка отчета"]
   ${text}  create_sentence  4
   Set Global Variable  ${text}
   Input Text  ${report_name}  ${text}
 
 
 Перейти на вкладку "Поля"
-  Click Element  xpath=//a[.='Поля']
+  Wait Until Keyword Succeeds  15  2  Click Element  xpath=//a[.='Поля']
   Wait Until Page Contains Element  xpath=//li[.='Поля' and @aria-selected="true"]
   Sleep  3
 

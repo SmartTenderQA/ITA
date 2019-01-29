@@ -18,7 +18,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   В полі регістр вибрати пункт  Таблицы
   Натиснути випадаючий список кнопки "Конструктор"
   Натиснути пункт "Создать отчет"
-  Ввести довільну назву звіту
+#  Створити звіт
+  Ввести Довільну Назву Звіту
   Перейти на вкладку "Поля"
   Вибрати три довільних поля
   Натиснути кнопку "Добавить"
@@ -28,3 +29,22 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Натиснути випадаючий список кнопки "Конструктор"
   Натиснути пункт "Удалить отчет"
   Перевірити видалення звіту
+
+
+*** Keywords ***
+Створити звіт
+  Натиснути випадаючий список кнопки "Конструктор"
+  Натиснути пункт "Создать отчет"
+  Костыль для эджа
+
+
+Костыль для эджа
+  ${status}  Run Keyword And Return Status  Wait Until Element is Visible  //div[@class='message-box-button message-box-button-selected']
+  Run Keyword If  ${status} == ${true}  Натиснути "ок" та спробувати створити звіт
+
+
+Натиснути "ок" та спробувати створити звіт
+  ${ok_button}  Set Variable  //div[@class='message-box-button message-box-button-selected']
+  Click Element  ${ok_button}
+  Wait Until Element Is Not Visible  ${ok_button}
+  Створити Звіт

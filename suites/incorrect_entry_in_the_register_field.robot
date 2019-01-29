@@ -45,7 +45,7 @@ ${message}				 //*[@class="message-content-body" and contains (text(), 'Запи
 
 
 *** Keywords ***
-Edge magic
+Edge magic register
     Click Element  (//*[text()='Регистр']/../..//input)[1]
     Sleep  1
     Click Element  ${report_title}
