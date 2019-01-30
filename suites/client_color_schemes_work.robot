@@ -26,7 +26,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 
 Перейти в налаштування користувача
-  Розгорнути вікно браузера (XP)
+  Розгорнути вікно браузера (для XP)
   Натиснути іконку з фото користувача
   Натиснути на кнопку налаштувань користувача
 
@@ -49,8 +49,8 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
 
 
 *** Keywords ***
-Розгорнути вікно браузера (XP)
-  Maximize Browser Window
+Розгорнути вікно браузера (для XP)
+  Run Keyword If  '${browser}' != 'edge'  Maximize Browser Window
 
 
 Натиснути іконку з фото користувача
@@ -64,7 +64,7 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
   Wait Until Element Is Visible  ${user settings btn}
   Дочекатись Загрузки Сторінки (ita)
   Click Element  ${user settings btn}
-  Wait Until Page Contains  Мои настройки
+  Wait Until Page Contains  Мои настройки  10
 
 
 Визначити новий основний колір
