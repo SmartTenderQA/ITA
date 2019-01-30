@@ -57,6 +57,7 @@ ${enter_key}							\\13
 
 
 Перевірити неможливість вводу знака "-" в друге поле
+	Pass Execution  '${browser}' == 'edge'  Input for edge accept negative value, does not reproduced manually
 	${negative value}  Evaluate  "%.4f" % float(random.randint(-9999,-1))  random
 	Ввести значення в поле  positive  ${negative value}
 	${get value}  Отримати значення поля  positive
