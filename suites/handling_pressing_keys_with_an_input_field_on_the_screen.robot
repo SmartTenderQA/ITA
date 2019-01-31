@@ -47,7 +47,6 @@ ${test command}		InfoManager.MessageBox("test");
 *** Keywords ***
 Precondition
 	Preconditions
-	Відкрити сторінку ITA
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
