@@ -154,7 +154,7 @@ Check Prev Test Status
   Натиснути кнопку вхід
   Дочекатись загрузки сторінки (ita)
   ${enter username message}  Run Keyword And Return Status  Element Should Not Be Visible  //div[@class="message-content-body" and text()="Укажите имя пользователя"]
-  Run Keyword If  ${enter username message} == ${False}  Авторизуватися webrmd
+  Run Keyword If  ${enter username message} == ${False}  Авторизуватися webrmd  ${login}  ${password}
   Wait Until Page Contains Element  xpath=//*[@title="Вид"]  60
   Wait Until Element Is Visible  xpath=//*[@title="Вид"]  30
 
