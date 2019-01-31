@@ -76,7 +76,7 @@ Preconditions
   ${ui}  Вибрати інтерфейс  ${env}
   ${platform}  Run Keyword If  "${platform}" != "${NONE}"  Set Variable  platformName:${platform}
   Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  ${platform}
-  Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
+  Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None' and '${env}' == 'ITA'
   ...  Отримати та залогувати selenium_session
   Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
