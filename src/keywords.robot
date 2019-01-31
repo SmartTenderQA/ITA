@@ -152,6 +152,8 @@ Check Prev Test Status
   Ввести пароль  ${password}
   Натиснути кнопку вхід
   Дочекатись загрузки сторінки (ita)
+  ${enter username message}  Run Keyword And Return Status  Element Should Not Be Visible  //div[@class="message-content-body" and text()="Укажите имя пользователя"]
+  Run Keyword If  ${enter username message} == ${False}  Авторизуватися webrmd
   Wait Until Page Contains Element  xpath=//*[@title="Вид"]  60
   Wait Until Element Is Visible  xpath=//*[@title="Вид"]  30
 
@@ -292,6 +294,8 @@ Input password ITA_web2016
   ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]
   ${clear_button}  Set Variable  //div[@id="Clear"]
   Click Element  ${command_input}
+  ${input_activated}  Run Keyword And Return Status  Wait Until Element Is Visible  //div[@data-caption="+ Добавить" and contains(@class, "actv")]
+  Run Keyword If  ${input_activated} == ${False}  Очистити поле пошуку команд якщо необхідно webrmd
   Sleep  1
   ${text}  Get Element Attribute   ${command_input}  Value
   ${status}  Run Keyword And Return Status  Should Be Empty  ${text}
@@ -454,10 +458,10 @@ Scroll To Element
 Натиснути пункт "Создать отчет"
   Click Element  ${create_report}
   Дочекатись Загрузки Сторінки (ita)
+  Wait Until Element Is Visible  //*[@class="float-container-header-text" and text()="Настройка отчета"]
 
 
 Ввести довільну назву звіту
-  Wait Until Element Is Visible  //*[@class="float-container-header-text" and text()="Настройка отчета"]
   ${text}  create_sentence  4
   Set Global Variable  ${text}
   Input Text  ${report_name}  ${text}
