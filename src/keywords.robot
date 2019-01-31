@@ -74,6 +74,7 @@ ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_scre
 *** Keywords ***
 Preconditions
   ${ui}  Вибрати інтерфейс  ${env}
+  ${platform}  Run Keyword If  "${platform}" != "${NONE}"  Set Variable  platformName:${platform}
   Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  ${platform}
   Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
   ...  Отримати та залогувати selenium_session
