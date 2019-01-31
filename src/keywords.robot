@@ -30,7 +30,8 @@ ${password}								291263
 ${alies}                              alies
 ${browser}                            chrome
 ${hub}                                http://autotest.it.ua:4444/wd/hub
-${platform}                           ANY
+${platform}                           ${NONE}
+#${platform}                           platformName:ANY
 
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
@@ -73,7 +74,7 @@ ${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_scre
 *** Keywords ***
 Preconditions
   ${ui}  Вибрати інтерфейс  ${env}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  platformName:${platform}
+  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  ${platform}
   Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
   ...  Отримати та залогувати selenium_session
   Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
