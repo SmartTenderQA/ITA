@@ -272,11 +272,11 @@ Input password ITA_web2016
 
 Ввести команду
   [Arguments]  ${command}
-  ${text area}  Set Variable  //textarea[@name]
-    Run Keyword If  '${browser}' != 'edge'  Input Text  ${text area}  ${command}
-  ...  ELSE  Input By Line  ${text area}  ${command}
+  ${text area}  Set Variable  (//textarea[@name])[${console_index}]
+  Очистити поле вводу  ${text area}
+  Input By Line  ${text area}  ${command}
   ${is command}  Get Element Attribute  ${text area}  value
-  Should Be Equal As Strings  ${command}  ${is command}  Oops! Введено текст ${is command} а ми вводили ${command}
+  Should Be Equal As Strings  ${command}  ${is command[:-1]}  Oops! Введено текст ${is command} а ми вводили ${command}
 
 
 Input By Line
@@ -289,14 +289,13 @@ Input By Line
   :FOR  ${i}  IN RANGE  ${lines_count}
   \  ${line}  Get Line  ${text}  ${i}
   \  Input Type Flex  ${input_field}  ${line}
-  \  Sleep  .3
   \  Press Key  ${input_field}  ${enter btn}
   \  Sleep  .3
 
 
 
 Очистити поле вводу
-    ${text area}  Set Variable  //textarea[@name]
+    [Arguments]  ${text area}
     Execute JavaScript
     ...  document.evaluate('${text area}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value=""
 	Sleep  .5
@@ -790,13 +789,13 @@ Input Type Flex
 Ввод команды в консоль
   [Arguments]  ${command}
   Визначити індекс активної консолі
-  Ввести команду  ${command}
+  Wait Until Keyword Succeeds  45  3  Ввести команду  ${command}
 
 
 Визначити індекс активної консолі
   :FOR  ${console_index}  in range  1  5
   \  ${status}  Run Keyword And Return Status
-  ...  Element Should Be Visible  (//div[contains(@help-id, "DEBUGCONSOLECMD")])[${console_index}]
+  ...  Element Should Be Visible  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
   \  Set Suite Variable  ${console_index}
   \  Exit For Loop If  ${status} == ${true}
 
