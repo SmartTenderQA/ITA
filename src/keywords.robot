@@ -14,7 +14,8 @@ Library     String
 &{url}
 ...                                   ITA=https://webclient.it-enterprise.com/clientrmd/(S(nwqigpdz3z031icvawluswqc))/?qa-mode=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?qa-mode=1&win=1&tz=3
-...									  ITAO=https://webclient.it-enterprise.com/clientrmd/(S(23aump3cogqlhthke21dnsjw))/Splash?proj=K_ITAO12C2_RU&dbg=1
+#...									  ITAO=https://webclient.it-enterprise.com/clientrmd/(S(23aump3cogqlhthke21dnsjw))/Splash?proj=K_ITAO12C2_RU&dbg=1
+...									  ITAO=https://webclient.it-enterprise.com/clientrmd/(S(pmgjiytbdlzigu51zjj5ku04))/?proj=K_ITAO12C2_RU&dbg=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=2
 ...									  ITAO_web2016=https://webclient.it-enterprise.com/client/(S(1pf3scfg4rfdrdim10hecbry))/Splash?proj=K_ITAO12C2_RU&dbg=1
 ...									  EMP=http://emp2019.it.ua/Emp2019/clientrmd
 ...									  EMP_web2016=http://emp2019.it.ua/Emp2019/client
