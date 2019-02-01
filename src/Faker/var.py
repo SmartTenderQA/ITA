@@ -163,7 +163,7 @@ using (var cursor = new GridCursor(tableName))
     col2.Format = TextFormat.PositiveNumber;
 
     grid.Columns.Add(col);
-    grid.Columns.Add(col2);		  
+    grid.Columns.Add(col2);
     form.Activate();
 }"""
 
