@@ -1,5 +1,6 @@
 *** Settings ***
 Resource  ../src/keywords.robot
+
 Suite Setup  Preconditions
 Suite Teardown  Postcondition
 Test Setup  Check Prev Test Status
@@ -20,7 +21,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C# Виконати команду
-  Ввод команды в консоль  ${C# command}
+  Ввести команду  ${C# command}
   Натиснути кнопку "1 Выполнить"
 
 
@@ -33,3 +34,4 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Вставити довільний текст до комірки  ${selector}
   Вибрати іншіу довільну комірку  ${selector}
   Перевірити збереження тексту в комірці  ${selector}
+

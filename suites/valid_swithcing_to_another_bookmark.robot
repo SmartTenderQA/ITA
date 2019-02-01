@@ -17,7 +17,7 @@ ${Button1}  //div[@role="link"]
 
 
 Консоль. C# Виконати команду
-  Ввод команды в консоль  ${activating_validation_form}
+  Ввод команды в консоль  ${validation form activation}
   Натиснути кнопку "1 Выполнить"
 
 

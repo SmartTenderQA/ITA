@@ -21,24 +21,19 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 *** Variables ***
 ${message}			//*[@class='message-box-wrapper']
-${text area}		//*[@class='CodeMirror-code']
+${text area}		//textarea[@name]
 ${test command}		InfoManager.MessageBox("test");
-${clear btn}		//*[@id='Clear']
 
 
 *** Test Cases ***
 Перевірити підсвітку тексту в лапках іншим кольором
-	Ввод команды в консоль  handling_pressing_keys_with_an_input_field_on_the_screen
-	${list}  Create List  rgba(170, 34, 34, 1)  rgb(170, 34, 34)
-	${elem}    Get Webelement    ${text area}//*[@class='cm-string']
-	${bg_color}    Call Method    ${elem}    value_of_css_property    color
-	Should Contain Any  ${list}  ${bg_color}
-
-
-Переконатися в відсутності фокусу в полі вводу
-	Натиснути кнопку "1 Выполнить"
-	${is focused}  Run Keyword And Return Status  Element Should Be Focused  ${text area}
-	Should Be Equal  ${is focused}  ${False}  Oops! Фокус залишився в полі вводу команди
+	[Template]  Перевірити корректність роботи команди
+	Купи слона или гараж																					#[а-Я]
+	Buy an elephant																							#[a-Z]
+	1234567890																								#[0-9]
+	!@#$%^&*()_=`																							#[Спецсимволы] Экранировал двойные кавычки
+	-																										#[len=1]
+	wFNЁёhИz947LЭГuщюяг4dтШ9U794UЮ9!}ЭЦЁU*й^Г9Ш9Ю!дR,(чbЁ7=JЖ7=J}qd9#ыП;ю7Й=dvW9RULuЫ*W7чsяuzgмW]тLы~vLz	#[len=100]
 
 
 *** Keywords ***
@@ -47,3 +42,49 @@ Precondition
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
+	Ввод команды в консоль  ${handling_pressing_keys_with_an_input_field_on_the_screen_var}
+
+
+Перевірити корректність роботи команди
+	[Arguments]  ${text}
+	Ввести текст в консоль  ${text}
+	Перевірити підсвітку тексту в лапках іншим кольором
+	Натиснути кнопку "1 Выполнить"
+	Переконатися в коректності відображення повідомлення  ${text}
+	${is focused}  Run Keyword And Return Status  Element Should Be Focused  ${text area}
+	Should Be Equal  ${is focused}  ${False}  Oops! Фокус залишився в полі вводу команди
+	Закрити повідомлення
+
+
+Ввести текст в консоль
+	[Arguments]  ${text}
+	${command}  Set Variable  InfoManager.MessageBox("${text}");
+	Очистити поле вводу
+	Input Text  ${text area}  ${command}
+	${is command}  Get Element Attribute  ${text area}  value
+	Should Be Equal  ${command}  ${is command}  Oops! Введено текст ${is command} а ми вводили ${command}
+
+
+Перевірити підсвітку тексту в лапках іншим кольором
+	[Documentation]  Тестируемую возможность отключили и продолжать тестирование не нужно.
+	No Operation
+
+
+Переконатися в коректності відображення повідомлення
+	[Arguments]  ${text}
+	Wait Until Element Is Visible  ${message}
+	Element Should Contain  ${message}  ${text}
+
+
+Закрити повідомлення
+	Click Element  ${message}//*[contains(text(),'ОК')]
+	Wait Until Element Is Not Visible  ${message}
+
+
+Очистити поле вводу
+    Execute JavaScript
+    ...  document.evaluate('${text area}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value=""
+	Sleep  .5
+	${text}  Get Element Attribute  ${text area}  value
+	Run Keyword If  ${text==''} == ${False}
+	...	Очистити поле вводу
