@@ -36,14 +36,6 @@ ${test command}		InfoManager.MessageBox("test");
 	wFNЁёhИz947LЭГuщюяг4dтШ9U794UЮ9!}ЭЦЁU*й^Г9Ш9Ю!дR,(чbЁ7=JЖ7=J}qd9#ыП;ю7Й=dvW9RULuЫ*W7чsяuzgмW]тLы~vLz	#[len=100]
 
 
-Переконатися в відсутності фокусу в полі вводу
-	Ввод команды в консоль  ${handling_pressing_keys_with_an_input_field_on_the_screen_var}
-	Click Element  ${text area}
-	Натиснути кнопку "1 Выполнить"
-	${is focused}  Run Keyword And Return Status  Element Should Be Focused  ${text area}
-	Should Be Equal  ${is focused}  ${False}  Oops! Фокус залишився в полі вводу команди
-
-
 *** Keywords ***
 Precondition
 	Preconditions
@@ -59,6 +51,8 @@ Precondition
 	Перевірити підсвітку тексту в лапках іншим кольором
 	Натиснути кнопку "1 Выполнить"
 	Переконатися в коректності відображення повідомлення  ${text}
+	${is focused}  Run Keyword And Return Status  Element Should Be Focused  ${text area}
+	Should Be Equal  ${is focused}  ${False}  Oops! Фокус залишився в полі вводу команди
 	Закрити повідомлення
 
 
