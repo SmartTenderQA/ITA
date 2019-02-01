@@ -37,7 +37,7 @@ ${test command}		InfoManager.MessageBox("test");
 
 
 Переконатися в відсутності фокусу в полі вводу
-	Ввод команды в консоль  handling_pressing_keys_with_an_input_field_on_the_screen
+	Ввод команды в консоль  ${handling_pressing_keys_with_an_input_field_on_the_screen_var}
 	Click Element  ${text area}
 	Натиснути кнопку "1 Выполнить"
 	${is focused}  Run Keyword And Return Status  Element Should Be Focused  ${text area}
@@ -50,7 +50,7 @@ Precondition
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
-	Ввод команды в консоль  handling_pressing_keys_with_an_input_field_on_the_screen
+	Ввод команды в консоль  ${handling_pressing_keys_with_an_input_field_on_the_screen_var}
 
 
 Перевірити корректність роботи команди

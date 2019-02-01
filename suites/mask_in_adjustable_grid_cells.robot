@@ -27,7 +27,6 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Variables ***
-${mask_in_adjustable_grid_cells}  		mask_in_adjustable_grid_cells
 ${result window}						(//*[@class='dhx_cell_wins']
 ${negative field}						//td)[8]
 ${positive field}						//td)[9]
@@ -111,7 +110,7 @@ Precondition
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
-	Ввод команды в консоль  ${mask_in_adjustable_grid_cells}
+	Ввод команды в консоль  ${mask_in_adjustable_grid_cells_var}
 	Натиснути кнопку "1 Выполнить"
 
 

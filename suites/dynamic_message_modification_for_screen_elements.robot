@@ -49,7 +49,7 @@ Precondition
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
-	Ввод команды в консоль  dynamic_message_modification_for_screen_elements
+	Ввод команды в консоль  ${dynamic_message_modification_for_screen_elements_var}
 	Натиснути кнопку "1 Выполнить"
 
 

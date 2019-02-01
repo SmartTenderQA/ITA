@@ -51,7 +51,7 @@ Precondition
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
-	Ввод команды в консоль  work_in_the_screen_with_the_grid
+	Ввод команды в консоль  ${work_in_screen_with_the_grid}
 	Натиснути кнопку "1 Выполнить"
 	${page}  Set Variable  ${page_dict.${ui}}
 	Set Global Variable  ${page}

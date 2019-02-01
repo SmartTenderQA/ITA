@@ -15,7 +15,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 Відкрити "Консоль" та виконати команду
 	Настиснути кнопку "Консоль"
     Перейти на вкладку  Vfp
-    Ввод команды в консоль  ${vfp checkbox}
+    Ввод команды в консоль  ${checkbox vfp}
     Натиснути кнопку "1 Выполнить"
 
 

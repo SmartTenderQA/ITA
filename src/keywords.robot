@@ -8,7 +8,7 @@ Library	    RequestsLibrary
 Library     Faker/faker.py
 Library     service.py
 Library     String
-
+Variables   Faker/var.py
 
 *** Variables ***
 &{url}
@@ -53,22 +53,26 @@ ${menu_scroll}                        xpath=//*[@class="start-menu-tree-view-con
 ${toolbar}                            xpath=//*[@class="control-toolbar"]
 ${report_title}                       xpath=(//div[text()='Отчет']/ancestor::div[2]//input[@type='text'])[2]
 ${enter btn}                          \\13
-${C# command}                         C# command
-${VFP command}                        VFP command
-${C# grid}                            C# grid                       # \x43\x23\x20\x67\x72\x69\x64
-${dropdown unexisting command}        dropdown unexisting command
-${pulling from dropdown numerical1}   pulling from dropdown numerical1
-${pulling from dropdown numerical2}   pulling from dropdown numerical2
-${dropdown letters}                   dropdown letters
-${vfp checkbox}                       vfp checkbox
-${VFP command}                        VFP command
-${activating_validation_form}         activating_validation_form
-${activating_a_screen}                activating_a_screen
-${data_editor_call}                   data_editor_call
-${edi_polling}                        edi_polling
+${C# command}                         ${command_c}
+${VFP command}                        ${command vfp}
+${C# grid}                            ${command_c_grid}
+${dropdown unexisting command}        ${dropdown_unexisting_table}
+${pulling from dropdown numerical1}   ${ade_pulling_from_dropdown_menu_numerical_first}
+${pulling from dropdown numerical2}   ${ade_pulling_from_dropdown_menu_numerical_second}
+${checkbox vfp}                       ${vfp_checkbox}
+${validation form activation}         ${activating_validation_form}
+${activating screen}                  ${activating_a_screen}
+${call data editor}                   ${data_editor_call}
+${polling edi}                        ${edi_polling}
+${dropdown letters var}               ${dropdown_letters}
+${mask_in_adjustable_grid_cells_var}  ${mask_in_adjustable_grid_cells}
+${work_in_screen_with_the_grid}       ${work_in_the_screen_with_the_grid}
 
-${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}  adjusting_the_grid_with_the_mask_in_the_adjustment_screen
-${decimalPlaces_in_the_adjustment_screens}  decimalPlaces_in_the_adjustment_screens
+
+${adjusting_grid_with_the_mask_in_the_adjustment_screen}  ${adjusting_the_grid_with_the_mask_in_the_adjustment_screen}
+${decimalPlaces_in_adjustment_screens}  ${decimalPlaces_in_the_adjustment_screens}
+${dynamic_message_modification_for_screen_elements_var}  ${dynamic_message_modification_for_screen_elements}
+${handling_pressing_keys_with_an_input_field_on_the_screen_var}  ${handling_pressing_keys_with_an_input_field_on_the_screen}
 
 
 *** Keywords ***
@@ -268,52 +272,87 @@ Input password ITA_web2016
 
 Ввести команду
   [Arguments]  ${command}
-  Run Keyword  Ввести команду ${ui}  ${command}
+  ${text area}  Set Variable  //textarea[@name]
+    Run Keyword If  '${browser}' != 'edge'  Input Text  ${text area}  ${command}
+  ...  ELSE  Input By Line  ${text area}  ${command}
+  ${is command}  Get Element Attribute  ${text area}  value
+  Should Be Equal As Strings  ${command}  ${is command}  Oops! Введено текст ${is command} а ми вводили ${command}
 
 
-Ввести команду webrmd
-  [Arguments]  ${command}
-  Run Keyword  Очистити поле пошуку команд якщо необхідно ${ui}
-  Wait Until Keyword Succeeds  15  2  Input Text  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  ${command}
-  Press Key  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  \\13
-  Дочекатись Загрузки Сторінки (ita)
-
-
-Ввести команду web2016
-  [Arguments]  ${command}
-  ${command_input}  Set Variable  (//input[@class="dhxcombo_input dxeEditAreaSys"])
-  Run Keyword  Очистити поле пошуку команд якщо необхідно ${ui}
-  Wait Until Keyword Succeeds  15  3  Input Type Flex  ${command_input}  ${command}
+Input By Line
+#  Ввод теста построчно
+  [Arguments]  ${input_field}  ${text}
+  ${lines_count}  Get Line Count  ${text}
   Sleep  .5
-  Press Key  ${command_input}  \\13
-  Sleep  1
-  #тут какая то хрень, я не зная что игнорю
-  Run Keyword And Ignore Error  Run Keyword If  '${browser}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
+  Wait Until Keyword Succeeds  15  2  Click Element  ${input_field}
+  Clear Element Text  ${input_field}
+  :FOR  ${i}  IN RANGE  ${lines_count}
+  \  ${line}  Get Line  ${text}  ${i}
+  \  Input Type Flex  ${input_field}  ${line}
+  \  Sleep  .3
+  \  Press Key  ${input_field}  ${enter btn}
+  \  Sleep  .3
 
 
-Очистити поле пошуку команд якщо необхідно webrmd
-  ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]
-  ${clear_button}  Set Variable  //div[@id="Clear"]
-  Click Element  ${command_input}
-  ${input_activated}  Run Keyword And Return Status  Wait Until Element Is Visible  //div[@data-caption="+ Добавить" and contains(@class, "actv")]
-  Run Keyword If  ${input_activated} == ${False}  Очистити поле пошуку команд якщо необхідно webrmd
-  Sleep  1
-  ${text}  Get Element Attribute   ${command_input}  Value
-  ${status}  Run Keyword And Return Status  Should Be Empty  ${text}
-  Run Keyword If  ${status} == ${false}  Wait Until Element Is Visible  ${clear_button}
-  Run Keyword If  ${status} == ${false}  Wait Until Keyword Succeeds  15  3  Click Element  ${clear_button}
-  Sleep  1
+
+Очистити поле вводу
+    ${text area}  Set Variable  //textarea[@name]
+    Execute JavaScript
+    ...  document.evaluate('${text area}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value=""
+	Sleep  .5
+	${text}  Get Element Attribute  ${text area}  value
+	Run Keyword If  ${text==''} == ${False}
+	...	Очистити поле вводу
 
 
-Очистити поле пошуку команд якщо необхідно web2016
-  ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
-  Click Element  ${command_input}
-  Sleep  1
-  ${status}  Run Keyword And Return Status  Page Should Contain Element  //div[@data-caption="+ Добавить" and contains(@class , "actv")]
-  Run Keyword If  ${status} == ${false}  Очистити поле пошуку команд якщо необхідно web2016
-  ${text}  Get Element Attribute   ${command_input}  Value
-  ${status1}  Run Keyword And Return Status  Should Be Empty  ${text}
-  Run Keyword If  ${status1} == ${false}  Clear Element Text  ${command_input}
+#Ввести команду
+#  [Arguments]  ${command}
+#  Run Keyword  Ввести команду ${ui}  ${command}
+#
+#
+#Ввести команду webrmd
+#  [Arguments]  ${command}
+#  Run Keyword  Очистити поле пошуку команд якщо необхідно ${ui}
+#  Wait Until Keyword Succeeds  15  2  Input Text  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  ${command}
+#  Press Key  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]  \\13
+#  Дочекатись Загрузки Сторінки (ita)
+#
+#
+#Ввести команду web2016
+#  [Arguments]  ${command}
+#  ${command_input}  Set Variable  (//input[@class="dhxcombo_input dxeEditAreaSys"])
+#  Run Keyword  Очистити поле пошуку команд якщо необхідно ${ui}
+#  Wait Until Keyword Succeeds  15  3  Input Type Flex  ${command_input}  ${command}
+#  Sleep  .5
+#  Press Key  ${command_input}  \\13
+#  Sleep  1
+#  #тут какая то хрень, я не зная что игнорю
+#  Run Keyword And Ignore Error  Run Keyword If  '${browser}' == 'edge'  Click Element  (//div[contains(@class, "dhxcombolist_multicolumn ")]//div[@class="dhxcombo_cell "])[2]
+#
+#
+#Очистити поле пошуку команд якщо необхідно webrmd
+#  ${command_input}  Set Variable  (//input[contains(@class, "dxeEditAreaSys")])[${console_index}]
+#  ${clear_button}  Set Variable  //div[@id="Clear"]
+#  Click Element  ${command_input}
+#  ${input_activated}  Run Keyword And Return Status  Wait Until Element Is Visible  //div[@data-caption="+ Добавить" and contains(@class, "actv")]
+#  Run Keyword If  ${input_activated} == ${False}  Очистити поле пошуку команд якщо необхідно webrmd
+#  Sleep  1
+#  ${text}  Get Element Attribute   ${command_input}  Value
+#  ${status}  Run Keyword And Return Status  Should Be Empty  ${text}
+#  Run Keyword If  ${status} == ${false}  Wait Until Element Is Visible  ${clear_button}
+#  Run Keyword If  ${status} == ${false}  Wait Until Keyword Succeeds  15  3  Click Element  ${clear_button}
+#  Sleep  1
+#
+#
+#Очистити поле пошуку команд якщо необхідно web2016
+#  ${command_input}  Set Variable  (//input[contains(@class, "dhxcombo_input dxeEditAreaSys")])
+#  Click Element  ${command_input}
+#  Sleep  1
+#  ${status}  Run Keyword And Return Status  Page Should Contain Element  //div[@data-caption="+ Добавить" and contains(@class , "actv")]
+#  Run Keyword If  ${status} == ${false}  Очистити поле пошуку команд якщо необхідно web2016
+#  ${text}  Get Element Attribute   ${command_input}  Value
+#  ${status1}  Run Keyword And Return Status  Should Be Empty  ${text}
+#  Run Keyword If  ${status1} == ${false}  Clear Element Text  ${command_input}
 
 
 Натиснути кнопку "1 Выполнить"
@@ -587,7 +626,8 @@ Scroll To Element
   Sleep  2
   Press Key  //html/body  \\13
   Дочекатись Загрузки Сторінки (ita)
-  Page Should Contain Element  //td[@class='cellselected editable']
+  ${status}  Run Keyword And Return Status  Page Should Contain Element  //td[@class='cellselected editable']
+  Run Keyword If  ${status} == ${false}  Активувати комірку для редагування
   [Return]  (${row})[${n}]
 
 
