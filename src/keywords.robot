@@ -14,7 +14,8 @@ Variables   Faker/var.py
 &{url}
 ...                                   ITA=https://webclient.it-enterprise.com/clientrmd/(S(nwqigpdz3z031icvawluswqc))/?qa-mode=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
 ...                                   ITA_web2016=https://webclient.it-enterprise.com/client/(S(4rlzptork1sl10dr1uhr0vdi))/?qa-mode=1&win=1&tz=3
-...									  ITAO=https://webclient.it-enterprise.com/clientrmd/(S(23aump3cogqlhthke21dnsjw))/Splash?proj=K_ITAO12C2_RU&dbg=1
+#...									  ITAO=https://webclient.it-enterprise.com/clientrmd/(S(23aump3cogqlhthke21dnsjw))/Splash?proj=K_ITAO12C2_RU&dbg=1
+...									  ITAO=https://webclient.it-enterprise.com/clientrmd/(S(pmgjiytbdlzigu51zjj5ku04))/?proj=K_ITAO12C2_RU&dbg=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=2
 ...									  ITAO_web2016=https://webclient.it-enterprise.com/client/(S(1pf3scfg4rfdrdim10hecbry))/Splash?proj=K_ITAO12C2_RU&dbg=1
 ...									  EMP=http://emp2019.it.ua/Emp2019/clientrmd
 ...									  EMP_web2016=http://emp2019.it.ua/Emp2019/client
@@ -192,6 +193,7 @@ Input Login ITA_web2016
   [Arguments]  ${login}
   ${a}  Get WebElement  css=[data-name="Login"] input
   Call Method    ${a}    send_keys  ${login}
+
 
 Input password ITA_web2016
   [Arguments]  ${password}
@@ -557,9 +559,17 @@ Scroll To Element
   Wait Until Element Is Visible  xpath=//*[@class="start-menu-tree-view-container"]  20
 
 
+Виконати пошук по главному меню та перейти по рузльтату
+	[Arguments]  ${menu_name}  ${n}=1
+	Input Text  ${search}  ${menu_name}
+	Press Key  ${search}  ${enter btn}
+	Wait Until Keyword Succeeds  30  1
+	...  Click Element  (//*[@data-type="tree"]//*[contains(@title, "${menu_name}")])[${n}]
+	Дочекатись Загрузки Сторінки (ita)
+
+
 Виконати пошук пункта меню
   [Arguments]  ${menu_name}
-  #Wait Until Element Is Visible  xpath=//*[@start-menu-search-panel]  30
   :FOR  ${i}  IN RANGE  10
   \  ${menu_name1}  Set Variable  ${menu_name}
   \  Input Text  ${search}  ${menu_name}
@@ -569,7 +579,6 @@ Scroll To Element
   \  ${menu_name1}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${menu_name}  ${SPACE}  ${EMPTY}
   \  ${status}  Run Keyword And Return Status  Should be Equal  ${text}  ${menu name1}
   \  Exit For Loop If  ${status} == ${true}
-#  Wait Until Keyword Succeeds  20  2  Input Text  ${search}  ${menu_name}
   Press Key  ${search}  ${enter btn}
   Sleep  1
   Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
@@ -600,17 +609,6 @@ Scroll To Element
   Wait Until Keyword Succeeds  10  2  Click Element  ${first_search_item}
   Дочекатись Загрузки Сторінки (ita)
   Wait Until Element Is Visible  xpath=//div[@class='frame-caption']//span[@title="Учет изменения ПО"]
-
-
-Перейти до екрану "Коректировка"
-  Click Element  ${F7}
-  Wait Until Element Is Visible  xpath=(//div[@class="float-container-header-text" and text()="Добавление. Учет изменения ПО"])
-
-
-Натиснути "Требует действий со стороны службы поддержки"
-  Click Element  xpath=//*[@title="[NEEDACTIONS]"]
-  Wait Until Element Is Visible  xpath=//*[contains(@title, '[OASU_ACTS]')]/preceding-sibling::*
-  Run Keyword And Expect Error  *  Click Element  xpath=//*[@title="[NEEDACTIONS]"]
 
 
 Перевірити наявність діалогу з таблицею
