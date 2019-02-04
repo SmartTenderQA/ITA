@@ -13,7 +13,7 @@ using (var c = new GridCursor(SqlClient.Main.CreateCommand("select * from tapei"
 
 
 command_c_grid = """var form = new InputForm();
-using (var c = new GridCursor(SqlClient.Main.CreateCommand("select 1234.56 as undoc union all select 7891.23")))
+using (var c = new GridCursor(SqlClient.Main.CreateCommand("select 1234.56 undoc" +  SqlClient.Main.EmptyFrom + " union all select 7891.23 undoc" +SqlClient.Main.EmptyFrom)))
 {
                 var grid = form.Controls.AddGrid(c);
                 grid.Width = 40;
@@ -49,9 +49,14 @@ v.Activate();"""
 
 
 adjusting_the_grid_with_the_mask_in_the_adjustment_screen = """var form = new InputForm();
-using (var c = new GridCursor(SqlClient.Main.CreateCommand("select top 2 undoc from dmz order by undoc desc")))
+var sb = SqlClient.Main.CreateSelectBuilder();
+                                                                       sb.From.Table.Name = "DMZ";
+                                                                       sb.Fields.Add("DMZ", "UNDOC");
+                                                                       sb.OrderBy.Add("DMZ", "UNDOC", true);
+                                                                      sb.Top = 2;
+using (var c = new GridCursor(sb.GetCommand()))
 {
-                var grid = form.Controls.AddGrid(c);
+                var grid = form.Controls.AddGrid(c);Cb[f
                 grid.Width = 40;
                 grid.Height = 10;
                 var col = grid.InnerControl.Columns.AddTextBox("undoc", "undoc");
@@ -62,7 +67,8 @@ using (var c = new GridCursor(SqlClient.Main.CreateCommand("select top 2 undoc f
                                return true;
                 };
                 form.Activate();
-}"""
+}
+"""
 
 
 text = u"\"Несуществующая таблица\""
