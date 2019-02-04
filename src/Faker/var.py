@@ -9,8 +9,7 @@ using (var c = new GridCursor(SqlClient.Main.CreateCommand("select * from tapei"
    var col = grid.InnerControl.Columns.AddTextBox("pnedi", "pnedi");
    col.ReadOnly = false;
    form.Activate();
-}
-"""
+}"""
 
 
 command_c_grid = """var form = new InputForm();
@@ -27,8 +26,7 @@ using (var c = new GridCursor(SqlClient.Main.CreateCommand("select 1234.56 as un
                                return true;
                 };
                 form.Activate();
-}
-"""
+}"""
 
 
 command_vfp = """do Line1 with 'aaaa',100,10,.t.
