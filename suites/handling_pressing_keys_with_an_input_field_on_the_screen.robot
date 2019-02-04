@@ -42,27 +42,19 @@ Precondition
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
-	Ввод команды в консоль  ${handling_pressing_keys_with_an_input_field_on_the_screen_var}
+	Визначити індекс активної консолі
 
 
 Перевірити корректність роботи команди
 	[Arguments]  ${text}
-	Ввести текст в консоль  ${text}
+	${command}  Set Variable  InfoManager.MessageBox("${text}");
+	Ввести команду  ${command}
 	Перевірити підсвітку тексту в лапках іншим кольором
 	Натиснути кнопку "1 Выполнить"
 	Переконатися в коректності відображення повідомлення  ${text}
 	${is focused}  Run Keyword And Return Status  Element Should Be Focused  ${text area}
-	Should Be Equal  ${is focused}  ${False}  Oops! Фокус залишився в полі вводу команди
 	Закрити повідомлення
-
-
-Ввести текст в консоль
-	[Arguments]  ${text}
-	${command}  Set Variable  InfoManager.MessageBox("${text}");
-	Очистити поле вводу
-	Input Text  ${text area}  ${command}
-	${is command}  Get Element Attribute  ${text area}  value
-	Should Be Equal  ${command}  ${is command}  Oops! Введено текст ${is command} а ми вводили ${command}
+	Should Be Equal  ${is focused}  ${False}  Oops! Фокус залишився в полі вводу команди
 
 
 Перевірити підсвітку тексту в лапках іншим кольором
@@ -79,12 +71,3 @@ Precondition
 Закрити повідомлення
 	Click Element  ${message}//*[contains(text(),'ОК')]
 	Wait Until Element Is Not Visible  ${message}
-
-
-Очистити поле вводу
-    Execute JavaScript
-    ...  document.evaluate('${text area}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value=""
-	Sleep  .5
-	${text}  Get Element Attribute  ${text area}  value
-	Run Keyword If  ${text==''} == ${False}
-	...	Очистити поле вводу

@@ -303,7 +303,7 @@ Input By Line
 	Sleep  .5
 	${text}  Get Element Attribute  ${text area}  value
 	Run Keyword If  ${text==''} == ${False}
-	...	Очистити поле вводу
+	...	Очистити поле вводу  ${text area}
 
 
 #Ввести команду
