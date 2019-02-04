@@ -22,7 +22,7 @@ ${Button1}  //div[@role="link"]
 	Перейти на вкладку  C#
 
 
-Консоль. C# Виконати коман
+Консоль. C# Виконати команду
 	Ввод команды в консоль  ${adjusting_grid_with_the_mask_in_the_adjustment_screen}
 	Натиснути кнопку "1 Выполнить"
 
@@ -50,25 +50,24 @@ ${Button1}  //div[@role="link"]
 
 *** Keywords ***
 Перевірити наявність екрану коригування з полем undoc
-	Wait Until Page Contains Element  //div[contains(@class, "active") and contains(., "undoc")]
-	Set Global Variable  ${frame}  //div[contains(@class, "active") and contains(., "undoc")]
+	Wait Until Page Contains Element  //div[@title="undoc"]
 
 
 Перевірити значення в полях
 	:FOR  ${i}  IN  1  2
-	\  ${amount}  Get Text  (${frame}//td[contains(@style, "right")])[${i}]
+	\  ${amount}  Get Text  (//div[contains(@class, "objbox selectable")]//td[contains(@style, "right")])[${i}]
 	\  Should Be Equal  .00  ${amount[-3:]}
 
 
 Вибрати довільну комірку
-	${n}  Get Element Count  ${frame}//td[contains(@style, "right")]
+	${n}  Get Element Count  (//div[contains(@class, "objbox selectable")]//td[contains(@style, "right")])
 	${grid}  random_number  1  ${n}
 	Set Global Variable  ${grid}
 
 
 Змінити значення в комірці
 	[Arguments]  ${value}
-	${field}  Set Variable  (${frame}//td[contains(@style, "right")])[${grid}]
+	${field}  Set Variable  (//div[contains(@class, "objbox selectable")]//td[contains(@style, "right")])[${grid}]
 	Ввести значення в комірку  ${value}  ${field}
 	Дочекатись Загрузки Сторінки (ita)
 
@@ -96,12 +95,11 @@ ${Button1}  //div[@role="link"]
 
 Закрити валідаційне вікно
 	[Arguments]  ${value}
-	${selector}  Set Variable  //div[@class="message-box" and contains(., "${value}")]
+	${selector}  Set Variable  (//div[contains(@class, "message") and contains(., "${value}")])[last()]
 	Wait Until Element Is Visible  ${selector}
-	Click Element  ${selector}//*[contains(text(), "ОК")]
-	Дочекатись Загрузки Сторінки (ita)
-	Run Keyword And Ignore Error  Click Element  ${selector}//*[contains(text(), "ОК")]
-	Wait Until Page Does Not Contain Element  ${selector}
+	Run Keyword If  '${env}' == 'ITA'  Wait Until Keyword Succeeds  15  3  Click Element  //div[contains(text(), "ОК") and contains(@class, "message-box-button")]
+	...  ELSE  Wait Until Keyword Succeeds  15  3  Click Element  //div[@id="IMMessageBoxBtnOK_CD"]
+	Wait Until Element Is not Visible  ${selector}
 	Дочекатись Загрузки Сторінки (ita)
 
 
@@ -109,5 +107,5 @@ ${Button1}  //div[@role="link"]
 	[Arguments]  ${value}
 	${should}  Run Keyword If  "${value}" == "1000"  Set Variable  1 000.00
 	...  ELSE IF  "${value}" == "0"  Set Variable
-	${get}  Get Text  (${frame}//td[contains(@style, "right")])[${grid}]
+	${get}  Get Text  (//div[contains(@class, "objbox selectable")]//td[contains(@style, "right")])[${grid}]
 	Should Be Equal  ${should}  ${get}

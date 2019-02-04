@@ -80,7 +80,7 @@ Preconditions
   ${ui}  Вибрати інтерфейс  ${env}
   ${platform}  Run Keyword If  "${platform}" != "${NONE}"  Set Variable  platformName:${platform}
   Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  ${platform}
-  Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None' and '${env}' == 'ITA'
+  Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
   ...  Отримати та залогувати selenium_session
   Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
 
@@ -104,7 +104,7 @@ Postcondition
 Something Went Wrong
   Capture Page Screenshot
   Log Location
-  Зберегти дані з логів
+  Run Keyword If  '${env}' == 'ITA'  Зберегти дані з логів
 
 
 Зберегти дані з логів
