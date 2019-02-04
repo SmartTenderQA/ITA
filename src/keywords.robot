@@ -8,7 +8,7 @@ Library	    RequestsLibrary
 Library     Faker/faker.py
 Library     service.py
 Library     String
-Variables   Faker/var.py
+Variables   var.py
 
 *** Variables ***
 &{url}
