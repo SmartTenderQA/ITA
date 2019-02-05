@@ -56,7 +56,7 @@ var sb = SqlClient.Main.CreateSelectBuilder();
                                                                       sb.Top = 2;
 using (var c = new GridCursor(sb.GetCommand()))
 {
-                var grid = form.Controls.AddGrid(c);Cb[f
+                var grid = form.Controls.AddGrid(c);
                 grid.Width = 40;
                 grid.Height = 10;
                 var col = grid.InnerControl.Columns.AddTextBox("undoc", "undoc");
@@ -67,8 +67,7 @@ using (var c = new GridCursor(sb.GetCommand()))
                                return true;
                 };
                 form.Activate();
-}
-"""
+}"""
 
 
 text = u"\"Несуществующая таблица\""

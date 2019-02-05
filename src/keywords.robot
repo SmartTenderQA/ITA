@@ -237,15 +237,21 @@ Input password ITA_web2016
   Click Element At Coordinates  xpath=(//*[contains(text(), 'Войти')])[1]  -40  0
 
 
+Дочекатись Загрузки Сторінки
+  ${env_type}  Run Keyword And Return Status  Should Contain  '${env}'  2016
+  Run Keyword If  ${env_type} == ${true}  Дочекатись Загрузки Сторінки (web2016)
+  ...  ELSE  Дочекатись загрузки сторінки (ita)
+
+
 Дочекатись загрузки сторінки (ita)
   ${status}  ${message}  Run Keyword And Ignore Error  Wait Until Element Is Visible  ${loading}  5
   Run Keyword If  "${status}" == "PASS"  Run Keyword And Ignore Error  Wait Until Element Is Not Visible  ${loading}  120
 
 
 Настиснути кнопку "Консоль"
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Click Element  ${console}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Wait Until Page Contains  Консоль отладки
 
 
@@ -363,7 +369,7 @@ Input By Line
 Натиснути Кнопку "1 Выполнить" webrmd
   ${confirm btn}  Set Variable  //*[@aria-hidden="false"]//*[contains(text(), 'Выполнить')]
   Click Element At Coordinates  ${confirm btn}  -40  0
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись загрузки сторінки
   ${status}  Run Keyword And Return Status  Run Keyword And Ignore Error
   ...  Wait Until Page Does Not Contain Element  xpath=//*[@class="tooltip-panel" and @style="display: block;"]
   Run Keyword If  '${status}' == 'False'  Натиснути Кнопку "1 Выполнить" rmd
@@ -373,7 +379,7 @@ Input By Line
   Sleep  5
   Визначити потрібну кнопку
   Press Button Execute
-  Дочекатись Загрузки Сторінки (web2016)
+  Дочекатись Загрузки Сторінки
 #  Click Element At Coordinates  xpath=(//*[contains(text(), 'Выполнить')])[1]  -40  0
 #  ${status}  run keyword and return status  Wait Until Element Is Not Visible  (//div[@class="dxb" and contains(@id, "DEBUG")])[${button_index}]  10
 #  Run Keyword If  ${status} == ${false}  Натиснути кнопку "1 Выполнить" web2016
@@ -426,7 +432,7 @@ Autistick Clicking
   Wait Until Element Is Visible  ${menu_report}  30
   Click Element  ${menu_report}
   Wait Until Keyword Succeeds  30  3  Click Element  xpath=(//*[contains(text(), 'Универсальный отчет')])[2]
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись загрузки сторінки
   Wait Until Page Contains Element  xpath=//*[contains(text(), 'Сформировать отчет')]  30
 
 
@@ -439,10 +445,10 @@ Autistick Clicking
   [Arguments]  ${value}
   ${register_input}  Set Variable  xpath=(//*[contains(text(), 'Регистр')]/ancestor::div[2]//input)[1]
   ${register_dropdown button}  Set Variable  (//*[@data-caption="+ Добавить"])[1]//*[@code='0']
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись загрузки сторінки
   Wait Until Element Is Visible  ${register_input}  30
   Click Element  ${register_input}
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись загрузки сторінки
   ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  ${register_dropdown button}
   Run Keyword If  ${status} == ${False}  В полі регістр вибрати пункт  ${value}
   Розкрити випадаючий список та обрати пункт  ${value}
@@ -491,14 +497,14 @@ Scroll To Element
   ${deleted_report_title}  Get Element Attribute  xpath=((//*[contains(text(), 'Отчет')])[3]/ancestor::div[2]//input)[4]  value
   Set Global Variable  ${deleted_report_title}
   Wait Until Keyword Succeeds  30  3  Click Element  ${constructor_drop_down}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   ${stat}  Run Keyword And Return Status  Element Should Be Visible  ${create_report}
   Run Keyword If  '${stat}' == 'False'  Натиснути випадаючий список кнопки "Конструктор"
 
 
 Натиснути пункт "Создать отчет"
   Click Element  ${create_report}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Wait Until Element Is Visible  //*[@class="float-container-header-text" and text()="Настройка отчета"]
 
 
@@ -526,7 +532,7 @@ Scroll To Element
 
 Натиснути кнопку "Добавить"
   Click Element  ${add_report}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${add_report}
   Run Keyword If  ${status} == ${False}  Натиснути кнопку "Добавить"
 
@@ -543,7 +549,7 @@ Scroll To Element
   ${current_title}  Get Element Attribute  //div[@help-id="REPZSMPLRN"]/input  value
   Should Be Equal  "${current_title}"  "${deleted_report_title}"
   Wait Until Keyword Succeeds  30  3  Click Element  //*[@class = "dhxtoolbar_text" and text() = "Удалить"]
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
 
 
 Перевірити видалення звіту
@@ -553,9 +559,9 @@ Scroll To Element
 
 
 Натиснути на логотип IT-Enterprise
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Click Element  ${logo}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Wait Until Element Is Visible  xpath=//*[@class="start-menu-tree-view-container"]  20
 
 
@@ -565,7 +571,7 @@ Scroll To Element
 	Press Key  ${search}  ${enter btn}
 	Wait Until Keyword Succeeds  30  1
 	...  Click Element  (//*[@data-type="tree"]//*[contains(@title, "${menu_name}")])[${n}]
-	Дочекатись Загрузки Сторінки (ita)
+	Дочекатись Загрузки Сторінки
 
 
 Виконати пошук пункта меню
@@ -583,14 +589,14 @@ Scroll To Element
   Sleep  1
   Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
   ...  Click Element  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[text()='Универсальный'])[2]
-  ...  AND  Дочекатись Загрузки Сторінки (ita)
+  ...  AND  Дочекатись Загрузки Сторінки
 
 
 Запустити функцію додаткового меню
   [Arguments]  ${title}
   ${selector}  Set Variable  xpath=//*[contains(@class,'extended-menu')]//*[@title="${title}"]
   Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Wait Until Element Is Not Visible  ${selector}
 
 
@@ -601,13 +607,13 @@ Scroll To Element
   Run Keyword If  '${status}' == 'False'  Click Element At Coordinates  ${menu_scroll}  0  300
   Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
   Wait Until Element Is Visible  xpath=//*[contains(@class,'selected') and @title="${title}"]
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись загрузки сторінки
 
 
 Перейти до першого знайденого пункта меню
   ${first_search_item}  Set Variable  xpath=((//*[@class="search-panel-text"]/ancestor::div[2]//div/*[text()='Универсальный'])[2]
   Wait Until Keyword Succeeds  10  2  Click Element  ${first_search_item}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Wait Until Element Is Visible  xpath=//div[@class='frame-caption']//span[@title="Учет изменения ПО"]
 
 
@@ -622,7 +628,7 @@ Scroll To Element
   Click Element  (${row})[${n}]
   Sleep  2
   Press Key  //html/body  \\13
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   ${status}  Run Keyword And Return Status  Page Should Contain Element  //td[@class='cellselected editable']
   Run Keyword If  ${status} == ${false}  Активувати комірку для редагування
   [Return]  (${row})[${n}]
@@ -641,7 +647,7 @@ Scroll To Element
   Double Click Element  ${selector}/../following-sibling::*
   Sleep  .5
   Press Key  //html/body  \\13
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Run Keyword And Ignore Error  Click Element  xpath=(${selector}/../following-sibling::*/td)
   Sleep  .5
   ${text}  Get Text  ${selector}
@@ -684,9 +690,9 @@ Scroll Page To Element XPATH
 
 Запустити функцію
 	[Arguments]  ${fuction}
-	Дочекатись Загрузки Сторінки (ita)
+	Дочекатись Загрузки Сторінки
 	Click Element  //div[@id and @data-start-params and contains(., "${fuction}")]
-	Дочекатись Загрузки Сторінки (ita)
+	Дочекатись Загрузки Сторінки
 	Wait Until Page Contains Element  //span[contains(@title, "${fuction}")]
 
 
@@ -715,16 +721,16 @@ Scroll Page To Element XPATH
 Ввести назву регістру
   [Arguments]  ${name}
   ${registr name input}  Set Variable  xpath=(//*[text()='Регистр']/../..//input)[1]
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Wait Until Page Contains Element  ${registr name input}  10
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   Click Element  ${registr name input}
   Clear Element Text  ${registr name input}
   Sleep  .5
   Input Type Flex  ${registr name input}  ${name}
   Sleep  .5
   Press Key  //body  \\13
-  Дочекатись загрузки сторінки (ita)
+  Дочекатись загрузки сторінки
   ${registr name}  Get Element Attribute  ${registr name input}  value
   ${check name}  Run Keyword And Return Status  Should Be Equal  ${registr name}  ${name}
   Run Keyword If  '${check name}' == 'False'  Ввести назву регістру  ${name}
@@ -781,7 +787,7 @@ Input Type Flex
   Run Keyword And Ignore Error  Click Element  ${selector}
   ${status}  Run Keyword And Return Status  Page Should Contain Element  ${selector}/parent::*[contains(@class, "active")]
   Run Keyword If  ${status} == ${False}  Перейти До Вкладки  ${value}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
 
 
 Ввод команды в консоль
@@ -852,7 +858,7 @@ Input Type Flex
   Append To List  ${list}  ${fieldname}
   Wait Until Element Is Visible  ${add field btn}
   Wait Until Keyword Succeeds  15  3  Click Element  ${add field btn}
-  Дочекатись Загрузки Сторінки (ita)
+  Дочекатись Загрузки Сторінки
   ${added_table}  Get Text  xpath=(//td[@class="cellmultiline cellselected"])[last()]
   ${added_table}  Replace String  ${added_table}  ${\n}  ${space}
   Should Be Equal  ${fieldname}  ${added_table}
@@ -890,7 +896,7 @@ Input Type Flex
     Wait Until Element Is Visible  ${selector}
     :FOR  ${i}  IN RANGE  10
     \  Run Keyword And Ignore Error  Double Click Element  ${selector}
-    \  Дочекатись загрузки сторінки (web2016)
+    \  Дочекатись загрузки сторінки
     \  Run Keyword And Ignore Error  Click Element  ${selector}
     \  Sleep  1
     \  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${selector}
@@ -901,7 +907,7 @@ Input Type Flex
 Совсем не кликается
     [Arguments]  ${name}
     Execute JavaScript  let event = new MouseEvent('dblclick', { 'view': window, 'bubbles': true, 'cancelable': true }); document.querySelector("div[tooltip='${name}']").dispatchEvent(event);
-    Дочекатись загрузки сторінки (web2016)
+    Дочекатись загрузки сторінки
 
 
 В поле Обьект ввести
@@ -920,14 +926,14 @@ Input Type Flex
     Wait Until Element Is Visible  ${selector}  30
     Sleep  .5
     Click Element  ${selector}
-    Дочекатись загрузки сторінки (web2016)
+    Дочекатись загрузки сторінки
 
 
 Натиснути кнопку
     [Arguments]  ${button_name}
     Wait Until Element Is Visible  //*[contains(@title,'${button_name}')]  30
     Wait Until Keyword Succeeds  10  2  Click Element  //*[contains(@title,'${button_name}')]
-    Дочекатись загрузки сторінки (web2016)
+    Дочекатись загрузки сторінки
 
 
 Перевірити наявність кнопки

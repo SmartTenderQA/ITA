@@ -97,7 +97,8 @@ ${Button1}  //div[@role="link"]
 	[Arguments]  ${value}
 	${selector}  Set Variable  (//div[contains(@class, "message") and contains(., "${value}")])[last()]
 	Wait Until Element Is Visible  ${selector}
-	Run Keyword If  '${env}' == 'ITA'  Wait Until Keyword Succeeds  15  3  Click Element  //div[contains(text(), "ОК") and contains(@class, "message-box-button")]
+	${env_type}  Run Keyword And Return Status  Should Contain  '${env}'  2016
+	Run Keyword If  ${env_type} == ${False}  Wait Until Keyword Succeeds  15  3  Click Element  //div[contains(text(), "ОК") and contains(@class, "message-box-button")]
 	...  ELSE  Wait Until Keyword Succeeds  15  3  Click Element  //div[@id="IMMessageBoxBtnOK_CD"]
 	Wait Until Element Is not Visible  ${selector}
 	Дочекатись Загрузки Сторінки (ita)
