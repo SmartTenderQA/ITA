@@ -625,7 +625,7 @@ Scroll To Element
   ${row}  Set Variable  //table[contains(@class,'obj')]//tr/td[2]
   ${count}  Get Element Count  ${row}
   ${n}  random_number  1   ${count}
-  Click Element  (${row})[${n}]
+  Wait Until Keyword Succeeds  15  3  Click Element  (${row})[${n}]
   Sleep  2
   Press Key  //html/body  \\13
   Дочекатись Загрузки Сторінки
