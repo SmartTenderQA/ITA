@@ -21,7 +21,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Консоль. C# Виконати команду
-  Ввести команду  ${C# command}
+  Ввод команды в консоль  ${C# command}
   Натиснути кнопку "1 Выполнить"
 
 
