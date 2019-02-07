@@ -1,7 +1,7 @@
 *** Settings ***
 Resource  ../src/keywords.robot
 Suite Setup  Preconditions
-Suite Teardown  Postcondition
+Suite Teardown  Видалити документ та закрити браузер
 Test Setup  Check Prev Test Status
 Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
@@ -49,12 +49,6 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Перевірити наявність повідомлення про помилку
 
 
-Видалити документ
-    Натиснути кнопку  Удалить (F8)
-    Натиснути кнопку форми  Удалить
-    Перевірити видалення документу
-
-
 *** Keywords ***
 Перевірити відкриття функції Конструктор бизнес-процессов и потоков документов
     Wait Until Page Contains Element  xpath=(//ul[@id="MainSted2PageControl_RSO_TC"]/li)[2]//td[text()="Объекты"]
@@ -85,6 +79,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Перевірити інформацію про зауваження
+    Перейти до вкладки Согласование
     Wait Until Page Contains Element  xpath=((//tr[@class="evenRow rowselected"])[last()]//td)[8 and text()="Замечание"]
     Wait Until Page Contains Element  xpath=((//tr[@class="evenRow rowselected"])[last()]//td)[9 and text()="c комментарием"]
 
@@ -99,5 +94,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Should Contain  ${text}  Движение невозможно! Не выполнено согласование документа:
 
 
-Перевірити видалення документу
-    Page Should Not Contain Element  //tr[contains(@class, "rowselected")]//td[text()="${object}"]
+Перейти до вкладки Согласование
+    ${agreement_active_tab}  Set Variable  //li[contains(@id, "mainTabControl_AT2")]
+    ${agreement_is_active}  Run Keyword And Return Status  Wait Until Element Is Visible  ${agreement_active_tab}
+    Run Keyword If  ${agreement_is_active} != ${True}  Click Element  //li[contains(@id, "mainTabControl_T2")]
+    Wait Until Element Is Visible  ${agreement_active_tab}

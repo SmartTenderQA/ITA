@@ -1,7 +1,7 @@
 *** Settings ***
 Resource  ../src/keywords.robot
 Suite Setup  Preconditions
-Suite Teardown  Postcondition
+Suite Teardown  Видалити документ та закрити браузер
 Test Setup  Check Prev Test Status
 Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
@@ -39,16 +39,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Переконатись що з'явилось вікно Текстовый документ та закрити його
     Перевірити що стадія документу  2
 
-Видалити документ
-    Натиснути кнопку  Удалить (F8)
-    Натиснути кнопку форми  Удалить
-    Перевірити видалення документу
 
 *** Keywords ***
-Перевірити відкриття функції Конструктор бизнес-процессов и потоков документов
-    Wait Until Page Contains Element  xpath=(//ul[@id="MainSted2PageControl_RSO_TC"]/li)[2]//td[text()="Объекты"]
-
-
 Перевірити що відкрито екран додавання об'єктів
     Page Should Contain Element  //span[@id="pcModalMode_PWH-1T" and text()="Добавление. Объекты"]
     Page Should Contain Element  //span[text()="Объект"]
