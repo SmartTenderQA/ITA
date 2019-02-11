@@ -16,8 +16,10 @@ ${Button1}  //div[@role="link"]
 
 
 Запуск функції «Планировщик задач»
-	Запустити функцію  Планировщик задач
-	Перевірити вибрану строку
+	Натиснути на логотип IT-Enterprise
+	Натиснути пункт головного меню   Администрирование системы
+	Натиснути пункт головного меню   Администрирование системы и управление доступом
+	Відкрити Функцію  Планировщик задач
 	Виділити екран "Условие"
 
 
@@ -38,6 +40,12 @@ ${Button1}  //div[@role="link"]
 
 
 *** Keywords ***
+Відкрити Функцію
+    [Arguments]  ${function}
+    Wait Until Keyword Succeeds  15  3  Click Element  //div[@class="module-item-text" and text()="${function}"]
+    Дочекатись Загрузки Сторінки
+
+
 Перевірити вибрану строку
 	${count}  Set Variable  count(//td[@draggable and contains(., "Код")]/preceding-sibling::td)
 	${code grid}  Set Variable  //tr[contains(., "Диспетчер")]/td[${count}+1]
