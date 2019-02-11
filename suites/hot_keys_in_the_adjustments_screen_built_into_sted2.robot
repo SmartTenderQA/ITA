@@ -72,7 +72,7 @@ ${Button1}  //div[@role="link"]
 	[Arguments]  ${i}
 	${input}  Set Variable  (//*[@class="dhxform_base"]//input)[${i}]
 	${date}  smart_get_time  -4  d
-	Click Element  ${input}
+	Click Element At Coordinates  ${input}  -10  0
 	Clear Element Text  ${input}
 	Input Type Flex  ${input}  ${date}
 	Set Global Variable  ${date}
