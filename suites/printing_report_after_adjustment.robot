@@ -153,7 +153,6 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Should Be True  ${tables_count} == 2
   ${buttons_count}  Get Element Count  //div[@class="dhxform_btn"]
   Should Be True  ${buttons_count} == 4
-  Element Should Be Visible  (//div[contains(@class, "picture")]/img)[2]
 
 
 Натиснути кнопку "Сохранить"

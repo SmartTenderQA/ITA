@@ -72,7 +72,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Обрати копію документа
-    Click Element  xpath=//tr[contains(@class, "rowselected")]/following-sibling::tr
+    Click Element  xpath=//tr[contains(@class, "Row")]//td[text()="${object}"]/parent::*//td[last() and text()="Копия"]
     ${status}  Run Keyword And Return Status  Wait Until Page Contains Element  //tr[contains(@class, "rowselected")]//td[last() and text()="Копия"]
     Run Keyword If  ${status} == ${false}  Обрати копію документа
 
@@ -82,7 +82,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Обрати оригінал документу
-    Click Element  xpath=//tr[contains(@class, "rowselected")]/preceding::tr//td[last() and text()="Оригинал"]/parent::*
+    Click Element  xpath=//tr[contains(@class, "Row")]//td[text()="${object}"]/parent::*//td[last() and text()="Оригинал"]
     ${status}  Run Keyword And Return Status  Wait Until Page Contains Element  //tr[contains(@class, "rowselected")]//td[last() and text()="Оригинал"]
     Run Keyword If  ${status} == ${false}  Обрати оригінал документу
 

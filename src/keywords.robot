@@ -593,9 +593,10 @@ Scroll To Element
 
 
 Запустити функцію додаткового меню
-  [Arguments]  ${title}
-  ${selector}  Set Variable  xpath=//*[contains(@class,'extended-menu')]//*[@title="${title}"]
-  Wait Until Keyword Succeeds  20  2  Click Element  ${selector}
+  [Arguments]  ${function}
+  ${selector}  Set Variable  //div[@class="module-item-text" and text()="${function}"]
+  Scroll Page To Element XPATH  ${selector}
+  Wait Until Keyword Succeeds  15  3  Click Element  ${selector}
   Дочекатись Загрузки Сторінки
   Wait Until Element Is Not Visible  ${selector}
 
