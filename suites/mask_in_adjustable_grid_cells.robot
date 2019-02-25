@@ -89,9 +89,8 @@ ${enter_key}							\\13
 	\  ${long value}  Evaluate  random.randint(100000000000,999999999999)  random
 	\  Ввести значення в поле  ${field}  '${long value}'
 	\  ${get value}  Отримати значення поля  ${field}
-	\  ${expected value}  Evaluate  float(int(${long value})/10000)/10000
-	\  ${status}  Evaluate  ${get value} == ${expected value}
-	\  Should Be True  ${status}
+	\  ${expected value}  Evaluate  "%.4f" % float(${long value}/100000000)
+	\  Should Be Equal  ${get value}  ${expected value}
 
 
 Перевірити можливість вводу коротких чисел з крапкою для кожного поля
