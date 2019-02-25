@@ -75,27 +75,27 @@ ${a}                                10
 *** Keywords ***
 Розкрити батьківське поле що має expander
   [Arguments]  ${i}
-  Click Element  ${exp field}[${i}]
-  Wait Until Page Contains Element  ${exp field}[${i}]/ancestor::tr/following-sibling::tr[1]//*[contains(text(),'right')]
+  Click Element  ${exp field}\[${i}]
+  Wait Until Page Contains Element  ${exp field}\[${i}]/ancestor::tr/following-sibling::tr[1]//*[contains(text(),'right')]
 
 
 Розкрити дочірній довідник з полями
   [Arguments]  ${i}
   ${i}  Evaluate  ${i} + 1
-  Click Element  ${exp field}[${i}]
-  Wait Until Page Contains Element  ${exp field}[${i}][contains(text(),'down')]
+  Click Element  ${exp field}\[${i}]
+  Wait Until Page Contains Element  ${exp field}\[${i}][contains(text(),'down')]
 
 
 Перевірити успішніть розгортання довідника полів
   [Arguments]  ${i}
   ${i}  Evaluate  ${i} + 1
-  Element Should Be Visible  ${exp field}[${i}][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
+  Element Should Be Visible  ${exp field}\[${i}][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
   Element Should Be Visible  xpath=(//*[contains(@class, 'selectable')]/table)[1]//tr//*[@style="padding-left:60px"][1]
 
 
 Згорнути батьківське поле
   Sleep  .5
-  Click Element  ${exp field}[contains(text(),'down')][1]
+  Click Element  ${exp field}\[contains(text(),'down')][1]
   Sleep  .5
 
 
@@ -117,9 +117,9 @@ ${a}                                10
   [Arguments]  ${index}
   ${random}  random_number  1  4
   ${random}  Set Variable If  '${index}' == '3'  1  ${random}
-  Click Element  ${dict field}[${random}]
-  Wait Until Page Contains Element  ${dict field}[${random}]/ancestor::td[@class="cellselected"]
-  ${fieldname}  Get Text  ${dict field}[${random}]
+  Click Element  ${dict field}\[${random}]
+  Wait Until Page Contains Element  ${dict field}\[${random}]/ancestor::td[@class="cellselected"]
+  ${fieldname}  Get Text  ${dict field}\[${random}]
   Append To List  ${list}  ${fieldname}
   Wait Until Element Is Visible  ${add field btn}
   Wait Until Keyword Succeeds  15  3  Click Element  ${add field btn}
@@ -136,7 +136,7 @@ ${a}                                10
   Set Global Variable  ${fields count}
   :FOR  ${i}  IN RANGE   ${fields count}
   \  ${i}  Evaluate  ${i} + 1
-  \  ${fieldname}  Get Text  ${added fields}[${i}]
+  \  ${fieldname}  Get Text  ${added fields}\[${i}]
   \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
   \  Append To List  ${selected fields}  ${fieldname}
   Should Be Equal  ${list}  ${selected fields}
@@ -149,7 +149,7 @@ ${a}                                10
   ${selector}  Set Variable  xpath=((//div[contains(@class, "dxss-gt")])[1]/descendant::div[contains(@class, "dxss-tb")])
   :FOR  ${i}  IN RANGE  ${fields count}
   \  ${i}  Evaluate  ${i} + 1
-  \  ${document_column}  Get Text  ${selector}[${i}]
+  \  ${document_column}  Get Text  ${selector}\[${i}]
   \  ${document_column}  Replace String  ${document_column}  ${\n}  ${space}
   \  Append To List  ${document_columns_sequence}  ${document_column}
   log  ${document_columns_sequence}

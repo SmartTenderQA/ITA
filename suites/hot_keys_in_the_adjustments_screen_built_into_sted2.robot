@@ -109,7 +109,7 @@ Send PAGE_UPx2 To Current Element
 	${frame}  Set Variable  (//*[@data-guid-id and contains(., "Планировщик задач")])[last()]
 	${date element}  Set Variable  //div[contains(@class, "scrollable")]//tr[@class]/td[1]
 	${n}  Get Element Count  ${frame}${date element}
-	${last}  Get Text  xpath=(${frame}${date element})[${n}]
+	${last}  Get Text  xpath=(${frame}${date element})\[${n}]
 	${status}  Run Keyword And Return Status  Should Not Be Empty  ${last}
 	Run Keyword If  ${status} == ${false}  Отримати всі дати
 	:FOR  ${items}  IN RANGE  40
@@ -117,7 +117,7 @@ Send PAGE_UPx2 To Current Element
 	Дочекатись Загрузки Сторінки (ita)
 	${status}  Run Keyword And Return Status  Element Should Be Visible  //*[contains(text(), "История")]/following::tr[contains(@class, "Row")][1]
 	Run Keyword If  ${status} == "False"  Send PAGE_UPx40 To Current Element
-	${first}  Get Text  xpath=(${frame}${date element})[1]
+	${first}  Get Text  xpath=(${frame}${date element})\[1]
 	Append To List  ${list}  ${last}
 	Append To List  ${list}  ${first}
 	[Return]  ${list}

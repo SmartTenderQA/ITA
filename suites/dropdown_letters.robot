@@ -92,10 +92,10 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Вибрати довільні букви (не пусті)
     ${dict of values}  Create Dictionary
     :FOR  ${i}  IN RANGE  1  4
-    \  Click Element      ${checkbox}[${i}]
+    \  Click Element      ${checkbox}\[${i}]
     \  Дочекатись Загрузки Сторінки (ita)
-    \  ${name}  get text  ${name field}[${i}]
-    \  ${code}  get text  ${code field}[${i}]
+    \  ${name}  get text  ${name field}\[${i}]
+    \  ${code}  get text  ${code field}\[${i}]
     \  Set To Dictionary  ${dict of values}  ${name}  ${code}
     Set Global Variable   ${dict of values}
 
@@ -105,7 +105,7 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
     ${dict of edi}  Create Dictionary
     ${n}  Get Element Count  ${edi field}
     :FOR  ${i}  IN RANGE  1  ${n}+1
-    \  ${value}  Get Text  ${edi field}[${i}]
+    \  ${value}  Get Text  ${edi field}\[${i}]
     \  ${name}  Evaluate  re.search(r'(?P<name>.*) \\((?P<code>\\w)\\)', u'${value}').group('name')  re
     \  ${code}  Evaluate  re.search(r'(?P<name>.*) \\((?P<code>\\w)\\)', u'${value}').group('code')  re
     \  Set To Dictionary  ${dict of edi}  ${name}  ${code}
@@ -150,8 +150,8 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 
 
 Вибрати пусте значення
-    ${empty field}  get text  ${name field}[text()="Пустое"]
-    ${empty code}   get text  ${name field}[text()="Пустое"]/../../following-sibling::div[2]//span
-    Click Element  ${name field}[text()="Пустое"]/../../..//input
+    ${empty field}  get text  ${name field}\[text()="Пустое"]
+    ${empty code}   get text  ${name field}\[text()="Пустое"]/../../following-sibling::div[2]//span
+    Click Element  ${name field}\[text()="Пустое"]/../../..//input
     Set To Dictionary  ${dict of values}  ${empty field}  ${empty code}
     Set Global Variable   ${dict of values}

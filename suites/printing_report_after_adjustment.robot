@@ -168,7 +168,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   ${document_columns_sequence}  Create List
   ${selector}  Set Variable  xpath=((//div[contains(@class, "dxss-gt")])[1]/descendant::div[contains(@class, "dxss-tb")])
   :FOR  ${items}  IN RANGE  ${right_count}
-  \  ${document_column}  Get Text  ${selector}[${items} + 1]
+  \  ${document_column}  Get Text  ${selector}\[${items} + 1]
   \  Append To List  ${document_columns_sequence}  ${document_column}
   Should Be Equal  ${document_columns_sequence}  ${columns_sequence}
   Unselect Frame
@@ -184,4 +184,4 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   ${count}  Get Element Count  ${right_table_elems}
   Wait Until Keyword Succeeds  10  3  Click Element  xpath=(//div[@class="dhxform_btn"])[last()]
   Sleep  1
-  Page Should Not Contain  xpath=(${right_table_elems})[${count}]
+  Page Should Not Contain  xpath=(${right_table_elems})\[${count}]

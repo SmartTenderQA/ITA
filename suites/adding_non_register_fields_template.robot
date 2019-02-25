@@ -125,10 +125,10 @@ ${a}                                10
   ${fields count}  Get Element Count  ${added fields}
   Set Global Variable  ${fields count}
   :FOR  ${i}  IN RANGE   ${fields count} + 1
-  \  ${status}  Run Keyword And Return Status  Element Should Be Visible  ${added fields}[${i}]
+  \  ${status}  Run Keyword And Return Status  Element Should Be Visible  ${added fields}\[${i}]
   \  Continue For Loop If  ${status} == ${false}
 #  \  ${i}  Evaluate  ${i} + 1
-  \  ${fieldname}  Get Text  ${added fields}[${i}]
+  \  ${fieldname}  Get Text  ${added fields}\[${i}]
   \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
   \  Append To List  ${selected fields}  ${fieldname}
   Should Be Equal  ${list}  ${selected fields}

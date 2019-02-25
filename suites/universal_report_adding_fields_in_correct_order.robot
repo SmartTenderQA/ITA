@@ -81,14 +81,14 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Натиснути на перший елемент колонки
-  Run Keyword And Ignore Error  Click Element  xpath=(${column_elements})[1]
-  ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=(${column_elements})[1]/parent::*[contains(@class, "rowselected")]
+  Run Keyword And Ignore Error  Click Element  xpath=(${column_elements})\[1]
+  ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=(${column_elements})\[1]/parent::*[contains(@class, "rowselected")]
   Run Keyword If  ${status} == ${False}  Натиснути на перше обране поле
 
 
 Перевірити що поле було додано на вірну позицію
   Sleep  1
-  ${added_column}  Get Text  xpath=(${column_elements})[2]
+  ${added_column}  Get Text  xpath=(${column_elements})\[2]
   ${added_column}  Replace String  ${added_column}  ${\n}  ${space}
   Should Be Equal  ${added_field}  ${added_column}
 
@@ -99,7 +99,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   ${right_count}  Get Element Count  ${column_elements}
   Set Global Variable  ${right_count}
   :FOR  ${items}  IN RANGE  ${right_count}
-  \  ${added_column}  Get Text  xpath=(${column_elements})[${items} + 1]
+  \  ${added_column}  Get Text  xpath=(${column_elements})\[${items} + 1]
   \  Append To List  ${columns_sequence}  ${added_column}
 
 
@@ -114,7 +114,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   ${document_columns_sequence}  Create List
   ${selector}  Set Variable  xpath=((//div[contains(@class, "dxss-gt")])[1]/descendant::div[contains(@class, "dxss-tb")])
   :FOR  ${items}  IN RANGE  ${right_count}
-  \  ${document_column}  Get Text  ${selector}[${items} + 1]
+  \  ${document_column}  Get Text  ${selector}\[${items} + 1]
   \  Append To List  ${document_columns_sequence}  ${document_column}
   Should Be Equal  ${document_columns_sequence}  ${columns_sequence}
   Unselect Frame

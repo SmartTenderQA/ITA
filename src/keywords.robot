@@ -271,8 +271,8 @@ Input password ITA_web2016
 Перейти на вкладку web2016
   [Arguments]  ${console_name}
   ${tab}  Set Variable  xpath=(//li//span[contains(text(), '${console_name}')])
-  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${tab}[2]
-  Run Keyword If  '${status}' == 'True'  Click Element  ${tab}[1]
+  ${status}  Run Keyword And Return Status  Element Should Not Be Visible  ${tab}\[2]
+  Run Keyword If  '${status}' == 'True'  Click Element  ${tab}\[1]
   ${status}  Run Keyword And Return Status
   ...  Wait Until Element Is Visible  xpath=//*[contains(@class,'activeTab')]//span[contains(text(),'${console_name}')]
   Run Keyword If  '${status}' == 'False'  Перейти на вкладку  ${console_name}
@@ -398,7 +398,7 @@ Autistick Clicking
 Визначити потрібну кнопку
   ${button}  Set Variable  (//div[@class="dxb" and contains(@id, "DEBUG")])
   :FOR  ${button_index}  IN RANGE  1  5
-  \  ${text}  Get Text  ${button}[${button_index}]
+  \  ${text}  Get Text  ${button}\[${button_index}]
   \  ${status}  run keyword and return status  Should Contain  ${text}  \u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c  #Выполнить
   \  Set Suite Variable  ${button_index}
   \  Exit For Loop If  ${status} == ${true}
@@ -626,13 +626,13 @@ Scroll To Element
   ${row}  Set Variable  //table[contains(@class,'obj')]//tr/td[2]
   ${count}  Get Element Count  ${row}
   ${n}  random_number  1   ${count}
-  Wait Until Keyword Succeeds  15  3  Click Element  (${row})[${n}]
+  Wait Until Keyword Succeeds  15  3  Click Element  (${row})\[${n}]
   Sleep  2
   Press Key  //html/body  \\13
   Дочекатись Загрузки Сторінки
   ${status}  Run Keyword And Return Status  Page Should Contain Element  //td[@class='cellselected editable']
   Run Keyword If  ${status} == ${false}  Активувати комірку для редагування
-  [Return]  (${row})[${n}]
+  [Return]  (${row})\[${n}]
 
 
 Вставити довільний текст до комірки
@@ -757,7 +757,7 @@ Input Type Flex
   ${initial_count}  Get Element Count  ${right_table_elems}
   Wait Until Keyword Succeeds  10  3  Click Element  xpath=((//*[contains(@class, 'selectable')]/table)[1]//tr//span)[${random}]
   Wait Until Keyword Succeeds  10  3  Click Element  xpath=(//div[@class="dhxform_btn"])[3]  #  0  -30  ${add_filter}
-  Wait Until Page Contains Element  xpath=(${right_table_elems})[${initial_count} + 1]
+  Wait Until Page Contains Element  xpath=(${right_table_elems})\[${initial_count} + 1]
   ${added_table}  Get Text  xpath=(//*[contains(@class, 'selectable')]/table)[2]//td[contains(@class,"selected")]
   ${added_table}  Replace String  ${added_table}  \n  ${space}
   Should Be Equal  ${value}  ${added_table}
@@ -769,15 +769,15 @@ Input Type Flex
   ${right_count}  Get Element Count  ${right_table_elems}
   Set Global Variable  ${right_count}
   :FOR  ${items}  IN RANGE  ${right_count}
-  \  ${added_column}  Get Text  xpath=(${right_table_elems})[${items} + 1]
+  \  ${added_column}  Get Text  xpath=(${right_table_elems})\[${items} + 1]
   \  Append To List  ${columns_sequence}  ${added_column}
 
 
 Обрати останній елемент правої таблиці
   Set Global Variable  ${right_table_elems}  (//*[contains(@class, "selectable")]/table)[2]//td[contains(@class,"cellmultiline")]
-  Run Keyword And Ignore Error  Click Element  xpath=(${right_table_elems})[last()]
+  Run Keyword And Ignore Error  Click Element  xpath=(${right_table_elems})\[last()]
   Sleep  .5
-  ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=(${right_table_elems})[last()]/parent::*[contains(@class, "rowselected")]
+  ${status}  Run Keyword And Return Status  Page Should Contain Element  xpath=(${right_table_elems})\[last()]/parent::*[contains(@class, "rowselected")]
   Run Keyword If  '${status}' == 'False'  Обрати останній елемент правої таблиці
 
 
@@ -818,21 +818,21 @@ Input Type Flex
 
 Розкрити батьківське поле що має expander
   [Arguments]  ${i}
-  Click Element  ${exp field}[${i}]
-  Wait Until Page Contains Element  ${exp field}[${i}]/ancestor::tr/following-sibling::tr[1]//*[contains(text(),'right')]
+  Click Element  ${exp field}\[${i}]
+  Wait Until Page Contains Element  ${exp field}\[${i}]/ancestor::tr/following-sibling::tr[1]//*[contains(text(),'right')]
 
 
 Розкрити дочірній довідник з полями
   [Arguments]  ${i}
   ${i}  Evaluate  ${i} + 1
-  Click Element  ${exp field}[${i}]
-  Wait Until Page Contains Element  ${exp field}[${i}][contains(text(),'down')]
+  Click Element  ${exp field}\[${i}]
+  Wait Until Page Contains Element  ${exp field}\[${i}][contains(text(),'down')]
 
 
 Перевірити успішніть розгортання довідника полів
   [Arguments]  ${i}
   ${i}  Evaluate  ${i} + 1
-  Wait Until Element Is Visible  ${exp field}[${i}][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
+  Wait Until Element Is Visible  ${exp field}\[${i}][contains(text(),'down')]/..//*[contains(text(),'Справочник')]
   ${status}  Run Keyword And Return Status  Wait Until Element Is Visible  xpath=(//*[contains(@class, 'selectable')]/table)[1]//tr//*[@style="padding-left:60px"][1]
   Run Keyword If  ${status} == ${false}  Wait Until Element Is Visible  xpath=(//*[contains(@class, 'selectable')]/table)[3]//tr//*[@style="padding-left:60px"][1]
 
@@ -840,7 +840,7 @@ Input Type Flex
 
 Згорнути батьківське поле
   Sleep  .5
-  Click Element  ${exp field}[contains(text(),'down')][1]
+  Click Element  ${exp field}\[contains(text(),'down')][1]
   Sleep  .5
 
 
@@ -853,9 +853,9 @@ Input Type Flex
   [Arguments]  ${index}
   ${random}  random_number  1  4
   ${random}  Set Variable If  '${index}' == '3'  1  ${random}
-  Click Element  ${dict field}[${random}]
-  Wait Until Page Contains Element  ${dict field}[${random}]/ancestor::td[@class="cellselected"]
-  ${fieldname}  Get Text  ${dict field}[${random}]
+  Click Element  ${dict field}\[${random}]
+  Wait Until Page Contains Element  ${dict field}\[${random}]/ancestor::td[@class="cellselected"]
+  ${fieldname}  Get Text  ${dict field}\[${random}]
   Append To List  ${list}  ${fieldname}
   Wait Until Element Is Visible  ${add field btn}
   Wait Until Keyword Succeeds  15  3  Click Element  ${add field btn}
@@ -872,7 +872,7 @@ Input Type Flex
   Set Global Variable  ${fields count}
   :FOR  ${i}  IN RANGE   ${fields count}
   \  ${i}  Evaluate  ${i} + 1
-  \  ${fieldname}  Get Text  ${added fields}[${i}]
+  \  ${fieldname}  Get Text  ${added fields}\[${i}]
   \  ${fieldname}  Replace String  ${fieldname}  ${\n}  ${space}
   \  Append To List  ${selected fields}  ${fieldname}
   Should Be Equal  ${list}  ${selected fields}

@@ -72,7 +72,7 @@ Count After
 
 Виділити комірку
 	[Arguments]  ${number}
-	${selector}  Set Variable  (${page}${grid})[${number}]
+	${selector}  Set Variable  (${page}${grid})\[${number}]
 	${class value}  Get Element Attribute  ${selector}  class
 	Run Keyword If  '${class value}' != 'cellselected'
 	...  Click Element  ${selector}
@@ -80,7 +80,7 @@ Count After
 
 Отримати значення з комірки
 	[Arguments]  ${number}
-	${selector}  Set Variable  (${page}${grid})[${number}]
+	${selector}  Set Variable  (${page}${grid})\[${number}]
 	${value}  Get Text  ${selector}
 	[Return]  ${value}
 
@@ -88,7 +88,7 @@ Count After
 Відкрити випадаючий список комірки
 	[Documentation]  при клике по выделенной ячейке открывается выпадающий список
 	[Arguments]  ${number}
-	${selector}  Set Variable  (${page}${grid})[${number}]
+	${selector}  Set Variable  (${page}${grid})\[${number}]
 	${class value}  Get Element Attribute  ${selector}  class
 	Run Keyword If
 	...  '${class value}' == 'cellselected'
@@ -101,6 +101,6 @@ Count After
 
 Вибрати елемент випадаючого списку за номером
 	[Arguments]  ${number}
-	${selector}  Set Variable  (${dropdown list})[${number}]
+	${selector}  Set Variable  (${dropdown list})\[${number}]
 	Click Element  ${selector}
 	Wait Until Page Does Not Contain Element  ${selector}

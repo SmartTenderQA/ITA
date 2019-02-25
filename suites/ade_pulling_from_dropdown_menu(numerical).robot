@@ -86,7 +86,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Sleep  1
   ${options_quantity}  Get Element Count  ${selector}
   :FOR  ${i}  IN RANGE  1  ${options_quantity} + 1
-  \  Checkbox Should Not Be Selected  xpath=(${selector})[${i}]
+  \  Checkbox Should Not Be Selected  xpath=(${selector})\[${i}]
   Page Should Not Contain Element  //*[@class="ade-val-caption"]
 
 
@@ -95,7 +95,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Click Element  //*[contains(@class, "dhxcombo_hdrcell_check")]//input
   ${options_quantity}  Get Element Count  ${selector}
   :FOR  ${i}  IN RANGE  1  ${options_quantity} + 1
-  \  Checkbox Should Be Selected  xpath=(${selector})[${i}]
+  \  Checkbox Should Be Selected  xpath=(${selector})\[${i}]
   ${numbers_quantity}  Get Element Count  //*[@class="ade-val-caption"]
   Should Be Equal  ${options_quantity}  ${numbers_quantity}
 
@@ -143,7 +143,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
    ${options_quantity}  Get Element Count  ${selector}
    :FOR  ${i}  IN RANGE  3
    \  ${random}  random_number  3  ${options_quantity}
-   \  Click Element  (${selector})[${random}]
+   \  Click Element  (${selector})\[${random}]
    \  Sleep  1
 
 

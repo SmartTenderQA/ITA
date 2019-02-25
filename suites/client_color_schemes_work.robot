@@ -92,9 +92,9 @@ ${top toolbar}                          //*[@class="top-toolbar-wrapper"]
   ${n}  Get Element Count  ${palette colors}
   :FOR  ${colors}  IN  RANGE ${n}
   \  ${random}  random_number  1  ${n}
-  \  ${new color}  Визначити колір елемента  ${palette colors}[${random}]
+  \  ${new color}  Визначити колір елемента  ${palette colors}\[${random}]
   \  Exit For Loop If  '${new color}' != '${present color}'
-  Click Element  ${palette colors}[${random}]
+  Click Element  ${palette colors}\[${random}]
   Wait Until Element Is Not Visible  ${palette colors}
   Capture Page Screenshot
 
