@@ -89,7 +89,7 @@ ${enter_key}							\\13
 	\  ${long value}  Evaluate  random.randint(100000000000,999999999999)  random
 	\  Ввести значення в поле  ${field}  '${long value}'
 	\  ${get value}  Отримати значення поля  ${field}
-	\  ${expected value}  Evaluate  "%.4f" % float(${long value}/100000000)
+	\  ${expected value}  Evaluate  "%.4f" %(float(str(${long value})[:8])/10000)
 	\  Should Be Equal  ${get value}  ${expected value}
 
 
