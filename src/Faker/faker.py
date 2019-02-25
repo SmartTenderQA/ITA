@@ -1,11 +1,4 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# ==============
-#      Main script file
-# ==============
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 
 import os
@@ -13,7 +6,6 @@ import json
 import random
 from random import randint
 from fpdf import FPDF
-
 
 
 locality = os.getcwd()
@@ -24,6 +16,7 @@ def load_data_from_file(file_name):
     with open(file_name) as f:
         data = json.load(f)
         return data
+
 
 def create_sentence(n=10, file=None):
     n = int(n)

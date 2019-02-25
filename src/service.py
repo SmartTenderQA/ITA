@@ -1,8 +1,6 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# ==============
-#      Main script file
-# ==============
+
+
 from datetime import datetime, timedelta
 
 def smart_get_time(v=0, accuracy='m'):

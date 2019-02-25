@@ -10,6 +10,9 @@ Library     service.py
 Library     String
 Variables   var.py
 
+Resource   open_browser.robot
+
+
 *** Variables ***
 &{url}
 ...                                   ITA=https://webclient.it-enterprise.com/clientrmd/(S(nwqigpdz3z031icvawluswqc))/?qa-mode=1&win=1&ClientDevice=Desktop&isLandscape=true&tz=3
@@ -27,12 +30,12 @@ ${env}								  ITA
 ${login}								uitest
 ${password}								291263
 
-
-${alies}                              alies
+${alias}                              alias
 ${browser}                            chrome
+${browser_version}
+${platform}							  ANY
 ${hub}                                http://autotest.it.ua:4444/wd/hub
-${platform}                           ${NONE}
-#${platform}                           platformName:ANY
+${headless}                           ${True}
 
 ${loading}                            xpath=//*[@class="spinner"]
 ${login_field}                        xpath=((//*[contains(text(), 'пользователя')])[2]/ancestor::div[2]//input)[1]
@@ -78,12 +81,9 @@ ${handling_pressing_keys_with_an_input_field_on_the_screen_var}  ${handling_pres
 
 *** Keywords ***
 Preconditions
-  ${ui}  Вибрати інтерфейс  ${env}
-  ${platform}  Run Keyword If  "${platform}" != "${NONE}"  Set Variable  platformName:${platform}
-  Open Browser  ${url.${env}}  ${browser}  ${alies}  ${hub}  ${platform}
-  Run Keyword If  '${hub}' != 'none' and '${hub}' != 'NONE' and '${hub}' != 'None'
-  ...  Отримати та залогувати selenium_session
-  Run Keyword If  '${browser}' != 'edge'      Set Window Size  1280  1024
+    ${ui}  Вибрати інтерфейс  ${env}
+    Set Global Variable  ${start_page}  ${url.${env}}
+    Run Keyword  Відкрити браузер ${browser.lower()}  ${alias}
 
 
 Отримати та залогувати selenium_session
@@ -798,7 +798,7 @@ Input Type Flex
 
 
 Визначити індекс активної консолі
-  :FOR  ${console_index}  in range  1  5
+  :FOR  ${console_index}  IN RANGE  1  5
   \  ${status}  Run Keyword And Return Status
   ...  Element Should Be Visible  (//textarea[contains(@name, "DEBUGCONSOLE")])[${console_index}]
   \  Set Suite Variable  ${console_index}
