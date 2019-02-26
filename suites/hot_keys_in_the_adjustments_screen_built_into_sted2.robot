@@ -56,7 +56,7 @@ ${Button1}  //div[@role="link"]
 Виділити екран "Условие"
     Дочекатись Загрузки Сторінки (ita)
 	Click Element  (//*[@data-guid-id and contains(., "Установить")])[last()]
-	Sleep  1
+	Дочекатись Загрузки Сторінки (ita)
 	Click Element  (//*[@data-guid-id and contains(., "Установить")])[last()]
 
 
