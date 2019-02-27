@@ -29,5 +29,5 @@ selection button operation
 	...  Page Should Contain Element  ${selection button}${selector}
 	Run Keyword If  ${status} == ${False}  Run Keywords
 	...  Click Element  ${selection button}  AND
-	...  Mouse Over  ${selection button}  AND
+	...  Wait Until Keyword Succeeds  10  .5  Mouse Over  ${selection button}  AND
 	...  Wait Until Page Contains Element  ${selection button}${selector}  30
