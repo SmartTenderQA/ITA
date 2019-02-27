@@ -17,8 +17,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Ввести назву регістру  UI-Тестирование
   Ввести назву звіту  UI-Тестирование (отчет с отбором)
   Дочекатись загрузки сторінки (ita)
-  Перевірка що відкрито закладку відбір
-  Натиснути активну кнопку "Отбор"
+  universal_report.Деактивувати кнопку відбір
 
 
 Вийти З Функції "Универсальный Отчет"
@@ -31,8 +30,8 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Виконати пошук пункта меню  Универсальный отчет
   Перевірити що обрано пункт  UI-Тестирование
   Перевірити заголовок звіту
-  Перевірити що закладка відбір закрита
-  Натиснути неактивну кнопку "Отбор"
+  universal_report.Статус кнопки відбір повинен бути  unselect
+  universal_report.Активувати кнопку відбір
   Натиснути кнопку "Esc"
   Перевірити що відкрито початкову сторінку ITA
 
@@ -42,7 +41,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Виконати пошук пункта меню  Универсальный отчет
   Перевірити що обрано пункт  UI-Тестирование
   Перевірити заголовок звіту
-  Перевірка що відкрито закладку відбір
+  universal_report.Статус кнопки відбір повинен бути  select
 
 
 *** Keywords ***
@@ -65,38 +64,6 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
   Run Keyword If  '${check_title}' == 'False'  Ввести назву звіту  ${name}
 
 
-Перевірка що відкрито закладку відбір
-  Wait Until Page Contains Element  //div[@title="Отбор" and contains(@class, "checked")]  15
-  Wait Until Element Is Visible         //div[contains(@help-id, "CHECKBOX")]
-  ${checkbox_count}  Get Element Count  //div[contains(@help-id, "CHECKBOX")]
-  Should Be True  ${checkbox_count} > 1
-  # наименования полей и операций
-  ${label_count1}  Get Element Count
-  ...  //div[@class="dhxform_txt_label2" and text()[.="по"]]/following::div[contains(@class, "dhxform_txt_label2")]
-  ${label_count2}  Get Element Count
-  ...  //div[@class="dhxform_txt_label2" and text()[.="по"]]/following::div[contains(@class, "dhxform_label_nav_link")]
-  Should Be True  ${label_count1} >= 2 and ${label_count2} >= 2
-
-
-Натиснути активну кнопку "Отбор"
-  ${selector}  Set Variable  //div[@title="Отбор" and contains(@class, "checked")]
-  Run Keyword And Ignore Error  Click Element   ${selector}
-  ${status}  Run Keyword And Return Status
-  ...  Element Should Not Be Visible  (//div[@class="dhxform_obj_material"])[2]
-  Run Keyword If  ${status} == ${False}  Натиснути активну кнопку "Отбор"
-  Дочекатись Загрузки Сторінки (ita)
-
-
-Натиснути неактивну кнопку "Отбор"
-  ${selector}  Set Variable  //div[@title="Отбор"]
-  Run Keyword And Ignore Error  Click Element   ${selector}
-  Sleep  1
-  ${status}  Run Keyword And Return Status
-  ...  Element Should Be Visible  (//div[@class="dhxform_obj_material"])[2]
-  Run Keyword If  ${status} == ${False}  Натиснути неактивну кнопку "Отбор"
-  Дочекатись Загрузки Сторінки (ita)
-
-
 Натиснути кнопку "Esc"
   Press Key   //html/body    \\27
   Дочекатись Загрузки Сторінки (ita)
@@ -104,11 +71,6 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 Перевірити що відкрито початкову сторінку ITA
   Page Should Contain Element  (//*[@title="Вид"])[2]
-
-
-Перевірити що закладка відбір закрита
-  Page Should Not Contain  //div[@title="Отбор" and contains(@class, "checked")]
-  Element Should Not Be Visible  (//div[@class="dhxform_obj_material"])[2]
 
 
 Перевірити заголовок звіту

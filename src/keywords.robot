@@ -12,6 +12,8 @@ Variables   var.py
 
 Resource   open_browser.robot
 
+Resource   ../pages/universal_report.robot
+
 
 *** Variables ***
 &{url}
@@ -588,7 +590,7 @@ Scroll To Element
   Press Key  ${search}  ${enter btn}
   Sleep  1
   Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
-  ...  Click Element  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[text()='Универсальный'])[2]
+  ...  Click Element  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[text()='Универсальный'])[1]
   ...  AND  Дочекатись Загрузки Сторінки
 
 
