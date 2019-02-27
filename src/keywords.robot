@@ -23,7 +23,7 @@ Resource   open_browser.robot
 ...									  EMP=http://emp2019.it.ua/Emp2019/clientrmd
 ...									  EMP_web2016=http://emp2019.it.ua/Emp2019/client
 ...									  EMPO=http://empo.it.ua/empo/clientrmd
-...									  EMPO_web2016=http://m.it.ua/2019/emp2019/CLIENT?proj=CPSQL_EMPO2019_RU
+...									  EMPO_web2016=http://empo.it.ua/EMPO/client/
 
 ${env}								  ITA
 
