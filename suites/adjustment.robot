@@ -22,6 +22,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 Учет изменений ПО. "Коректировка"
   [Tags]  adjustment
+  debug
   Перейти до екрану "Коректировка"
   Натиснути "Требует действий со стороны службы поддержки"
 

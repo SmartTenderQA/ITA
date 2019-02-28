@@ -63,6 +63,7 @@ ${Button1}  //div[@role="link"]
 Виділити екран "Планировщик задач"
     Дочекатись Загрузки Сторінки (ita)
 	Click Element  (//*[@data-guid-id and contains(., "Планировщик задач")])[last()]
+	Дочекатись Загрузки Сторінки (ita)
 	Sleep  2
 	Click Element  (//*[@data-guid-id and contains(., "Планировщик задач")])[last()]
 	Дочекатись Загрузки Сторінки (ita)
