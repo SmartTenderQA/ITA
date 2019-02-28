@@ -12,6 +12,7 @@ Variables   var.py
 
 Resource   open_browser.robot
 
+Resource   ../pages/login.robot
 Resource   ../pages/universal_report.robot
 
 
@@ -156,9 +157,9 @@ Check Prev Test Status
 Авторизуватися webrmd
   [Arguments]  ${login}  ${password}=None
   Wait Until Element Is Visible  ${login_field}  120
-  Вибрати користувача  ${login}
-  Ввести пароль  ${password}
-  Натиснути кнопку вхід
+  login.Fill login field  ${login}
+  login.Fill password field  ${password}
+  login.Sign In
   Дочекатись загрузки сторінки (ita)
   ${enter username message}  Run Keyword And Return Status  Element Should Not Be Visible  //div[@class="message-content-body" and text()="Укажите имя пользователя"]
   Run Keyword If  ${enter username message} == ${False}  Авторизуватися webrmd  ${login}  ${password}
@@ -201,20 +202,6 @@ Input password ITA_web2016
   [Arguments]  ${password}
   ${b}  Get WebElement  xpath=//*[@data-name="Password"]//input
   Call Method    ${b}    send_keys  ${password}
-
-#  ${c}  Get WebElement  css=div.dxb
-#  Call Method    ${c}  click
-#  Execute JavaScript  document.querySelector("div.dxb").click()
-
-
-Вибрати користувача
-  [Arguments]  ${login}
-  Input Text  ${login_field}  ${login}
-
-
-Ввести пароль
-  [Arguments]  ${password}
-  Input Text  ${pass_field}  ${password}
 
 
 Натиснути кнопку вхід
