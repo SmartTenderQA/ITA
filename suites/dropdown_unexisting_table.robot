@@ -72,9 +72,10 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Відкрити пошук
-  Wait Until Keyword Succeeds  15  3  Click Element  //*[@id="HelpF10"]
-  Element Should Not Be visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
-  Перевірити зміну кольору поля пошуку
+	Wait Until Keyword Succeeds  15  3  Click Element  //*[@id="HelpF10"]
+	Дочекатись Загрузки Сторінки
+	Element Should Not Be visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
+	Перевірити зміну кольору поля пошуку
 
 
 Перевірити зміну кольору поля пошуку
