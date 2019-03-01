@@ -8,38 +8,34 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Test Cases ***
-Авторизуватись
+Перевірити виконання команди
+	Перевірити що назва нового вікна  Несуществующая таблица
+
+
+Спробувати відкрити випадаючий список(negative)
+	Відкрити випадаючий список
+	Перевірити що дропдаун порожній
+
+
+Відкрити пошук(negative)
+	Натиснути кнопку пошуку
+	Перевірити зміну кольору поля пошуку
+
+
+Закрити вікно
+	Натиснути кнопку "ОК"
+	Wait Until Page Contains  Консоль отладки
+
+
+*** Keywords ***
+Test Preconditions
 	Авторизуватися  ${login}  ${password}
-
-
-Відкрити "Консоль"
 	Настиснути кнопку "Консоль"
-
-
-Консоль. Перейти на вкладку C#
 	Перейти на вкладку  C#
-
-
-Консоль. C# Виконати команду
 	Ввод команды в консоль  ${dropdown unexisting command}
 	Натиснути кнопку "1 Выполнить"
 
 
-Перевірити виконання команди
-  Перевірити що назва нового вікна  Несуществующая таблица
-  Перевірити що дропдаун порожній
-
-
-Спробувати відкрити випадаючий список
-  Відкрити випадаючий список
-  Відкрити пошук
-
-
-Завершити роботу з відкритим вікном
-  Натиснути кнопку "ОК"
-
-
-*** Keywords ***
 Перевірити що назва нового вікна
   [Arguments]  ${title}
   ${selector}  Set Variable  //*[contains(@class, "dhxform_txt_label2")]
@@ -71,11 +67,10 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
     Run Keyword If  ${status} == ${false}  Активувати вікно якщо потрібно
 
 
-Відкрити пошук
+Натиснути кнопку пошуку
 	Wait Until Keyword Succeeds  15  3  Click Element  //*[@id="HelpF10"]
 	Дочекатись Загрузки Сторінки
 	Element Should Not Be visible  //*[contains(@style, "display: block") and @class="ade-list-back"]
-	Перевірити зміну кольору поля пошуку
 
 
 Перевірити зміну кольору поля пошуку
@@ -91,6 +86,5 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 
 Натиснути кнопку "ОК"
-  Click Element  //*[contains(@class, "dhx_toolbar_btn")]
-  Wait Until Page Contains  Консоль отладки
-  Wait Until Page Does Not Contain Element  //*[@class="dhxwin_active menuget"]
+	Click Element  //*[contains(@class, "dhx_toolbar_btn")]
+	Wait Until Page Does Not Contain Element  //*[@class="dhxwin_active menuget"]
