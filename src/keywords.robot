@@ -13,6 +13,7 @@ Variables   var.py
 Resource   open_browser.robot
 
 Resource   ../pages/login.robot
+Resource   ../pages/main_menu.robot
 Resource   ../pages/universal_report.robot
 
 
@@ -54,7 +55,6 @@ ${report_name}                        xpath=//div[contains(@title, 'Введит
 ${add_filter}                         xpath=(//*[@class='dhxform_btn_filler'])[5]
 ${add_report}                         xpath=//*[text()='Добавить']
 ${logo}                               xpath=//*[@class="it-logo-wrapper" and @title='Главное меню']
-${search}                             xpath=//*[@class="search-panel-text"]
 ${F7}                                 xpath=(//*[contains(@title, '(F7)')])[1]
 ${menu_scroll}                        xpath=//*[@class="start-menu-tree-view-container"]/following-sibling::*[@class="ps__scrollbar-y-rail"]
 ${toolbar}                            xpath=//*[@class="control-toolbar"]
@@ -548,10 +548,10 @@ Scroll To Element
 
 
 Натиснути на логотип IT-Enterprise
-  Дочекатись Загрузки Сторінки
-  Click Element  ${logo}
-  Дочекатись Загрузки Сторінки
-  Wait Until Element Is Visible  xpath=//*[@class="start-menu-tree-view-container"]  20
+	Wait Until Keyword Succeeds  30  1
+	...  Click Element  ${logo}
+	Дочекатись Загрузки Сторінки
+	Wait Until Element Is Visible  xpath=//*[@class="start-menu-tree-view-container"]  20
 
 
 Виконати пошук по главному меню та перейти по рузльтату
@@ -561,24 +561,6 @@ Scroll To Element
 	Wait Until Keyword Succeeds  30  1
 	...  Click Element  (//*[@data-type="tree"]//*[contains(@title, "${menu_name}")])[${n}]
 	Дочекатись Загрузки Сторінки
-
-
-Виконати пошук пункта меню
-  [Arguments]  ${menu_name}
-  :FOR  ${i}  IN RANGE  10
-  \  ${menu_name1}  Set Variable  ${menu_name}
-  \  Input Text  ${search}  ${menu_name}
-  \  Sleep  1
-  \  ${text}  Get Element Attribute  ${search}  value
-  \  ${text}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${text}  \xa0  ${EMPTY}
-  \  ${menu_name1}  Run Keyword If  '${browser}' == 'edge'  Replace String  ${menu_name}  ${SPACE}  ${EMPTY}
-  \  ${status}  Run Keyword And Return Status  Should be Equal  ${text}  ${menu name1}
-  \  Exit For Loop If  ${status} == ${true}
-  Press Key  ${search}  ${enter btn}
-  Sleep  1
-  Run Keyword If  '${menu_name}' == 'Универсальный отчет'  Wait Until Keyword Succeeds  10  2  Run Keywords
-  ...  Click Element  xpath=(//*[@class="search-panel-text"]/ancestor::div[2]//*[text()='Универсальный'])[1]
-  ...  AND  Дочекатись Загрузки Сторінки
 
 
 Запустити функцію додаткового меню
