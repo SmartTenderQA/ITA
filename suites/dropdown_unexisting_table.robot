@@ -1,10 +1,10 @@
 *** Settings ***
 Resource     ../src/keywords.robot
 
-Suite Setup  Preconditions
-Suite Teardown  Postcondition
-Test Setup  Check Prev Test Status
-Test Teardown  Run Keyword If Test Failed  Something Went Wrong
+Suite Setup  		Test Preconditions
+Suite Teardown  	Postcondition
+Test Setup  		Check Prev Test Status
+Test Teardown  		Run Keyword If Test Failed  Something Went Wrong
 
 
 *** Test Cases ***
@@ -29,6 +29,7 @@ Test Teardown  Run Keyword If Test Failed  Something Went Wrong
 
 *** Keywords ***
 Test Preconditions
+	Preconditions
 	Авторизуватися  ${login}  ${password}
 	Настиснути кнопку "Консоль"
 	Перейти на вкладку  C#
