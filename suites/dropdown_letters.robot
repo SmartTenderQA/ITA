@@ -74,10 +74,9 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Розкрити випадаючий список
     Активувати вікно якщо потрібно
     Sleep  1
-    Run Keyword If  '${browser}' == 'edge'  Click element at coordinates  //*[@data-caption="+ Добавить"]//td[4]  0  0
-    ...  ELSE    Click element  //*[@data-caption="+ Добавить"]//td[4]
-    Дочекатись Загрузки Сторінки (ita)
-    Wait Until element is visible  //*[text()="Наименование:"]/following-sibling::div/span
+	Run Keyword If  '${browser}' == 'edge'  Click Element at coordinates  //*[contains(@class, "fixed-invisible-ade-buttons")]  0  0
+	...  ELSE  Click Element  //*[contains(@class, "fixed-invisible-ade-buttons")]
+    Element Should Not Be Visible  //*[contains(@style, "display: none") and @class="ade-list-back"]//*
 
 
 Активувати вікно якщо потрібно
@@ -92,8 +91,8 @@ ${checkbox}          (//*[text()="Наименование:"]/ancestor::div[@cla
 Вибрати довільні букви (не пусті)
     ${dict of values}  Create Dictionary
     :FOR  ${i}  IN RANGE  1  4
+    \  Wait Until Element Is Visible  ${checkbox}\[${i}]
     \  Click Element      ${checkbox}\[${i}]
-    \  Дочекатись Загрузки Сторінки (ita)
     \  ${name}  get text  ${name field}\[${i}]
     \  ${code}  get text  ${code field}\[${i}]
     \  Set To Dictionary  ${dict of values}  ${name}  ${code}
